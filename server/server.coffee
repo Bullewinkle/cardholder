@@ -78,9 +78,9 @@ app.use '/',router
 
 app.use express.static('./dist')
 
-localHostPort = 9000
 
 start = ( envirement, callback ) -> 
+	localHostPort = 9000
 	console.log 'server starts'
 	if process.env.PORT
 		app.listen process.env.PORT, ->
@@ -90,7 +90,7 @@ start = ( envirement, callback ) ->
 			console.log 'Server listening on port : ' + localHostPort
 	if callback then callback()
 
-if module.parent
+if not module.parent
 	console.log module.parent.id
 	start()
 
