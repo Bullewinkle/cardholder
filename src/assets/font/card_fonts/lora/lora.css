@@ -1,0 +1,52 @@
+@font-face {
+    font-family: 'lora';
+    src: url('lora-bold.eot');
+    src: url('lora-bold.eot?#iefix') format('embedded-opentype'),
+         url('lora-bold.woff') format('woff'),
+         url('lora-bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'lora';
+    src: url('lora-bolditalic.eot');
+    src: url('lora-bolditalic.eot?#iefix') format('embedded-opentype'),
+         url('lora-bolditalic.woff') format('woff'),
+         url('lora-bolditalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'lora';
+    src: url('lora-italic.eot');
+    src: url('lora-italic.eot?#iefix') format('embedded-opentype'),
+         url('lora-italic.woff') format('woff'),
+         url('lora-italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'lora';
+    src: url('lora-regular.eot');
+    src: url('lora-regular.eot?#iefix') format('embedded-opentype'),
+         url('lora-regular.woff') format('woff'),
+         url('lora-regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}

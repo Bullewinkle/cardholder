@@ -1,0 +1,24 @@
+.l	
+	
+	$footer-height = 0
+	$footer-offset = 0
+
+	width 100%
+	height: 100%;
+	min-height: 100%;
+
+	&-main
+		position relative
+		min-height 100%
+		height 100px
+		
+	&-content
+		width 100%
+		height 100%
+		padding-bottom $footer-height + $footer-offset
+
+	&-footer
+		height $footer-height
+		position absolute
+		width 100%
+		bottom 0

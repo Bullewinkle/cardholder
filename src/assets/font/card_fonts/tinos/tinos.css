@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'tinos';
+    src: url('tinos-regular.eot');
+    src: url('tinos-regular.eot?#iefix') format('embedded-opentype'),
+         url('tinos-regular.woff') format('woff'),
+         url('tinos-regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'tinos';
+    src: url('tinos-bold.eot');
+    src: url('tinos-bold.eot?#iefix') format('embedded-opentype'),
+         url('tinos-bold.woff') format('woff'),
+         url('tinos-bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'tinos';
+    src: url('tinos-bolditalic.eot');
+    src: url('tinos-bolditalic.eot?#iefix') format('embedded-opentype'),
+         url('tinos-bolditalic.woff') format('woff'),
+         url('tinos-bolditalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'tinos';
+    src: url('tinos-italic.eot');
+    src: url('tinos-italic.eot?#iefix') format('embedded-opentype'),
+         url('tinos-italic.woff') format('woff'),
+         url('tinos-italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}

@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'notosans';
+    src: url('notosans-bold.eot');
+    src: url('notosans-bold.eot?#iefix') format('embedded-opentype'),
+         url('notosans-bold.woff') format('woff'),
+         url('notosans-bold.ttf') format('truetype');
+    font-style: normal;
+    font-weight: bold;
+}
+@font-face {
+    font-family: 'notosans';
+    src: url('notosans-bolditalic.eot');
+    src: url('notosans-bolditalic.eot?#iefix') format('embedded-opentype'),
+         url('notosans-bolditalic.woff') format('woff'),
+         url('notosans-bolditalic.ttf') format('truetype');
+    font-style: italic;
+    font-weight: bold;
+}
+@font-face {
+    font-family: 'notosans';
+    src: url('notosans-italic.eot');
+    src: url('notosans-italic.eot?#iefix') format('embedded-opentype'),
+         url('notosans-italic.woff') format('woff'),
+         url('notosans-italic.ttf') format('truetype');
+    font-style: italic;
+    font-weight: normal;
+}
+@font-face {
+    font-family: 'notosans';
+    src: url('notosans-regular.eot');
+    src: url('notosans-regular.eot?#iefix') format('embedded-opentype'),
+         url('notosans-regular.woff') format('woff'),
+         url('notosans-regular.ttf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+}

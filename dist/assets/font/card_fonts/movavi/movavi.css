@@ -1,0 +1,11 @@
+
+@font-face {
+    font-family: 'movavi';
+    src: url('movavi_grotesque_black.eot');
+    src: url('movavi_grotesque_black.eot?#iefix') format('embedded-opentype'),
+         url('movavi_grotesque_black.woff') format('woff'),
+         url('movavi_grotesque_black.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}

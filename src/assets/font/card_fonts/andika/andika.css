@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Andika';
+    src: url('andika-r.eot');
+    src: local('Andika'), url('andika-r.eot?#iefix') format('embedded-opentype'),
+         url('andika-r.woff') format('woff'),
+         url('andika-r.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}

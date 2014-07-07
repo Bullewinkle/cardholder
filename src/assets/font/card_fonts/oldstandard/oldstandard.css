@@ -1,0 +1,38 @@
+@font-face {
+    font-family: 'oldStandard';
+    src: url('oldstandard-bold.eot');
+    src: url('oldstandard-bold.eot?#iefix') format('embedded-opentype'),
+         url('oldstandard-bold.woff') format('woff'),
+         url('oldstandard-bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'oldStandard';
+    src: url('oldstandard-italic.eot');
+    src: url('oldstandard-italic.eot?#iefix') format('embedded-opentype'),
+         url('oldstandard-italic.woff') format('woff'),
+         url('oldstandard-italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'oldStandard';
+    src: url('oldstandard-regular.eot');
+    src: url('oldstandard-regular.eot?#iefix') format('embedded-opentype'),
+         url('oldstandard-regular.woff') format('woff'),
+         url('oldstandard-regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}

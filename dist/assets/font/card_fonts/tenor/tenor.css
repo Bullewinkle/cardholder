@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'tenor';
+    src: url('tenorsans-regular.eot');
+    src: url('tenorsans-regular.eot?#iefix') format('embedded-opentype'),
+         url('tenorsans-regular.woff') format('woff'),
+         url('tenorsans-regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}

@@ -1,0 +1,19 @@
+@font-face {
+    font-family: 'introcondensed';
+    src: url('intro_cond_light_free.eot');
+    src: url('intro_cond_light_free.eot?#iefix') format('embedded-opentype'),
+         url('intro_cond_light_free.woff') format('woff'),
+         url('intro_cond_light_free.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'introcondensed';
+    src: url('intro_cond_black_free.eot');
+    src: url('intro_cond_black_free.eot?#iefix') format('embedded-opentype'),
+         url('intro_cond_black_free.woff') format('woff'),
+         url('intro_cond_black_free.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
