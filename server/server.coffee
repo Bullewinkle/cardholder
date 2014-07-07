@@ -80,17 +80,31 @@ app.use express.static('./dist')
 
 localHostPort = 9000
 
-module.exports = 
+start = ( envirement, callback ) -> 
+	console.log 'server starts'
+	if process.env.PORT
+		app.listen process.env.PORT, ->
+			console.log 'Server listening on port : ' + process.env.PORT
+	else
+		app.listen localHostPort, ->
+			console.log 'Server listening on port : ' + localHostPort
+	if callback then callback()
 
+console.log module.parent.id
+
+# if module.parent.id.search 'gulpfile' > -1
+# 	start()
+
+module.exports = 
 	start: ( envirement, callback ) -> 
+		console.log 'server starts'
 		if process.env.PORT
 			app.listen process.env.PORT, ->
 				console.log 'Server listening on port : ' + process.env.PORT
 		else
 			app.listen localHostPort, ->
 				console.log 'Server listening on port : ' + localHostPort
-		
-		callback()
+		if callback then callback()
 	
 
 
