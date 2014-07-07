@@ -91,7 +91,6 @@ start = ( envirement, callback ) ->
 	if callback then callback()
 
 if not module.parent
-	console.log module.parent.id
 	start()
 
 # if module.parent.id.search 'gulpfile' > -1
