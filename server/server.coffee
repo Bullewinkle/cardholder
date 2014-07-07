@@ -90,10 +90,11 @@ start = ( envirement, callback ) ->
 			console.log 'Server listening on port : ' + localHostPort
 	if callback then callback()
 
-console.log module.parent.id
+if module.parent
+	console.log module.parent.id
+	start()
 
 # if module.parent.id.search 'gulpfile' > -1
-# 	start()
 
 module.exports = 
 	start: ( envirement, callback ) -> 
