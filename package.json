@@ -6,6 +6,7 @@
     "coffee-script": "",
     "express": "",
     "express-session": "",
+    "keen.io": "^0.1.2",
     "newrelic": "^1.8.0",
     "socket.io": "^1.0.6"
   },
