@@ -6,7 +6,7 @@ console.log '\n\n<---------SERVER LOG--------->\n'
 
 
 fs = require 'fs'
-io = require('socket.io')(http);
+# io = require('socket.io')(http);
 bodyParser = require('body-parser')
 express = require 'express'
 

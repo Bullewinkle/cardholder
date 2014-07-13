@@ -1,0 +1,4 @@
+{"name":"newrelic","hostname":"MacBook-Air-Bullwinkle.local","pid":1074,"level":30,"msg":"Starting New Relic for Node.js connection process.","time":"2014-07-13T21:48:25.087Z","v":0}
+{"name":"newrelic","hostname":"MacBook-Air-Bullwinkle.local","pid":1074,"component":"collector_api","level":40,"msg":"No connection has been established to New Relic after 4 attempts.","time":"2014-07-13T21:49:29.024Z","v":0}
+{"name":"newrelic","hostname":"MacBook-Air-Bullwinkle.local","pid":1082,"level":30,"msg":"Starting New Relic for Node.js connection process.","time":"2014-07-13T21:50:05.262Z","v":0}
+{"name":"newrelic","hostname":"MacBook-Air-Bullwinkle.local","pid":1175,"level":30,"msg":"Starting New Relic for Node.js connection process.","time":"2014-07-13T21:50:34.181Z","v":0}
