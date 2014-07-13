@@ -1,3 +1,4 @@
+require('newrelic')
 # require('node-monkey').start
 # 	host: '0.0.0.0'
 # 	port: '7878'
@@ -5,7 +6,7 @@ console.log '\n\n<---------SERVER LOG--------->\n'
 
 
 fs = require 'fs'
-
+io = require('socket.io')(http);
 bodyParser = require('body-parser')
 express = require 'express'
 
@@ -92,8 +93,6 @@ start = ( envirement, callback ) ->
 
 if not module.parent
 	start()
-
-# if module.parent.id.search 'gulpfile' > -1
 
 module.exports = 
 	start: start

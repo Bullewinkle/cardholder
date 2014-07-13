@@ -65,11 +65,14 @@ paths =
 		src: [
 			'bower_components/jquery/dist/jquery.js'
 			'bower_components/select2/select2.js'
-			'bower_components/lodash/dist/lodash.js'
+			# 'bower_components/lodash/dist/lodash.js'
 			'bower_components/underscore/underscore.js'
 			'bower_components/backbone/backbone.js'
 			'other_components/deep-model.js'
 			'bower_components/marionette/lib/backbone.marionette.js'
+			'other_components/modernizr/modernizr.js'
+			'other_components/foundation/js/foundation.js'
+			'other_components/deep-model.js'
 			'other_components/*.js'
 		]
 

@@ -6,6 +6,8 @@
 		"jquery": "1",
 		"select2": "",
 		"bootstrap": "",
+		"foundation": "",
+		"modernizr": "",
 		"jquery": "1",
 		"marionette": ""
 	}
