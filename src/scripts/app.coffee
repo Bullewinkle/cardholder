@@ -172,3 +172,16 @@ delay = (ms, fn) -> setTimeout ms, fn
 jQuery =>
 	@app.start()
 
+
+ `var value = 1;
+ var meta = '';
+ var meta = {'food' : 'ice cream', 'flavor':'chocolate'}; 
+ 
+ var sm_prefix = document.location.protocol == 'https://' ? 'https://' : 'http://';
+ document.write(unescape('%3Cscript src="' + sm_prefix + 'api.statsmix.com/jsapi.2.min.js" type="text/javascript"%3E%3C/script%3E'))
+
+
+ StatsMix.init("86aed8bac232816edd4c");
+ StatsMix.track("cardgen", value, meta);`
+
+
