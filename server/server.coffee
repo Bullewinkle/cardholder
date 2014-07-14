@@ -7,12 +7,12 @@ console.log '\n\n<---------SERVER LOG--------->\n'
 
 fs = require 'fs'
 # io = require('socket.io')(http);
-Keen = require('keen.io');
-client = Keen.configure
-	projectId: "53c2f8bbc9e1633d02000002"
-	writeKey: "29a424f562f704b579a9acc0edec045f3ce0afd13baacd0480ef5c213fe16623318c53dc891d78c26b43cf1724a0b5e3c46cd05cf16465736e2cbcbac2bb30b387f39d86b5ae95a4432f0f23fb05614a9ec355a3e846c57d0d911499282de03b8b0e2f4fa094332bb8fe2465174d616c"
-	readKey: "c35d107c9df5886c8ad51f0daed8a4dd90fff46607ca17e1b7ac0fb1b7184bdf95b59ca990f9524fe347c691830bd1accaf19654efdcbd2c6f726f85e9e2ac876a22ff90addca44dce94dc4863e8401307185b56c310bba1ec26aa984609046345bdb5cb1318af1a1179cb1ba945266c"
-	masterKey: "1BD1E1B520CA04091712C2FE4EA8D99E"
+# Keen = require('keen.io');
+# client = Keen.configure
+# 	projectId: "53c2f8bbc9e1633d02000002"
+# 	writeKey: "29a424f562f704b579a9acc0edec045f3ce0afd13baacd0480ef5c213fe16623318c53dc891d78c26b43cf1724a0b5e3c46cd05cf16465736e2cbcbac2bb30b387f39d86b5ae95a4432f0f23fb05614a9ec355a3e846c57d0d911499282de03b8b0e2f4fa094332bb8fe2465174d616c"
+# 	readKey: "c35d107c9df5886c8ad51f0daed8a4dd90fff46607ca17e1b7ac0fb1b7184bdf95b59ca990f9524fe347c691830bd1accaf19654efdcbd2c6f726f85e9e2ac876a22ff90addca44dce94dc4863e8401307185b56c310bba1ec26aa984609046345bdb5cb1318af1a1179cb1ba945266c"
+# 	masterKey: "1BD1E1B520CA04091712C2FE4EA8D99E"
 
 bodyParser = require('body-parser')
 express = require 'express'

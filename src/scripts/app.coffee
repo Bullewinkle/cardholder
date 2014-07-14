@@ -45,60 +45,12 @@ delay = (ms, fn) -> setTimeout ms, fn
 		$('#main-json').remove()
 		$('#app').find('.cards').show()
 
-@App = class App extends Backbone.Model
+@App = class App extends Marionette.Application
 	logger: off
 
 	router: new Router
-
 	view: new Backbone.View
 		el: $('#app')
-
-	initialize: ->
-
-		date = new Date()
-		@trigger 'initialize', 'at ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + '.' + date.getMilliseconds()
-		@bind 'all', (trigger, args) => 
-			if @logger is on
-				console.info 'App says :',trigger,args
-
-		@data = new Backbone.Model
-		@data.set dataFromServer.appdata
-		$.ajax 
-			url: '/fonts-list'
-			async: false
-			success: (fontList) =>
-				@.data.set 'fontsList', fontList
-
-			error: (xhr) =>
-				console.error 'Error: ',xhr.responseText
-
-		$(window).on
-			resize: =>
-				@trigger 'resize'
-
-	start : =>
-		@started = true
-		date = new Date()
-		@startTime = Date.now()
-		@trigger 'start', 'at ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + '.' + date.getMilliseconds()
-		@initColorScheme()
-
-
-		@controllerModel = new App.MainControllerModel
-		@controllerView = new App.MainControllerView
-			el: $('.main_controller_wrapper')
-			model: @controllerModel
-
-		@cardsCollection = new App.CardsCollection
-		@cardsCollection.reset dataFromServer.cardsConfig
-
-		@cardsCollectionView = new App.CardsCollectionView
-			el: $('.cards','#app')
-			collection: @cardsCollection
-		
-		@intervalRenderer()
-		
-		Backbone.history.start()
 
 	intervalRenderer: =>
 		prevCard = {}
@@ -168,6 +120,49 @@ delay = (ms, fn) -> setTimeout ms, fn
 
 
 @app = new App
+@app.addInitializer ->
+	date = new Date()
+	@trigger 'initialize', 'at ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + '.' + date.getMilliseconds()
+	@bind 'all', (trigger, args) => 
+		if @logger is on
+			console.info 'App says :',trigger,args
+
+	@data = new Backbone.Model
+	@data.set dataFromServer.appdata
+	$.ajax 
+		url: '/fonts-list'
+		async: false
+		success: (fontList) =>
+			@.data.set 'fontsList', fontList
+
+		error: (xhr) =>
+			console.error 'Error: ',xhr.responseText
+
+	$(window).on
+		resize: =>
+			@trigger 'resize'
+	@started = true
+	date = new Date()
+	@startTime = Date.now()
+	@trigger 'start', 'at ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + '.' + date.getMilliseconds()
+	@initColorScheme()
+
+
+	@controllerModel = new App.MainControllerModel
+	@controllerView = new App.MainControllerView
+		el: $('.main_controller_wrapper')
+		model: @controllerModel
+
+	@cardsCollection = new App.CardsCollection
+	@cardsCollection.reset dataFromServer.cardsConfig
+
+	@cardsCollectionView = new App.CardsCollectionView
+		el: $('.cards','#app')
+		collection: @cardsCollection
+	
+	@intervalRenderer()
+	
+	Backbone.history.start()
 
 jQuery =>
 	@app.start()
