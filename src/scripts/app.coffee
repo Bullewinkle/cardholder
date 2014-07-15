@@ -122,6 +122,31 @@ delay = (ms, fn) -> setTimeout ms, fn
 @app = new App
 @app.addInitializer ->
 	date = new Date()
+	dateUTC = date.valueOf()
+	value = dateUTC # or whatever value you want to pass
+	window.data =
+		"platform": navigator.platform
+		"userAgent": navigator.userAgent
+	window.json = encodeURI(JSON.stringify(data))
+	meta = window.data
+
+	# to add metadata, assign a JSON-formatted object to the variable meta:
+	# meta =
+	# 	"food" : "ice cream"
+	# 	"flavor" :"chocolate"
+
+	# sm_prefix = document.location.protocol == 'https://' ? 'https://' : 'http://'
+	# document.write(unescape('%3Cscript src="' + sm_prefix + 'api.statsmix.com/jsapi.2.min.js" type="text/javascript"%3E%3C/script%3E'))
+
+	console.log StatsMix, value, meta
+	StatsMix.init "86aed8bac232816edd4c"
+	StatsMix.track "cardgen", value
+
+
+
+
+
+
 	@trigger 'initialize', 'at ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + '.' + date.getMilliseconds()
 	@bind 'all', (trigger, args) => 
 		if @logger is on
@@ -163,6 +188,10 @@ delay = (ms, fn) -> setTimeout ms, fn
 	@intervalRenderer()
 	
 	Backbone.history.start()
+
+
+
+
 
 jQuery =>
 	@app.start()
