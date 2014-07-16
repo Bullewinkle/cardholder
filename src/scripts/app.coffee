@@ -122,21 +122,14 @@ delay = (ms, fn) -> setTimeout ms, fn
 @app = new App
 @app.addInitializer ->
 	date = new Date()
+
 	dateUTC = date.valueOf()
 	value = dateUTC # or whatever value you want to pass
-	window.data =
+	data =
 		"platform": navigator.platform
 		"userAgent": navigator.userAgent
-	window.json = encodeURI(JSON.stringify(data))
-	meta = window.data
-
-	# to add metadata, assign a JSON-formatted object to the variable meta:
-	# meta =
-	# 	"food" : "ice cream"
-	# 	"flavor" :"chocolate"
-
-	# sm_prefix = document.location.protocol == 'https://' ? 'https://' : 'http://'
-	# document.write(unescape('%3Cscript src="' + sm_prefix + 'api.statsmix.com/jsapi.2.min.js" type="text/javascript"%3E%3C/script%3E'))
+	json = JSON.stringify(data)
+	meta = data
 
 	console.log StatsMix, value, meta
 	StatsMix.init "86aed8bac232816edd4c"
@@ -158,7 +151,7 @@ delay = (ms, fn) -> setTimeout ms, fn
 		url: '/fonts-list'
 		async: false
 		success: (fontList) =>
-			@.data.set 'fontsList', fontList
+			@data.set 'fontsList', fontList
 
 		error: (xhr) =>
 			console.error 'Error: ',xhr.responseText
