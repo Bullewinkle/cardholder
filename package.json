@@ -5,6 +5,7 @@
     "body-parser": "",
     "coffee-script": "",
     "express": "",
+    "express.io": "",
     "express-session": "",
     "sails":"",
     "socket.io": "^1.0.6",
