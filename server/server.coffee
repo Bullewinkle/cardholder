@@ -58,7 +58,7 @@ redis = require('redis')
 redisCli = require('redis-client')
 
 RedisStore = express.io.RedisStore
-client = redis.createClient 6379, 'localhost'
+client = redis.createClient()
 
 
 app = express().http().io()
@@ -68,9 +68,9 @@ app.use express.session
 	secret: 'monkey'
 
 app.io.set 'store', new express.io.RedisStore
-	redisPub: client
-	redisSub: client
-	redisClient: client
+	redisPub: redis.createClient()
+	redisSub: redis.createClient()
+	redisClient: redis.createClient()
 
 app.data = controllerData
 
@@ -141,7 +141,7 @@ start = ( envirement, _callback ) ->
 	console.log 'server: start'
 	port = process.env.PORT or 9000
 
-	app.listen port, ->
+	app.listen port, =>
 		console.log 'Server listening on port : ' + port
 		if _callback? then _callback()
 
