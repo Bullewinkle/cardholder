@@ -139,7 +139,10 @@ app.use express.static('./dist')
 
 start = ( envirement, _callback ) -> 
 	console.log 'server: start'
-	port = process.env.PORT or 9000
+	if process.env.PORT
+		port = process.env.PORT
+	else
+		port = 9000
 
 	app.listen port, =>
 		console.log 'Server listening on port : ' + port
