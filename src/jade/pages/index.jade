@@ -37,16 +37,3 @@ block content
 								canvas(id='canvas-back-'+i, class='card_canvas back card_canvas_'+i, resize="true") HTML5 Canvas is not supported
 
 	script window.dataFromServer = !{ JSON.stringify( fromServer ) }
-	
-	script.
-		var value = 1; //or whatever value you want to pass
-		var meta = '';
-		// to add metadata, assign a JSON-formatted object to the variable meta:
-		// var meta = {'food' : 'ice cream', 'flavor':'chocolate'};
-
-		var sm_prefix = document.location.protocol == 'https://' ? 'https://' : 'http://';
-		document.write(unescape('%3Cscript src="' + sm_prefix + 'api.statsmix.com/jsapi.2.min.js" type="text/javascript"%3E%3C/script%3E'))
-
-	script.
-		StatsMix.init("86aed8bac232816edd4c");
-		StatsMix.track("cardgen", value, meta);

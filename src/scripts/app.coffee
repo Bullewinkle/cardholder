@@ -122,6 +122,24 @@ delay = (ms, fn) -> setTimeout ms, fn
 @app = new App
 @app.addInitializer ->
 	date = new Date()
+
+	dateUTC = date.valueOf()
+	value = dateUTC # or whatever value you want to pass
+	data =
+		"platform": navigator.platform
+		"userAgent": navigator.userAgent
+	json = JSON.stringify(data)
+	meta = data
+
+	console.log StatsMix, value, meta
+	StatsMix.init "86aed8bac232816edd4c"
+	StatsMix.track "cardgen", value
+
+
+
+
+
+
 	@trigger 'initialize', 'at ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + '.' + date.getMilliseconds()
 	@bind 'all', (trigger, args) => 
 		if @logger is on
@@ -133,7 +151,7 @@ delay = (ms, fn) -> setTimeout ms, fn
 		url: '/fonts-list'
 		async: false
 		success: (fontList) =>
-			@.data.set 'fontsList', fontList
+			@data.set 'fontsList', fontList
 
 		error: (xhr) =>
 			console.error 'Error: ',xhr.responseText
@@ -163,6 +181,10 @@ delay = (ms, fn) -> setTimeout ms, fn
 	@intervalRenderer()
 	
 	Backbone.history.start()
+
+
+
+
 
 jQuery =>
 	@app.start()
