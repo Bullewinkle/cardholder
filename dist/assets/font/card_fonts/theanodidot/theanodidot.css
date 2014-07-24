@@ -1,9 +1,0 @@
-@font-face {
-    font-family: 'theanodidot';
-    src: url('theanodidot-regular.eot');
-    src: url('theanodidot-regular.eot?#iefix') format('embedded-opentype'),
-         url('theanodidot-regular.woff') format('woff'),
-         url('theanodidot-regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}

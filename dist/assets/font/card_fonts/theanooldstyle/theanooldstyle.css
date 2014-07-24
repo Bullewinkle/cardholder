@@ -1,9 +1,0 @@
-@font-face {
-    font-family: 'theanooldstyle';
-    src: url('theanooldstyle-regular.eot');
-    src: url('theanooldstyle-regular.eot?#iefix') format('embedded-opentype'),
-         url('theanooldstyle-regular.woff') format('woff'),
-         url('theanooldstyle-regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}

@@ -1,9 +1,0 @@
-@font-face {
-    font-family: 'Serifiqo';
-    src: url('serifiqo_capitals.eot');
-    src: url('serifiqo_capitals.eot?#iefix') format('embedded-opentype'),
-         url('serifiqo_capitals.woff') format('woff'),
-         url('serifiqo_capitals.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}

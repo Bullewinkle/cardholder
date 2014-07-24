@@ -1,9 +1,0 @@
-@font-face {
-    font-family: 'augustatwo';
-    src: url('augusta_two.eot');
-    src: url('augusta_two.eot?#iefix') format('embedded-opentype'),
-         url('augusta_two.woff') format('woff'),
-         url('augusta_two.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
