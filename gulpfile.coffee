@@ -70,9 +70,8 @@ paths =
 			'bower_components/backbone/backbone.js'
 			'other_components/deep-model.js'
 			'bower_components/marionette/lib/backbone.marionette.js'
-			'bower_components/modernizr/modernizr.js'
-			'bower_components/foundation/js/foundation.js'
-			
+			'other_components/modernizr/modernizr.js'
+			'other_components/foundation/js/foundation.js'
 			'other_components/deep-model.js'
 			'other_components/*.js'
 		]

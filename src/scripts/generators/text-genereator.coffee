@@ -67,8 +67,8 @@ app.registerGenerator 'textGen', (Generator) ->
 
 					wrapText context , renderInitials(name, surname), x, y, canvas.width-20, 28
 
-					# console.log 'card №' + model.get('id') + ' : ' + font.split('"').join('')
 					context.font = '0.8em ' + font
+					console.log 'card №' + model.get('id') + ' : ' + font.split('"').join('')
 					if textAlign is 'right' then x-=5
 					context.fillText 'тел.: ' + phone, x, 32 +paragrafHeight
 					context.fillText 'email: '+ eMail, x, 49 +paragrafHeight
