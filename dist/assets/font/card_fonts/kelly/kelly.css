@@ -1,0 +1,8 @@
+
+@font-face {
+    font-family: 'kelly';
+    src: url('kellyslab-regular.eot');
+    src: url('kellyslab-regular.eot?#iefix') format('embedded-opentype'),
+         url('kellyslab-regular.woff') format('woff'),
+         url('kellyslab-regular.ttf') format('truetype');
+}

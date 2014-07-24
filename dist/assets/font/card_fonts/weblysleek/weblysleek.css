@@ -1,0 +1,59 @@
+@font-face {
+    font-family: 'weblysleek';
+    src: url('weblysleekuil.eot');
+    src: url('weblysleekuil.eot?#iefix') format('embedded-opentype'),
+         url('weblysleekuil.woff') format('woff'),
+         url('weblysleekuil.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'weblysleek';
+    src: url('weblysleekuili.eot');
+    src: url('weblysleekuili.eot?#iefix') format('embedded-opentype'),
+         url('weblysleekuili.woff') format('woff'),
+         url('weblysleekuili.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'weblysleek';
+    src: url('weblysleekuisb.eot');
+    src: url('weblysleekuisb.eot?#iefix') format('embedded-opentype'),
+         url('weblysleekuisb.woff') format('woff'),
+         url('weblysleekuisb.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'weblysleek';
+    src: url('weblysleekuisbi.eot');
+    src: url('weblysleekuisbi.eot?#iefix') format('embedded-opentype'),
+         url('weblysleekuisbi.woff') format('woff'),
+         url('weblysleekuisbi.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'weblysleek';
+    src: url('weblysleekuisl.eot');
+    src: url('weblysleekuisl.eot?#iefix') format('embedded-opentype'),
+         url('weblysleekuisl.woff') format('woff'),
+         url('weblysleekuisl.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'weblysleek';
+    src: url('weblysleekuisli.eot');
+    src: url('weblysleekuisli.eot?#iefix') format('embedded-opentype'),
+         url('weblysleekuisli.woff') format('woff'),
+         url('weblysleekuisli.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}

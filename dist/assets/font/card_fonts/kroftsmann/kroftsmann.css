@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'kroftsmann';
+    src: url('7fonts.ru_kroftsmann.eot');
+    src: url('7fonts.ru_kroftsmann.eot?#iefix') format('embedded-opentype'),
+         url('7fonts.ru_kroftsmann.woff') format('woff'),
+         url('7fonts.ru_kroftsmann.ttf') format('truetype'),
+         url('7fonts.ru_kroftsmann.svg#KroftsmannRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+

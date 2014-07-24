@@ -1,0 +1,10 @@
+
+@font-face {
+    font-family: 'triod';
+    src: url('triodpostnaja.eot');
+    src: url('triodpostnaja.eot?#iefix') format('embedded-opentype'),
+         url('triodpostnaja.woff') format('woff'),
+         url('triodpostnaja.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}

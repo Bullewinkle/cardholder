@@ -1,0 +1,40 @@
+
+@font-face {
+    font-family: 'tempora';
+    src: url('temporalgcuni-bold.eot');
+    src: url('temporalgcuni-bold.eot?#iefix') format('embedded-opentype'),
+         url('temporalgcuni-bold.woff') format('woff'),
+         url('temporalgcuni-bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'tempora';
+    src: url('temporalgcuni-bolditalic.eot');
+    src: url('temporalgcuni-bolditalic.eot?#iefix') format('embedded-opentype'),
+         url('temporalgcuni-bolditalic.woff') format('woff'),
+         url('temporalgcuni-bolditalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'tempora';
+    src: url('temporalgcuni-italic.eot');
+    src: url('temporalgcuni-italic.eot?#iefix') format('embedded-opentype'),
+         url('temporalgcuni-italic.woff') format('woff'),
+         url('temporalgcuni-italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'tempora';
+    src: url('temporalgcuni-regular.eot');
+    src: url('temporalgcuni-regular.eot?#iefix') format('embedded-opentype'),
+         url('temporalgcuni-regular.woff') format('woff'),
+         url('temporalgcuni-regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}

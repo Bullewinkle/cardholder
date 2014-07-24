@@ -1,0 +1,8 @@
+
+@font-face {
+    font-family: 'decorlz';
+    src: url('decorlz_nm1.eot');
+    src: url('decorlz_nm1.eot?#iefix') format('embedded-opentype'),
+         url('decorlz_nm1.woff') format('woff'),
+         url('decorlz_nm1.ttf') format('truetype');
+}

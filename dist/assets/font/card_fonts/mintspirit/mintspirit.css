@@ -1,0 +1,39 @@
+@font-face {
+    font-family: 'mintspirit';
+    src: url('mint-spirit.regular.eot');
+    src: url('mint-spirit.regular.eot?#iefix') format('embedded-opentype'),
+         url('mint-spirit.regular.woff') format('woff'),
+         url('mint-spirit.regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'mintspirit';
+    src: url('mint-spirit.bold.eot');
+    src: url('mint-spirit.bold.eot?#iefix') format('embedded-opentype'),
+         url('mint-spirit.bold.woff') format('woff'),
+         url('mint-spirit.bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'mintspirit';
+    src: url('mint-spirit.italic.eot');
+    src: url('mint-spirit.italic.eot?#iefix') format('embedded-opentype'),
+         url('mint-spirit.italic.woff') format('woff'),
+         url('mint-spirit.italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'mintspirit';
+    src: url('mint-spirit.bold-italic.eot');
+    src: url('mint-spirit.bold-italic.eot?#iefix') format('embedded-opentype'),
+         url('mint-spirit.bold-italic.woff') format('woff'),
+         url('mint-spirit.bold-italic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+}

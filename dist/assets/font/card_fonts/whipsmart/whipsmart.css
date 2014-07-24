@@ -1,0 +1,16 @@
+
+@font-face {
+    font-family: 'whipsmart_b';
+    src: url('whipsmart_bold.eot');
+    src: url('whipsmart_bold.eot?#iefix') format('embedded-opentype'),
+         url('whipsmart_bold.woff') format('woff'),
+         url('whipsmart_bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'whipsmart';
+    src: url('whipsmart.eot');
+    src: url('whipsmart.eot?#iefix') format('embedded-opentype'),
+         url('whipsmart.woff') format('woff'),
+         url('whipsmart.ttf') format('truetype');
+}

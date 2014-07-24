@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Boomboom';
+    src: url('boomboom.eot');
+    src: url('boomboom.eot?#iefix') format('embedded-opentype'),
+         url('boomboom.woff') format('woff'),
+         url('boomboom.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
