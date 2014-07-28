@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'fbrigade_cond';
+    src: url('fundamental_brigade_condensed.eot');
+    src: url('fundamental_brigade_condensed.eot?#iefix') format('embedded-opentype'),
+         url('fundamental_brigade_condensed.woff') format('woff'),
+         url('fundamental_brigade_condensed.ttf.gz') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}

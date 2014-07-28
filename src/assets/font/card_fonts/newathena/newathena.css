@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'newathena';
+    src: url('new_athena_unicode.eot');
+    src: url('new_athena_unicode.eot?#iefix') format('embedded-opentype'),
+         url('new_athena_unicode.woff') format('woff'),
+         url('new_athena_unicode.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}

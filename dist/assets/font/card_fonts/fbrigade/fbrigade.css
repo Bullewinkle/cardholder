@@ -1,0 +1,38 @@
+@font-face {
+    font-family: 'fbrigade';
+    src: url('fundamental_brigade_schlank.eot');
+    src: url('fundamental_brigade_schlank.eot?#iefix') format('embedded-opentype'),
+         url('fundamental_brigade_schlank.woff') format('woff'),
+         url('fundamental_brigade_schlank.ttf.gz') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'fbrigade';
+    src: url('fundamental_brigade_schwer.eot');
+    src: url('fundamental_brigade_schwer.eot?#iefix') format('embedded-opentype'),
+         url('fundamental_brigade_schwer.woff') format('woff'),
+         url('fundamental_brigade_schwer.ttf.gz') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+
+}
+
+
+
+
+@font-face {
+    font-family: 'fbrigade';
+    src: url('fundamental_brigade.eot');
+    src: url('fundamental_brigade.eot?#iefix') format('embedded-opentype'),
+         url('fundamental_brigade.woff') format('woff'),
+         url('fundamental_brigade.ttf.gz') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}

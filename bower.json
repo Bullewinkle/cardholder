@@ -1,0 +1,14 @@
+{
+	"name": "app",
+	"version": "0.0.1",
+	"dependencies": {
+		"lodash": "",
+		"jquery": "1",
+		"select2": "",
+		"bootstrap": "",
+		"foundation": "",
+		"modernizr": "",
+		"jquery": "1",
+		"marionette": ""
+	}
+}

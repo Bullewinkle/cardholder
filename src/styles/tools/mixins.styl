@@ -1,0 +1,106 @@
+placeholder(color)
+
+	&::-webkit-input-placeholder
+		color color
+
+	&:-moz-placeholder
+		color color
+
+	&::-moz-placeholder
+		color color
+
+	&:-ms-input-placeholder
+		color color
+
+
+last(prop, val)
+	
+	&:last-child
+		if prop is 'pt'
+			padding-top val
+		if prop is 'pl'
+			padding-left val
+		if prop is 'pr'
+			padding-right val
+		if prop is 'pb'
+			padding-bottom val
+		if prop is 'mt'
+			margin-top val
+		if prop is 'ml'
+			margin-left val
+		if prop is 'mr'
+			margin-right val
+		if prop is 'mb'
+			margin-bottom val
+		if prop is 'bt'
+			border-top val
+		if prop is 'bl'
+			border-left val
+		if prop is 'br'
+			border-right val
+		if prop is 'bb'
+			border-bottom val
+
+
+first(prop, val)
+	
+	&:first-child
+		if prop is 'pt'
+			padding-top val
+		if prop is 'pl'
+			padding-left val
+		if prop is 'pr'
+			padding-right val
+		if prop is 'pb'
+			padding-bottom val
+		if prop is 'mt'
+			margin-top val
+		if prop is 'ml'
+			margin-left val
+		if prop is 'mr'
+			margin-right val
+		if prop is 'mb'
+			margin-bottom val
+		if prop is 'bt'
+			border-top val
+		if prop is 'bl'
+			border-left val
+		if prop is 'br'
+			border-right val
+		if prop is 'bb'
+			border-bottom val
+
+
+hover-color(color)
+
+	&:hover
+		color color
+
+
+active-color(color)
+
+	&:active
+		color color
+
+
+size(x, y = x)
+	width unit(x, 'px')
+	height unit(y, 'px')
+
+box-shadow()
+	-webkit-box-shadow arguments
+	-moz-box-shadow arguments
+	-o-box-shadow arguments
+	box-shadow arguments
+
+transition()
+	-webkit-transition arguments
+	-moz-transition arguments
+	-o-transition arguments
+	transition arguments
+
+perspective()
+	-webkit-perspective: arguments
+	-moz-perspective: arguments
+	-o-perspective: arguments
+	perspective: arguments

@@ -1,0 +1,22 @@
+@font-face {
+    font-family: 'play';
+    src: url('play-bold.eot');
+    src: url('play-bold.eot?#iefix') format('embedded-opentype'),
+         url('play-bold.woff') format('woff'),
+         url('play-bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+
+}
+
+
+@font-face {
+    font-family: 'play';
+    src: url('play-regular.eot');
+    src: url('play-regular.eot?#iefix') format('embedded-opentype'),
+         url('play-regular.woff') format('woff'),
+         url('play-regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}

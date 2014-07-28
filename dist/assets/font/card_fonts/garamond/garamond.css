@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'garamond';
+    src: url('ebgaramond.eot');
+    src: url('ebgaramond.eot?#iefix') format('embedded-opentype'),
+         url('ebgaramond.woff') format('woff'),
+         url('ebgaramond.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}

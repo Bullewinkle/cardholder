@@ -1,0 +1,73 @@
+{
+  "name": "CardHolder",
+  "version": "0.0.1",
+  "dependencies": {
+    "body-parser": "",
+    "coffee-script": "",
+    "express": "",
+    "express-session": "",
+    "keen.io": "^0.1.2",
+    "newrelic": "^1.8.0",
+    "socket.io": "^1.0.6"
+  },
+  "devDependencies": {
+    "debug": "",
+    "grunt": "",
+    "grunt-svgmin": "",
+    "grunt-webfont": "",
+    "grunt-svg-sprite": "",
+    "grunt-contrib-copy": "",
+    "grunt-contrib-clean": "",
+    "load-grunt-tasks": "",
+    "gulp": "",
+    "gulp-if": "",
+    "gulp-open": "",
+    "gulp-util": "",
+    "gulp-grunt": "",
+    "gulp-clean": "",
+    "gulp-ngmin": "",
+    "gulp-shell": "",
+    "gulp-concat": "",
+    "gulp-rename": "",
+    "gulp-filter": "",
+    "gulp-uglify": "",
+    "gulp-flatten": "",
+    "gulp-changed": "",
+    "gulp-jade": "",
+    "gulp-coffee": "",
+    "gulp-stylus": "",
+    "gulp-inject": "",
+    "gulp-plumber": "",
+    "gulp-cssmin": "",
+    "gulp-imagemin": "",
+    "gulp-sourcemaps": "",
+    "gulp.spritesmith": "",
+    "gulp-autoprefixer": "",
+    "gulp-load-plugins": "",
+    "watchify": "",
+    "coffeeify": "",
+    "browserify": "",
+    "debowerify": "",
+    "browserify-shim": "",
+    "q": "",
+    "lodash": "",
+    "optimist": "",
+    "browser-sync": "",
+    "streamqueue": "",
+    "run-sequence": "",
+    "coffee-script": "",
+    "vinyl-source-stream": ""
+  },
+  "browser": {
+    "jquery": "./bower_components/jquery/dist/jquery.js",
+    "backbone": "./bower_components/backbone/backbone.js",
+    "marionette": "./bower_components/marionette/marionette.js"
+  },
+  "browserify-shim": {},
+  "browserify": {
+    "transform": [
+      "coffeeify",
+      "browserify-shim"
+    ]
+  }
+}

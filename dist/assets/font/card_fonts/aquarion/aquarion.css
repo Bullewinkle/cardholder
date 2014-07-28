@@ -1,0 +1,11 @@
+
+@font-face {
+    font-family: 'aquarion';
+    src: url('aquarion.eot');
+    src: url('aquarion.eot?#iefix') format('embedded-opentype'),
+         url('aquarion.woff') format('woff'),
+         url('aquarion.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}

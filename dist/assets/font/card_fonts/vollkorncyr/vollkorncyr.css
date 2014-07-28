@@ -1,0 +1,39 @@
+@font-face {
+    font-family: 'vollkorncyr';
+    src: url('vollkorn-regular.eot');
+    src: url('vollkorn-regular.eot?#iefix') format('embedded-opentype'),
+         url('vollkorn-regular.woff') format('woff'),
+         url('vollkorn-regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'vollkorncyr';
+    src: url('vollkorn-medium.eot');
+    src: url('vollkorn-medium.eot?#iefix') format('embedded-opentype'),
+         url('vollkorn-medium.woff') format('woff'),
+         url('vollkorn-medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'vollkorncyr';
+    src: url('vollkorn-semibold.eot');
+    src: url('vollkorn-semibold.eot?#iefix') format('embedded-opentype'),
+         url('vollkorn-semibold.woff') format('woff'),
+         url('vollkorn-semibold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'vollkorncyr';
+    src: url('vollkorn-bold.eot');
+    src: url('vollkorn-bold.eot?#iefix') format('embedded-opentype'),
+         url('vollkorn-bold.woff') format('woff'),
+         url('vollkorn-bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}

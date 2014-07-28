@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'christmasscript';
+    src: url('christmas_scriptc.eot');
+    src: url('christmas_scriptc.eot?#iefix') format('embedded-opentype'),
+         url('christmas_scriptc.woff') format('woff'),
+         url('christmas_scriptc.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}

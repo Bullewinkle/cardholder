@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Bradobrei';
+    src: url('bradobrei.eot');
+    src: url('bradobrei.eot?#iefix') format('embedded-opentype'),
+         url('bradobrei.woff') format('woff'),
+         url('bradobrei.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}

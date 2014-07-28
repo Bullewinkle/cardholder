@@ -1,0 +1,55 @@
+html
+	height 100%
+	font-family $font-1
+	font-smoothing antialiased
+	background $body-bg
+
+
+body
+	height 100%
+
+
+*
+	margin 0
+	border 0
+	outline 0
+	padding 0
+	box-sizing border-box
+
+
+*:after
+*:before
+	box-sizing border-box
+
+
+*:focus
+	outline none
+
+
+a
+button
+	text-decoration none
+	transition .3s
+	cursor pointer
+
+
+a
+	color $link-color
+
+	&:hover
+		color $link-hover-color
+
+
+p
+	color $text-color-default
+	font-size $text-size-default
+
+
+ul
+ol
+	list-style none
+
+
+input
+textarea
+	placeholder($placeholder-color)
