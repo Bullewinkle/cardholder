@@ -245,13 +245,7 @@ tasks =
 
 		config =
 			addRootSlash: false
-			startag: '| <!-- inject:{ext} -->'
-			endtag:  '| <!-- endinject -->'
 			ignorePath: "/#{DIST}/"
-			transform: (filepath) ->
-				switch helpers.getExtension(filepath)
-					when 'css' then return "link(href='#{filepath}' rel='stylesheet')"
-					when 'js' then return "script(src='#{filepath}')"
 
 		jsStream = ->
 			stream = streamqueue(objectMode: true)
