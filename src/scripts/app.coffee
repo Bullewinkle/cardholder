@@ -49,6 +49,7 @@ delay = (ms, fn) -> setTimeout ms, fn
 	logger: off
 
 	router: new Router
+	
 	view: new Backbone.View
 		el: $('#app')
 
@@ -139,9 +140,7 @@ delay = (ms, fn) -> setTimeout ms, fn
 		error: (xhr) =>
 			console.error 'Error: ',xhr.responseText
 
-	$(window).on
-		resize: =>
-			@trigger 'resize'
+
 	@started = true
 	date = new Date()
 	@startTime = Date.now()
@@ -160,6 +159,13 @@ delay = (ms, fn) -> setTimeout ms, fn
 	@cardsCollectionView = new App.CardsCollectionView
 		el: $('.cards','#app')
 		collection: @cardsCollection
+
+	onResize = _.debounce =>
+		@trigger 'resize'
+		console.log  @cardsCollectionView.$el.height()
+
+	$(window).on
+		resize: onResize
 	
 	@intervalRenderer()
 	
