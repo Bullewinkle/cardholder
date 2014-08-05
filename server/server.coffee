@@ -2,6 +2,12 @@
 # 	host: '0.0.0.0'
 # 	port: '7878'
 console.log '\n\n<---------SERVER LOG--------->\n'
+console.log '\n\n<---------SERVER test LOG--------->\n'
+console.log '\n\n<---------SERVER test LOG--------->\n'
+console.log '\n\n<---------SERVER test LOG--------->\n'
+console.log '\n\n<---------SERVER test LOG--------->\n'
+console.log '\n\n<---------SERVER test LOG--------->\n'
+console.log '\n\n<---------SERVER test LOG--------->\n'
 
 
 fs = require 'fs'
