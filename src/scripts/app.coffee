@@ -121,6 +121,7 @@ delay = (ms, fn) -> setTimeout ms, fn
 
 @app = new App
 @app.addInitializer ->
+	console.info App.started
 	date = new Date()
 	@trigger 'initialize', 'at ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + '.' + date.getMilliseconds()
 	@bind 'all', (trigger, args) => 
