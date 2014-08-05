@@ -4,10 +4,6 @@
 console.log '\n\n<---------SERVER LOG--------->\n'
 
 
-console.log '\n\nTEST SERVER LOGING\n'
-
-
-
 fs = require 'fs'
 # io = require('socket.io')(http);
 # Keen = require('keen.io');
