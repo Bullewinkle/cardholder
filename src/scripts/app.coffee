@@ -84,17 +84,17 @@ delay = (ms, fn) -> setTimeout ms, fn
 		@generators[name] = cb(Generator)
 		@generators[name].name = name
 
-	initColorScheme: =>
-		scm = new ColorScheme()
-		hue = app.getRandom(0.2, 359, 1)
+	# initColorScheme: =>
+	# 	scm = new ColorScheme()
+	# 	hue = app.getRandom(0.2, 359, 1)
 
-		scm.from_hue(hue)
-		.scheme('tetrade')
-		.distance(0.1)
-		.add_complement(false)
-		.variation('soft')
-		.web_safe(false)
-		@colorScheme = scm.colors()
+	# 	scm.from_hue(hue)
+	# 	.scheme('tetrade')
+	# 	.distance(0.1)
+	# 	.add_complement(false)
+	# 	.variation('soft')
+	# 	.web_safe(false)
+	# 	@colorScheme = scm.colors()
 
 	getRandom: (min = 0,max = 100,decimal = 0) ->
 		+(Math.random() * (max - min) + min).toFixed(decimal)
@@ -145,7 +145,7 @@ delay = (ms, fn) -> setTimeout ms, fn
 	date = new Date()
 	@startTime = Date.now()
 	@trigger 'start', 'at ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + '.' + date.getMilliseconds()
-	@initColorScheme()
+	# @initColorScheme()
 
 
 	@controllerModel = new App.MainControllerModel

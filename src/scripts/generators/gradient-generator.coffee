@@ -66,11 +66,11 @@ app.registerGenerator 'gradientGen', (Generator) ->
 					canvas = context.canvas
 
 					if !gen.options.defaultOptions
-						colorScheme = app.colorScheme
+						colorScheme = gen.options.colorScheme
 						randomVal1 = gen.options.definedVal1
 						randomVal2 = gen.options.definedVal2
 					else if gen.options.defaultOptions
-						colorScheme = app.colorScheme
+						colorScheme = gen.options.colorScheme
 
 						randomVal1 = app.getRandom(0,colorScheme.length-1)
 						randomVal2 = app.getRandom(0,colorScheme.length-1)
@@ -101,7 +101,7 @@ app.registerGenerator 'gradientGen', (Generator) ->
 					gen.options =
 						definedVal1: randomVal1
 						definedVal2: randomVal2
-						colorScheme: colorScheme
+						# colorScheme: colorScheme
 
 				#5
 				(context,args...) ->
@@ -131,11 +131,11 @@ app.registerGenerator 'gradientGen', (Generator) ->
 					canvas = context.canvas
 
 					if !gen.options.defaultOptions
-						colorScheme = app.colorScheme
+						colorScheme = gen.options.colorScheme
 						randomVal1 = gen.options.definedVal1
 						randomVal2 = gen.options.definedVal2
 					else if gen.options.defaultOptions
-						colorScheme = app.colorScheme
+						colorScheme = gen.options.colorScheme
 						randomVal1 = app.getRandom(0,colorScheme.length-1)
 						randomVal2 = app.getRandom(0,colorScheme.length-1)
 
@@ -152,7 +152,7 @@ app.registerGenerator 'gradientGen', (Generator) ->
 					gen.options =
 						definedVal1: randomVal1
 						definedVal2: randomVal2
-						colorScheme: colorScheme
+						# colorScheme: colorScheme
 
 				#7
 				(context,args...) ->
@@ -160,11 +160,11 @@ app.registerGenerator 'gradientGen', (Generator) ->
 					canvas = context.canvas
 
 					if !gen.options.defaultOptions
-						colorScheme = app.colorScheme
+						colorScheme = gen.options.colorScheme
 						randomVal1 = gen.options.definedVal1
 						randomVal2 = gen.options.definedVal2
 					else if gen.options.defaultOptions
-						colorScheme = app.colorScheme
+						colorScheme = gen.options.colorScheme
 
 						randomVal1 = app.getRandom(0,colorScheme.length-1)
 						randomVal2 = app.getRandom(0,colorScheme.length-1)
@@ -194,7 +194,7 @@ app.registerGenerator 'gradientGen', (Generator) ->
 					gen.options =
 						definedVal1: randomVal1
 						definedVal2: randomVal2
-						colorScheme: colorScheme
+						# colorScheme: colorScheme
 
 				#8
 				(context,args...) ->
@@ -202,7 +202,7 @@ app.registerGenerator 'gradientGen', (Generator) ->
 					canvas = context.canvas
 
 					if !gen.options.defaultOptions
-						colorScheme = app.colorScheme
+						colorScheme = gen.options.colorScheme
 						randomVal1 = gen.options.definedVal1
 						randomVal2 = gen.options.definedVal2
 						randomVal3 = gen.options.definedVal3
@@ -211,7 +211,7 @@ app.registerGenerator 'gradientGen', (Generator) ->
 						gradientType = gen.options.gradientType
 
 					else if gen.options.defaultOptions
-						colorScheme = app.colorScheme
+						colorScheme = gen.options.colorScheme
 						randomVal1 = app.getRandom(0,colorScheme.length-1)
 						randomVal2 = app.getRandom(0,colorScheme.length-1)
 						randomVal3 = app.getRandom(0,colorScheme.length-1)
@@ -255,7 +255,7 @@ app.registerGenerator 'gradientGen', (Generator) ->
 					canvas = context.canvas
 
 					if !gen.options.defaultOptions
-						colorScheme = app.colorScheme
+						colorScheme = gen.options.colorScheme
 						randomVal1 = gen.options.definedVal1
 						randomVal2 = gen.options.definedVal2
 						randomVal3 = gen.options.definedVal3
@@ -264,7 +264,7 @@ app.registerGenerator 'gradientGen', (Generator) ->
 						gradientType = gen.options.gradientType
 
 					else if gen.options.defaultOptions
-						colorScheme = app.colorScheme
+						colorScheme = gen.options.colorScheme
 						randomVal1 = app.getRandom(0,colorScheme.length-1)
 						randomVal2 = app.getRandom(0,colorScheme.length-1)
 						randomVal3 = app.getRandom(0,colorScheme.length-1)
@@ -306,7 +306,7 @@ app.registerGenerator 'gradientGen', (Generator) ->
 					canvas = context.canvas
 
 					if !gen.options.defaultOptions
-						colorScheme = app.colorScheme
+						colorScheme = gen.options.colorScheme
 						randomVal1 = gen.options.definedVal1
 						randomVal2 = gen.options.definedVal2
 						randomVal3 = gen.options.definedVal3
@@ -315,7 +315,7 @@ app.registerGenerator 'gradientGen', (Generator) ->
 						gradientType = gen.options.gradientType
 
 					else if gen.options.defaultOptions
-						colorScheme = app.colorScheme
+						colorScheme = gen.options.colorScheme
 						randomVal1 = app.getRandom(0,colorScheme.length-1)
 						randomVal2 = app.getRandom(0,colorScheme.length-1)
 						randomVal3 = app.getRandom(0,colorScheme.length-1)
@@ -357,13 +357,13 @@ app.registerGenerator 'gradientGen', (Generator) ->
 					canvas = context.canvas
 
 					if !gen.options.defaultOptions
-						colorScheme = app.colorScheme
+						colorScheme = gen.options.colorScheme
 						randomVal1 = gen.options.definedVal1
 
 						gradientType = gen.options.gradientType
 
 					else if gen.options.defaultOptions
-						colorScheme = app.colorScheme
+						colorScheme = gen.options.colorScheme
 						randomVal1 = app.getRandom(0,colorScheme.length-1)
 
 						gradientType = gen.options.gradientType
@@ -390,7 +390,7 @@ app.registerGenerator 'gradientGen', (Generator) ->
 					canvas = context.canvas
 
 					if !gen.options.defaultOptions
-						colorScheme = app.colorScheme
+						colorScheme = gen.options.colorScheme
 						randomVal1 = gen.options.definedVal1
 						randomVal2 = gen.options.definedVal2
 						randomVal3 = gen.options.definedVal3
@@ -398,7 +398,7 @@ app.registerGenerator 'gradientGen', (Generator) ->
 						gradientType = gen.options.gradientType
 
 					else if gen.options.defaultOptions
-						colorScheme = app.colorScheme
+						colorScheme = gen.options.colorScheme
 						randomVal1 = app.getRandom(0,colorScheme.length-1)
 						randomVal2 = app.getRandom(0,colorScheme.length-1)
 						randomVal3 = app.getRandom(40,150)
@@ -431,14 +431,14 @@ app.registerGenerator 'gradientGen', (Generator) ->
 					canvas = context.canvas
 
 					if !gen.options.defaultOptions
-						colorScheme = app.colorScheme
+						colorScheme = gen.options.colorScheme
 						randomVal1 = gen.options.definedVal1
 						randomVal2 = gen.options.definedVal2
 
 						gradientType = gen.options.gradientType
 
 					else if gen.options.defaultOptions
-						colorScheme = app.colorScheme
+						colorScheme = gen.options.colorScheme
 						randomVal1 = app.getRandom(0,colorScheme.length-1)
 						randomVal2 = app.getRandom(0,colorScheme.length-1)
 
@@ -490,11 +490,11 @@ app.registerGenerator 'gradientGen', (Generator) ->
 					canvas = context.canvas
 
 					if !gen.options.defaultOptions
-						colorScheme = app.colorScheme
+						colorScheme = gen.options.colorScheme
 						randomVal1 = gen.options.definedVal1
 						randomVal2 = gen.options.definedVal2
 					else if gen.options.defaultOptions
-						colorScheme = app.colorScheme
+						colorScheme = gen.options.colorScheme
 						randomVal1 = app.getRandom(0,colorScheme.length-1)
 						randomVal2 = app.getRandom(0,colorScheme.length-1)
 
@@ -511,7 +511,7 @@ app.registerGenerator 'gradientGen', (Generator) ->
 					gen.options =
 						definedVal1: randomVal1
 						definedVal2: randomVal2
-						colorScheme: colorScheme
+						# colorScheme: colorScheme
 
 				#15
 				(context,args...) ->
@@ -519,14 +519,14 @@ app.registerGenerator 'gradientGen', (Generator) ->
 					canvas = context.canvas
 
 					if !gen.options.defaultOptions
-						colorScheme = app.colorScheme
+						colorScheme = gen.options.colorScheme
 						randomVal1 = gen.options.definedVal1
 						randomVal2 = gen.options.definedVal2
 
 						gradientType = gen.options.gradientType
 
 					else if gen.options.defaultOptions
-						colorScheme = app.colorScheme
+						colorScheme = gen.options.colorScheme
 						randomVal1 = app.getRandom(0,colorScheme.length-1)
 						randomVal2 = app.getRandom(0,colorScheme.length-1)
 
@@ -566,14 +566,14 @@ app.registerGenerator 'gradientGen', (Generator) ->
 					canvas = context.canvas
 
 					if !gen.options.defaultOptions
-						colorScheme = app.colorScheme
+						colorScheme = gen.options.colorScheme
 						randomVal1 = gen.options.definedVal1
 						randomVal2 = gen.options.definedVal2
 
 						gradientType = gen.options.gradientType
 
 					else if gen.options.defaultOptions
-						colorScheme = app.colorScheme
+						colorScheme = gen.options.colorScheme
 						randomVal1 = app.getRandom(0,colorScheme.length-1)
 						randomVal2 = app.getRandom(0,colorScheme.length-1)
 
@@ -614,14 +614,14 @@ app.registerGenerator 'gradientGen', (Generator) ->
 					canvas = context.canvas
 
 					if !gen.options.defaultOptions
-						colorScheme = app.colorScheme
+						colorScheme = gen.options.colorScheme
 						randomVal1 = gen.options.definedVal1
 						randomVal2 = gen.options.definedVal2
 
 						gradientType = gen.options.gradientType
 
 					else if gen.options.defaultOptions
-						colorScheme = app.colorScheme
+						colorScheme = gen.options.colorScheme
 						randomVal1 = app.getRandom(0,colorScheme.length-1)
 						randomVal2 = app.getRandom(0,colorScheme.length-1)
 
@@ -654,14 +654,14 @@ app.registerGenerator 'gradientGen', (Generator) ->
 					canvas = context.canvas
 
 					if !gen.options.defaultOptions
-						colorScheme = app.colorScheme
+						colorScheme = gen.options.colorScheme
 						randomVal1 = gen.options.definedVal1
 						randomVal2 = gen.options.definedVal2
 
 						gradientType = gen.options.gradientType
 
 					else if gen.options.defaultOptions
-						colorScheme = app.colorScheme
+						colorScheme = gen.options.colorScheme
 						randomVal1 = app.getRandom(0,colorScheme.length-1)
 						randomVal2 = app.getRandom(0,colorScheme.length-1)
 
@@ -697,7 +697,7 @@ app.registerGenerator 'gradientGen', (Generator) ->
 				# Импровизация
 				# (context,args...) ->
 				# 	if !gen.options.defaultOptions
-				# 		colorScheme = app.colorScheme
+				# 		colorScheme = gen.options.colorScheme
 				# 		randomVal1 = gen.options.definedVal1
 				# 		randomVal2 = gen.options.definedVal2
 				# 		randomVal3 = gen.options.definedVal3
@@ -707,7 +707,7 @@ app.registerGenerator 'gradientGen', (Generator) ->
 				# 		gradientType = gen.options.gradientType
 
 				# 	else if gen.options.defaultOptions
-				# 		colorScheme = app.colorScheme
+				# 		colorScheme = gen.options.colorScheme
 				# 		randomVal1 = app.getRandom(0,colorScheme.length-1)
 				# 		randomVal2 = app.getRandom(0,colorScheme.length-1)
 				# 		randomVal3 = app.getRandom(0, 150)
@@ -740,7 +740,7 @@ app.registerGenerator 'gradientGen', (Generator) ->
 				# Импровизация 2
 				# (context,args...) ->
 				# 	if !gen.options.defaultOptions
-				# 		colorScheme = app.colorScheme
+				# 		colorScheme = gen.options.colorScheme
 				# 		randomVal1 = gen.options.definedVal1
 				# 		randomVal2 = gen.options.definedVal2
 				# 		randomVal3 = gen.options.definedVal3
@@ -749,7 +749,7 @@ app.registerGenerator 'gradientGen', (Generator) ->
 				# 		gradientType = gen.options.gradientType
 
 				# 	else if gen.options.defaultOptions
-				# 		colorScheme = app.colorScheme
+				# 		colorScheme = gen.options.colorScheme
 				# 		randomVal1 = app.getRandom(50,250)
 				# 		randomVal2 = app.getRandom(50,250)
 				# 		randomVal3 = app.getRandom(50,200)
@@ -793,28 +793,45 @@ app.registerGenerator 'gradientGen', (Generator) ->
 
 
 					# Create gradient
-
 			]
+
 			draw: (canvas,model,args...) ->
+				# console.log @options
+				initColorScheme = ->
+					scm = new ColorScheme()
+					hue = app.getRandom(0.2, 359, 1)
+
+					variations = ['default', 'pastel', 'soft', 'light', 'hard', 'pale' ]
+					variation = variations[ app.getRandom(0, variations.length-1) ]
+					console.log variation
+					scm.from_hue(hue)
+					.scheme('tetrade')
+					.distance(0.1)
+					.add_complement(false)
+					.variation(variation)
+					.web_safe(false)
+					scm.colors()
 
 				context = canvas.getContext("2d")
-				$.extend( @options, model.get 'generators.'+ @name )
-				if model.get 'generators.'+ @name+ '.defaultOptions'
-
+				$.extend( @options, model.get 'generators.gradientGen' )
+				# console.log model
+				if model.get 'generators.gradientGen.defaultOptions'
+					gen.options.colorScheme = initColorScheme()
+					console.log gen.options.colorScheme
 					randomVariant = app.getRandom(0, @gradientVariants.length-1)
 
 					@gradientVariants[ randomVariant ](context)
 					@options.gradientVariantNum = randomVariant
-	
+
 					@options.defaultOptions = false
 
-				else if !model.get 'generators.'+ @name+ '.defaultOptions'
+				else if !model.get 'generators.gradientGen.defaultOptions'
 
 					@defaultOptions = false
 					predefinedVariant = model.get 'generators.'+ @name+ '.gradientVariantNum'
 					@gradientVariants[ predefinedVariant ](context)
 
-				model.set 'generators.'+@name, @options,
+				model.set 'generators.gradientGen', gen.options,
 					silent: true
 
 	return gen

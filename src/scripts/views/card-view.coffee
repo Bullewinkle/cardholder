@@ -20,7 +20,22 @@
 			if @loger is on
 				console.log trigger, args
 
-	
+	# initColorScheme: =>
+	# 	scm = new ColorScheme()
+	# 	hue = app.getRandom(0.2, 359, 1)
+
+	# 	variations = ['default', 'pastel', 'soft', 'light', 'hard', 'pale' ]
+	# 	variation = variations[ app.getRandom(0, variations.length-1) ]
+	# 	console.log variation
+	# 	scm.from_hue(hue)
+	# 	.scheme('tetrade')
+	# 	.distance(0.1)
+	# 	.add_complement(false)
+	# 	.variation(variation)
+	# 	.web_safe(false)
+	# 	@model.set 'colorScheme', scm.colors()
+	# 	console.log @model
+
 	transitionCallback : (e) =>
 		e.view = @
 		propertyName = e.originalEvent.propertyName
@@ -30,7 +45,7 @@
 		@trigger 'transitionend', e
 
 
-	render: ->
+	render: =>
 		if @$el.hasClass 'fliped'
 			canvas = @$el.find('.card_canvas.back')[0]
 		else
@@ -38,7 +53,9 @@
 
 		canvas.width = @$el.width()
 		canvas.height = @$el.height()
+		# @initColorScheme()
 
+		# console.log @model
 		@renderLayer1(canvas)
 		# @renderLayer2(canvas)
 		@renderLayer3(canvas)
@@ -52,6 +69,7 @@
 
 		canvas.width = @$el.width()
 		canvas.height = @$el.height()
+
 
 		@renderLayer1(canvas)
 		# @renderLayer2(canvas)
