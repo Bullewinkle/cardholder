@@ -48,7 +48,7 @@ delay = (ms, fn) -> setTimeout ms, fn
 @App = class App extends Marionette.Application
 	logger: off
 
-	router: new Router
+	# router: new Router
 	
 	view: new Backbone.View
 		el: $('#app')
@@ -129,17 +129,6 @@ delay = (ms, fn) -> setTimeout ms, fn
 		if @logger is on
 			console.info 'App says :',trigger,args
 
-	@data = new Backbone.Model
-	@data.set dataFromServer.appdata
-	$.ajax 
-		url: '/fonts-list'
-		async: false
-		success: (fontList) =>
-			@.data.set 'fontsList', fontList
-
-		error: (xhr) =>
-			console.error 'Error: ',xhr.responseText
-
 
 	@started = true
 	date = new Date()
@@ -148,26 +137,26 @@ delay = (ms, fn) -> setTimeout ms, fn
 	# @initColorScheme()
 
 
-	@controllerModel = new App.MainControllerModel
-	@controllerView = new App.MainControllerView
-		el: $('.main_controller_wrapper')
-		model: @controllerModel
+	# @controllerModel = new App.MainControllerModel
+	# @controllerView = new App.MainControllerView
+	# 	el: $('.main_controller_wrapper')
+	# 	model: @controllerModel
 
-	@cardsCollection = new App.CardsCollection
-	@cardsCollection.reset dataFromServer.cardsConfig
+	# @cardsCollection = new App.CardsCollection
+	# @cardsCollection.reset dataFromServer.cardsConfig
 
-	@cardsCollectionView = new App.CardsCollectionView
-		el: $('.cards','#app')
-		collection: @cardsCollection
+	# @cardsCollectionView = new App.CardsCollectionView
+	# 	el: $('.cards','#app')
+	# 	collection: @cardsCollection
 
-	onResize = _.debounce =>
-		@trigger 'resize'
-		console.log  @cardsCollectionView.$el.height()
+	# onResize = _.debounce =>
+	# 	@trigger 'resize'
+	# 	console.log  @cardsCollectionView.$el.height()
 
-	$(window).on
-		resize: onResize
+	# $(window).on
+	# 	resize: onResize
 	
-	@intervalRenderer()
+	# @intervalRenderer()
 	
 	Backbone.history.start()
 
