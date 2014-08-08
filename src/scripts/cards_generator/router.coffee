@@ -5,16 +5,17 @@
 		initialize: ->
 			console.log 'Init: Router'
 
-		routes: 
+		appRoutes: 
 			'(/)': 'index'
 			'any(/)': 'any'
+			'*other': 'notFound'
 
-		controller: CardGenerator.Controller
+		controller: new CardGenerator.Controller()
 
 		onRoute: (args...) ->
 			console.log args
 
 	@addInitializer ->	
 		console.log 'Init: Router', new CardGenerator.Controller()
-		@router = new CardGenerator.Router()
+		# @router = new CardGenerator.Router()
 	# @addInitializer ->

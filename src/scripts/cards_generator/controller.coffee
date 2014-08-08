@@ -9,6 +9,9 @@
 		any: ->
 			console.log 'Route to any'
 
+		notFound: ->
+			console.log '!!! NOT FOUND !!!'
+
 	# @addInitializer ->
 	# 	console.log 'Init: Controller2', @
 	# 	# @controller = new @Controller()

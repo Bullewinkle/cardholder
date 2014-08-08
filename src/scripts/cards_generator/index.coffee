@@ -1,7 +1,9 @@
 app.module 'CardGenerator', ->
 	@addInitializer ->
-		console.log 'Init: CardGenerator', @
+		console.log 'Init: CardGenerator', @Router
 
+		@router = new @Router()
+		
 		@data = new Backbone.Model
 		@state = new Backbone.Model
 
