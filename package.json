@@ -4,9 +4,21 @@
 	"dependencies": {
 		"body-parser": "1.5.2",
 		"coffee-script": "1.7.1",
+		"jade": "",
 		"express": "4.7.3",
 		"express-session": "1.7.2",
-		"socket.io": "1.0.6"
+		"socket.io": "1.0.6",
+		
+		"logger": "",
+		"method-override": "",
+		"cookie-parser": "",
+
+		"templatizer": "",
+		"restify": "",
+		"mongoose": "",
+		"message": ""
+
+
 	},
 	"devDependencies": {
 		"debug": "1.0.4",

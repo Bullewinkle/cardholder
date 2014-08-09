@@ -6,6 +6,7 @@
 			console.log 'Init: Router'
 
 		appRoutes: 
+			'': 'index'
 			'(/)': 'index'
 			'any(/)': 'any'
 			'*other': 'notFound'
