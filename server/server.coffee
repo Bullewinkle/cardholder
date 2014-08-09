@@ -15,11 +15,12 @@ templatizer = require 'templatizer'
 # io = require('socket.io')(http);
 # Make jade templates available in browsers via javascript template functions
 # Build the dynamically generated template functions for client usage
-templatizer './src', './dist/views/templates.js'
+fs.mkdir './dist/js/cards_generator/templates/'
+templatizer './src', './dist/js/cards_generator/templates/templates.js'
 
 ## server
 http = require 'http'
-restify = require 'restify'
+# restify = require 'restify'
 # server = restify.createServer()
 # server.use restify.bodyParser()
 
@@ -37,23 +38,23 @@ MessageSchema = new Schema
 mongoose.model 'Message', MessageSchema
 Message = mongoose.model 'Message'
 
-
-router = express.Router()
-
-routerController = require('./controller')
-routerController.initialize router
-require('./routes')(router, routerController)
-console.log router
-app.use router
-# ==================================================================>
-
+# STATIC FOLDERS
 app.use '/js', express.static("#{CONFIG.dist}/js")
 app.use '/css', express.static("#{CONFIG.dist}/css")
 app.use '/views', express.static("#{CONFIG.dist}/views")
 app.use '/assets', express.static("#{CONFIG.dist}/assets")
 
-app.all '/*', (req, res) ->
-	res.sendfile "#{CONFIG.dist}/index.html"
+# ROUTER
+router = express.Router()
+routerController = require('./controller')
+routerController.initialize router
+require('./routes')(router, routerController)
+app.use router
+# ==================================================================>
+
+
+# app.all '/*', (req, res) ->
+# 	res.sendfile "#{CONFIG.dist}/index.html"
 # app.use express.static( CONFIG.dist )
 # ==================================================================>
 

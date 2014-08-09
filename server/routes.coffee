@@ -2,7 +2,7 @@ controller = require './controller'
 
 module.exports = (router) ->
 
-	router.get '/', controller.getIndex 
+	# router.get '/', controller.getIndex 
  
 	router.get '/cards', controller.getCards
 
@@ -19,5 +19,8 @@ module.exports = (router) ->
 	router.get '/fonts-list', controller.getFontsList
 
 	router.get '/fonts-list/:font', controller.getFontByName
+
+
+	router.all '/*', controller.getIndex 
 
 	router
