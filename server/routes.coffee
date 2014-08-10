@@ -6,22 +6,24 @@ module.exports = (router) ->
 
 	# router.get '/', controller.getIndex 
 
-	router.get '/cards', controller.getCards
+	router.get '/api/cards-generator', controller.getCards
 
-	router.get '/cards/:cardId', controller.getCardById
+	router.get '/api/cards', controller.getCards
+	
+	router.get '/api/cards/:cardId', controller.getCardById
+	
+	router.get '/api/data' , controller.getAllData
 
-	router.get '/data' , controller.getAllData
+	router.get '/api/data/:property', controller.getDataByKey
 
-	router.get '/data/:property', controller.getDataByKey
+	router.get '/api/step-form' , controller.getAllStepFormData
 
-	router.get '/step-form' , controller.getAllStepFormData
+	router.get '/api/step-form/:property', controller.getStepFormDataByKey
 
-	router.get '/step-form/:property', controller.getStepFormDataByKey
+	router.get '/api/fonts-list', controller.getFontsList
 
-	router.get '/fonts-list', controller.getFontsList
+	router.get '/api/fonts-list/:font', controller.getFontByName
 
-	router.get '/fonts-list/:font', controller.getFontByName
-
-	router.all '/**', controller.getIndex 
+	router.all '/*', controller.getIndex 
 
 	router

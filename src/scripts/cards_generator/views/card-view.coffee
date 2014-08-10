@@ -1,15 +1,20 @@
 @app.module 'CardGenerator.views', (Views) ->
 	class Views.CardView extends Backbone.View
-		loger: off
+
+		url: 'api/cards/'
 		
+		loger: off
 		tagName: 'li'
 		className: 'card'
+
 		events:
 			'mouseenter':  'mouseenter'
 			'mouseleave':  'mouseleave'
 			'click .js_lock_config_button': 'locker'
 			'transitionend': 'transitionCallback'
 			# 'resize': 'resizer'
+
+		modelEvents: {}
 
 		initialize: ->
 			@listenTo app, 'start', @start
@@ -20,6 +25,8 @@
 			@bind 'all', (trigger, args) => 
 				if @loger is on
 					console.log trigger, args
+		template: ->
+
 
 		# initColorScheme: =>
 		# 	scm = new ColorScheme()

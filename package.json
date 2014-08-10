@@ -19,6 +19,7 @@
     "socket.io": "1.0.6",
     "templatizer": "*",
     "useragent": "^2.0.9",
+    "winston": "^0.7.3",
     "yamlparser": "0.0.2"
   },
   "devDependencies": {

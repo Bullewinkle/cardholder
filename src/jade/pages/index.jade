@@ -5,10 +5,11 @@ block head
 	title Card Holder
 	meta(name='keywords' content='')
 	meta(name='description' content='')
-	script(src='js/cards_generator/templates/templates.js')
+	script(src='/js/templates/templates.js')
 
 
 block content
+
 	#app.clearfix
 
 	script window.dataFromServer = !{ JSON.stringify( fromServer ) }

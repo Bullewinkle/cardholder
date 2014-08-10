@@ -1,5 +1,6 @@
 argv = require('optimist').argv
-
+templatizer = require 'templatizer' 
+fs = require 'fs' 
 
 
 # Gulp / Grunt
@@ -40,13 +41,6 @@ CONFIG.JADE =
 			appdata: require './src/assets/data/data.json'
 			cardsConfig: require './src/assets/data/cards-config.json'
 
-SELECTEL =
-	USER: 'xxx'
-	PASS: 'xxx'
-	HOST: 'https://xxx.selcdn.ru/xxx'
-	TOKEN: 'xxx'
-	ARCHIVE: 'dist.tar.gz'
-
 TIMESTAMP = Date.now()
 PROD = argv.prod
 DEV = !argv.prod
@@ -65,13 +59,15 @@ paths =
 		src: [
 			'bower_components/jquery/dist/jquery.js'
 			'bower_components/select2/select2.js'
+			'bower_components/bootstrap/js/tab.js'
+			'bower_components/bootstrap/js/dropdown.js'
 			# 'bower_components/lodash/dist/lodash.js'
 			'bower_components/underscore/underscore.js'
 			'bower_components/backbone/backbone.js'
-			'other_components/deep-model.js'
 			'bower_components/marionette/lib/backbone.marionette.js'
-			'other_components/modernizr/modernizr.js'
-			'other_components/foundation/js/foundation.js'
+			'other_components/deep-model.js'
+			# 'other_components/modernizr/modernizr.js'
+			# 'other_components/foundation/js/foundation.js'
 			'other_components/deep-model.js'
 			'other_components/*.js'
 		]
@@ -90,6 +86,10 @@ paths =
 			"#{SRC}/scripts/app.coffee"
 			"#{SRC}/scripts/**/*.coffee"
 		]
+
+	# appTemplates: 
+	# 	dest: "#{DIST}/js/templates"
+	# 	src: "#{SRC}/scripts/**/*.jade"
 
 	appStyles:
 		dest: "#{DIST}/css"
@@ -228,6 +228,11 @@ tasks =
 			.pipe $.if DEV, $.sourcemaps.write()
 			.pipe $.if DEV, g.dest(paths.appScripts.dest)
 
+	appTemplates: ->
+		fs.exists "#{DIST}/js/templates/", (exists) ->
+			if not exists then fs.mkdirSync "#{DIST}/js/templates"
+			templatizer "#{SRC}/jade/views",  "#{DIST}/js/templates/templates.js"
+
 	appStyles: ->
 
 		stream = g.src paths.appStyles.main
@@ -244,7 +249,7 @@ tasks =
 		suffix = if PROD then "?#{Date.now()}" else ''
 
 		config =
-			addRootSlash: false
+			addRootSlash: true
 			ignorePath: "/#{DIST}/"
 
 		jsStream = ->
@@ -457,6 +462,7 @@ g.task 'pages', tasks.pages
 g.task 'views', tasks.views
 
 g.task 'inject', tasks.inject
+g.task 'templates', tasks.appTemplates
 g.task 'server', tasks.server
 
 
@@ -525,9 +531,11 @@ g.task 'default', ->
 	args.push 'font'
 	args.push 'views'
 
+
 	args.push 'inject'
 	args.push 'pages'
 	args.push 'watch' if DEV
+	args.push 'templates'
 	args.push 'server'
 
 	# Enjoy!
@@ -555,9 +563,11 @@ g.task 'deploy', do ->
 
 	]
 
-g.task 'auth', $.shell.task [
-	"curl -i https://auth.selcdn.ru/ -H 'X-Auth-User:#{SELECTEL.USER}' -H 'X-Auth-Key:#{SELECTEL.PASS}'"
-]
+# g.task 'auth', $.shell.task [
+# 	"curl -i https://auth.selcdn.ru/ -H 'X-Auth-User:#{SELECTEL.USER}' -H 'X-Auth-Key:#{SELECTEL.PASS}'"
+# ]
+
+
 
 
 ### TODO:

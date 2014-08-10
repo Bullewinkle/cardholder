@@ -1,40 +1,29 @@
 console.log '\n\n<---------SERVER LOG--------->\n'
-## common
+
 CONFIG = require './config'
 fs = require 'fs'
 http = require 'http'
+
+Db = require('mongodb').Db
+MongoClient = require('mongodb').MongoClient
+ReplSetServers = require('mongodb').ReplSetServers
+ObjectID = require('mongodb').ObjectID
+
+winston = require 'winston'
+winston.log 'info', 'Hello distributed log files!'
+winston.error 'Hello again distributed logs'
+
 express = require 'express'
 session = require 'express-session'
+RedisStore = require('connect-redis')(session)
+
 useragent = require('useragent')
 useragent(true)
 
 GLOBAL.Promise = require 'bluebird'
 
-RedisStore = require('connect-redis')(session)
-console.log RedisStore
-
 app = express()
 app.set 'port', process.env.PORT || CONFIG.port
-
-templatizer = require 'templatizer' 
-fs.exists "#{CONFIG.dist}/js/cards_generator/templates/", (exists) ->
-	if not exists then fs.mkdir './dist/js/cards_generator/templates/'
-	templatizer "./src/jade/views",  "#{CONFIG.dist}/js/cards_generator/templates/templates.js"
-
-## server
-Db = require('mongodb').Db
-MongoClient = require('mongodb').MongoClient
-Server = require('mongodb').Server
-ReplSetServers = require('mongodb').ReplSetServers
-ObjectID = require('mongodb').ObjectID
-Binary = require('mongodb').Binary
-GridStore = require('mongodb').GridStore
-Grid = require('mongodb').Grid
-Code = require('mongodb').Code
-BSON = require('mongodb').pure().BSON
-assert = require('assert')
-
-## CONNECT DATABASES
 
 # Promise example
 # promise = new Promise (resolve, reject) ->
@@ -48,8 +37,9 @@ assert = require('assert')
 # 	console.log(result)
 # , (err) ->
 # 	console.log(err)
-
-
+app.use (err, req, res, next) ->
+	if err then res.status(500).send 'Server error'
+	next
 # SESSION
 # Redistore
 app.use session
@@ -78,7 +68,7 @@ routerController = require('./controller')
 routerController.initialize router
 require('./routes')(router, routerController)
 
-app.use (req, res, next) ->
+app.use ( err, req, res, next) ->
 	headersUserAgent = req.headers['user-agent']
 	agent = useragent.parse( headersUserAgent )
 	date = new Date()
@@ -95,7 +85,7 @@ app.use (req, res, next) ->
 		req.session.params = req.params
 	next()
 
-app.use router
+app.use '/', router
 
 start = ( envirement, callback ) -> 
 	# MongoClient
@@ -114,10 +104,10 @@ start = ( envirement, callback ) ->
 
 if not module.parent
 	start()
+else module.exports.start = start
 
 
-module.exports = 
-	start: start
+
 
 # app.configure "development", ->
 # app.configure "production", ->

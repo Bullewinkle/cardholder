@@ -15,11 +15,9 @@ module.exports =
 		router.controller = @
 		@router = router
 
-	getIndex: (req, res, next, args...) =>
+	getIndex: (req, res) =>
 		console.log  'index'
-		# index = require '../dist/index.html'
 		res.sendfile "#{CONFIG.dist}/index.html"
-		# next()
 
 	getCards: (req, res) =>
 		console.log 'getCards'

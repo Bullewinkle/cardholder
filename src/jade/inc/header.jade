@@ -1,1 +1,21 @@
 .header
+	.top_bar_region
+		ul(role="navigation").nav.nav-tabs.main_menu
+			li: a(href="/") Home
+			li: a(href="/cards-generator")  Cards-generator
+			li: a(href="/page")  Some page
+			li: a(href="/other-route")  Other route
+			li.dropdown
+				a(data-toggle="dropdown" href="#").dropdown-toggle API
+					span.caret
+				ul(role="menu").dropdown-menu
+
+					li(role="presentation" class="dropdown-header text-center") - CONFIG DATA -
+					li: a(href="/api/cards-generator") /api/cards-generator
+					li: a(href="/api/cards") /api/cards
+					li: a(href="/api/cards/1") /api/cards/:id
+
+					li(role="presentation" class="dropdown-header text-center") - APP DATA -
+					li: a(href="/api/data") /api/data
+					li: a(href="/api/data/names") /api/data/:property
+					li: a(href="/api/step-form") /api/step-form 

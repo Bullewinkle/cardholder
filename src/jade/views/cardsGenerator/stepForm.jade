@@ -1,0 +1,15 @@
+li.card.main_controller_wrapper
+	.main_controller
+		form(class="main_controller_form q1" action="/")
+			.main_controller_form_label Текст вопроса
+			.main_controller_form_input
+			button(type="submit" class="main_controller_form_submit icon-arrow-right2" value="")
+		.main_controller_form_statusbar
+			.main_controller_form_statusbar_value
+		.main_controller_form_statusbar_step
+			span.main_controller_form_statusbar_current 
+			| /  
+			span.main_controller_form_statusbar_quantity
+		.main_controller_form_controls
+			.main_controller_form_control.prev: a(class="icon-arrow-left")
+			.main_controller_form_control.next: a(class="icon-arrow-right")

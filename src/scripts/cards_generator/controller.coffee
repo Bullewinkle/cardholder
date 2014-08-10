@@ -3,16 +3,25 @@
 	class CardGenerator.Controller extends Marionette.Controller
 
 		initialize: ->
-			console.log 'Init: Controller1'
-		index: ->
-			console.log 'Route to index'
-		any: ->
-			console.log 'Route to any'
+			console.log 'Initialize: CardGenerator Controller'
 
-		notFound: ->
+		showHome: ->
+			console.log 'Route to home'
+			html = templatizer.welcome.welcomePage()
+			app.mainRegion.$el.html html
+		
+		showCardsGenerator: ->
+			console.log 'Route to Cards-generator'
+			html = templatizer.cardsGenerator.cardsGreed()
+			app.mainRegion.$el.html html
+
+		showPage: ->
+			console.log 'Route to page'
+			html = templatizer.page()
+			app.mainRegion.$el.html html
+			
+		showNotFound: ->
 			console.log '!!! NOT FOUND !!!'
-
-	# @addInitializer ->
-	# 	console.log 'Init: Controller2', @
-	# 	# @controller = new @Controller()
+			html = templatizer['404']()
+			app.mainRegion.$el.html html
 

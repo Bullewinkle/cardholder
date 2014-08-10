@@ -1,22 +1,5 @@
 delay = (ms, fn) -> setTimeout ms, fn
 
-@Generator = class Generator
-
-	constructor: (config) ->
-		$.extend(true,@, config.methods)
-		$.extend(true,@options, config.options)
-		
-	options: {}
-
-	addOption: (name, type = 'string', val = '') =>
-		@settings[name] = 
-			type: type
-			val: val
-
-	getOption: =>
-		return @settings 
-
-
 @Router = class Router extends Backbone.Router
 	logger: off
 
@@ -80,10 +63,8 @@ delay = (ms, fn) -> setTimeout ms, fn
 	cacheNodes: =>
 		@rootNode = $('.cards').eq(0)
 
-	registerGenerator: (name, cb) => 
-		@generators[name] = cb(Generator)
-		@generators[name].name = name
-
+	regions:
+		mainRegion: '#app'
 	# initColorScheme: =>
 	# 	scm = new ColorScheme()
 	# 	hue = app.getRandom(0.2, 359, 1)
@@ -122,15 +103,14 @@ delay = (ms, fn) -> setTimeout ms, fn
 
 @app = new App
 @app.addInitializer ->
-	console.info 'App started'
+	console.info 'App started', window.location.pathname
 	date = new Date()
 	@trigger 'initialize', 'at ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + '.' + date.getMilliseconds()
 	@bind 'all', (trigger, args) => 
 		if @logger is on
 			console.info 'App says :',trigger,args
-
-
 	@started = true
+
 	date = new Date()
 	@startTime = Date.now()
 	@trigger 'start', 'at ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + '.' + date.getMilliseconds()
@@ -155,10 +135,6 @@ delay = (ms, fn) -> setTimeout ms, fn
 
 	# $(window).on
 	# 	resize: onResize
-	
-	# @intervalRenderer()
-	
-	Backbone.history.start()
 
 jQuery =>
 	@app.start()
