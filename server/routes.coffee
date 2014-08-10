@@ -1,9 +1,11 @@
 controller = require './controller'
+session = require 'express-session'
+RedisStore = require('connect-redis')(session)
 
 module.exports = (router) ->
 
 	# router.get '/', controller.getIndex 
- 
+
 	router.get '/cards', controller.getCards
 
 	router.get '/cards/:cardId', controller.getCardById
@@ -20,7 +22,6 @@ module.exports = (router) ->
 
 	router.get '/fonts-list/:font', controller.getFontByName
 
-
-	router.all '/*', controller.getIndex 
+	router.all '/**', controller.getIndex 
 
 	router

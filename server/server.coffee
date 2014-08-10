@@ -1,163 +1,137 @@
-# require('node-monkey').start
-# 	host: '0.0.0.0'
-# 	port: '7878'
 console.log '\n\n<---------SERVER LOG--------->\n'
-
 ## common
 CONFIG = require './config'
 fs = require 'fs'
-# bodyParser = require('body-parser')
 express = require 'express'
+session = require 'express-session'
+useragent = require('useragent')
+useragent(true)
+# SESSION
+GLOBAL.Promise = require 'bluebird'
+# default port is 6379
+# app.use expressSession
+# 	secret: "notagoodsecret"
+# 	# //cookie: {httpOnly: true, secure: true},
+# 	cookie:
+# 		httpOnly: true
+
+
+
+RedisStore = require('connect-redis')(session)
+console.log RedisStore
+
 app = express()
+
 app.set 'port', process.env.PORT || CONFIG.port
 
 templatizer = require 'templatizer' 
 # io = require('socket.io')(http);
 # Make jade templates available in browsers via javascript template functions
 # Build the dynamically generated template functions for client usage
-fs.mkdir './dist/js/cards_generator/templates/'
-templatizer './src', './dist/js/cards_generator/templates/templates.js'
+fs.exists "#{CONFIG.dist}/js/cards_generator/templates/", (exists) ->
+	if not exists then fs.mkdir './dist/js/cards_generator/templates/'
+	templatizer "./src/jade/views",  "#{CONFIG.dist}/js/cards_generator/templates/templates.js"
 
 ## server
 http = require 'http'
-# restify = require 'restify'
-# server = restify.createServer()
-# server.use restify.bodyParser()
 
-## mongoDB
-mongoose = require 'mongoose/'
-# db = mongoose.connect config.creds.mongoose_auth_local
-Schema = mongoose.Schema
 
-## mongoose schema
-#Create a schema for our data
-MessageSchema = new Schema
-  message: String,
-  date: Date
-#Use the schema to register a model with Mongodb
-mongoose.model 'Message', MessageSchema
-Message = mongoose.model 'Message'
+Db = require('mongodb').Db
+MongoClient = require('mongodb').MongoClient
+Server = require('mongodb').Server
+ReplSetServers = require('mongodb').ReplSetServers
+ObjectID = require('mongodb').ObjectID
+Binary = require('mongodb').Binary
+GridStore = require('mongodb').GridStore
+Grid = require('mongodb').Grid
+Code = require('mongodb').Code
+BSON = require('mongodb').pure().BSON
+assert = require('assert')
 
-# STATIC FOLDERS
-app.use '/js', express.static("#{CONFIG.dist}/js")
-app.use '/css', express.static("#{CONFIG.dist}/css")
-app.use '/views', express.static("#{CONFIG.dist}/views")
-app.use '/assets', express.static("#{CONFIG.dist}/assets")
+console.log CONFIG.db
+
+## CONNECT DATABASES
+
+promise = new Promise (resolve, reject) ->
+	if (true)
+		resolve "Stuff worked!"
+
+	else
+		reject Error "It broken"
+
+console.log promise
+
+promise.then (result) ->
+	console.log(result)
+# "Stuff worked!"
+, (err) ->
+	console.log(err)
+# Error: "It broke"
+
+
+
+# Redistore
+app.use session
+	store: new RedisStore
+		host: '127.0.0.1'
+		port: CONFIG.db.rediss.port.dev
+		prefix:'sid_'
+	secret: "cardholder"
+	resave: true
+	saveUninitialized: true
+
 
 # ROUTER
 router = express.Router()
+router.use (req, res, next) ->
+	console.log req.url, req.params, req.query
+	next()
+# STATIC FOLDERS
+router.use '/js', express.static("#{CONFIG.dist}/js")
+router.use '/css', express.static("#{CONFIG.dist}/css")
+router.use '/views', express.static("#{CONFIG.dist}/views")
+router.use '/assets', express.static("#{CONFIG.dist}/assets")
+
 routerController = require('./controller')
 routerController.initialize router
 require('./routes')(router, routerController)
+
+app.use (req, res, next) ->
+	headersUserAgent = req.headers['user-agent']
+	agent = useragent.parse( headersUserAgent )
+	date = new Date()
+	date = date.toString()
+	if req.session
+		req.session.lastLogin = date
+		req.session.userAgent = agent
+		req.session.url = req.url
+		req.session.query = req.query
+		req.session.params = req.params
+	next()
+
 app.use router
-# ==================================================================>
-
-
-# app.all '/*', (req, res) ->
-# 	res.sendfile "#{CONFIG.dist}/index.html"
-# app.use express.static( CONFIG.dist )
-# ==================================================================>
-
-
-# app.engine 'jade', require('jade').__express
-# app.set 'views', __dirname + '/views'
-# app.set 'view engine', 'jade'
-# app.use app.router
-# app.use require('stylus').middleware({ src: __dirname + '/public' })
-# app.use express.favicon()
-# app.use express.logger('dev')
-# app.use helmet.xframe()
-# app.use helmet.iexss()
-# app.use helmet.contentTypeOptions()
-# app.use helmet.cacheControl()
-# app.use express.bodyParser()
-# app.use express.methodOverride()
-# app.use express.cookieParser()
-# app.use express.session
-	# secret: "notagoodsecret"
-	# # //cookie: {httpOnly: true, secure: true},
-	# cookie:
-	# 	httpOnly: true
-# app.counter = 0
-
-# app.use bodyParser.json()
-# app.use bodyParser.urlencoded
-# 	extended: true
 
 start = ( envirement, callback ) -> 
-	http.createServer( app ).listen CONFIG.port, ->
-		console.log "Express server listening on port " + CONFIG.port
+	# MongoClient
+	MongoClient.connect CONFIG.db.mongo.url.dev , native_parser: true , ( err, db) =>
+		if err then throw new Error err
+		module.db = db
+		console.log 'connecteding mongo...'
+		date = new Date()
+		date = date.toString()
+		http.createServer( app ).listen CONFIG.port, ->
+			console.log "Express server listening on port " + CONFIG.port
 
 if not module.parent
 	start()
 
+
 module.exports = 
 	start: start
-	
-
-
-
-
-
-
-
-# <================================================================================================================================================================================>
-# express = require("express")
-# http = require("http")
-# path = require("path")
-# helmet = require("helmet")
-
-# # Make jade templates available in browsers via javascript template functions
-# templatizer = require("templatizer")
-
-# # Build the dynamically generated template functions for client usage
-# templatizer __dirname + "\\views", __dirname + "/public/js/templates.js"
-# app = express()
-# app.configure ->
-#   app.set "port", process.env.PORT or 3000
-#   app.set "views", __dirname + "/views"
-#   app.set "view engine", "jade"
-#   app.use require("stylus").middleware(src: __dirname + "/public")
-#   app.use express.favicon()
-#   app.use express.logger("dev")
-#   app.use helmet.xframe()
-#   app.use helmet.iexss()
-#   app.use helmet.contentTypeOptions()
-#   app.use helmet.cacheControl()
-#   app.use express.bodyParser()
-#   app.use express.methodOverride()
-#   app.use express.cookieParser()
-#   app.use express.session(
-#     secret: "notagoodsecret"
-    
-#     #cookie: {httpOnly: true, secure: true},
-#     cookie:
-#       httpOnly: true
-#   )
-#   app.use express.csrf()
-#   app.use (req, res, next) ->
-#     res.locals.csrftoken = req.session._csrf
-#     next()
-#     return
-
-#   app.use app.router
-#   app.use express.static(path.join(__dirname, "public"))
-#   return
 
 # app.configure "development", ->
-#   app.use express.errorHandler()
-#   return
+# app.configure "production", ->
 
-
-# # Routes
-# require("./router") app
-# http.createServer(app).listen app.get("port"), ->
-#   console.log "Express server listening on port " + app.get("port")
-#   return
-
-
-# #process.setuid(config.uid);
-# #process.setgid(config.gid);
 # <================================================================================================================================================================================>
 
 console.log '\n<-------END SERVER LOG------->\n'
