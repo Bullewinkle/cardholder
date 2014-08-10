@@ -5,7 +5,6 @@ module.exports =
 		mongo: 
 			url: 
 				dev: 'mongodb://localhost/cardholder'
-				# prod: ''
 			port:
 				dev: 27017
 		rediss:

@@ -2,40 +2,26 @@ console.log '\n\n<---------SERVER LOG--------->\n'
 ## common
 CONFIG = require './config'
 fs = require 'fs'
+http = require 'http'
 express = require 'express'
 session = require 'express-session'
 useragent = require('useragent')
 useragent(true)
-# SESSION
+
 GLOBAL.Promise = require 'bluebird'
-# default port is 6379
-# app.use expressSession
-# 	secret: "notagoodsecret"
-# 	# //cookie: {httpOnly: true, secure: true},
-# 	cookie:
-# 		httpOnly: true
-
-
 
 RedisStore = require('connect-redis')(session)
 console.log RedisStore
 
 app = express()
-
 app.set 'port', process.env.PORT || CONFIG.port
 
 templatizer = require 'templatizer' 
-# io = require('socket.io')(http);
-# Make jade templates available in browsers via javascript template functions
-# Build the dynamically generated template functions for client usage
 fs.exists "#{CONFIG.dist}/js/cards_generator/templates/", (exists) ->
 	if not exists then fs.mkdir './dist/js/cards_generator/templates/'
 	templatizer "./src/jade/views",  "#{CONFIG.dist}/js/cards_generator/templates/templates.js"
 
 ## server
-http = require 'http'
-
-
 Db = require('mongodb').Db
 MongoClient = require('mongodb').MongoClient
 Server = require('mongodb').Server
@@ -48,28 +34,23 @@ Code = require('mongodb').Code
 BSON = require('mongodb').pure().BSON
 assert = require('assert')
 
-console.log CONFIG.db
-
 ## CONNECT DATABASES
 
-promise = new Promise (resolve, reject) ->
-	if (true)
-		resolve "Stuff worked!"
+# Promise example
+# promise = new Promise (resolve, reject) ->
+# 	if (true)
+# 		resolve "Stuff worked!"
+# 	else
+# 		reject Error "It broken"
+# console.log promise
 
-	else
-		reject Error "It broken"
-
-console.log promise
-
-promise.then (result) ->
-	console.log(result)
-# "Stuff worked!"
-, (err) ->
-	console.log(err)
-# Error: "It broke"
+# promise.then (result) ->
+# 	console.log(result)
+# , (err) ->
+# 	console.log(err)
 
 
-
+# SESSION
 # Redistore
 app.use session
 	store: new RedisStore
@@ -86,6 +67,7 @@ router = express.Router()
 router.use (req, res, next) ->
 	console.log req.url, req.params, req.query
 	next()
+
 # STATIC FOLDERS
 router.use '/js', express.static("#{CONFIG.dist}/js")
 router.use '/css', express.static("#{CONFIG.dist}/css")
@@ -101,7 +83,11 @@ app.use (req, res, next) ->
 	agent = useragent.parse( headersUserAgent )
 	date = new Date()
 	date = date.toString()
+	#mongoDB testing
+	module.db.collection('users').update {name: 'default user'}, {name: 'default user', lastLogin: date}, (args...) -> 
+		true
 	if req.session
+		req.session.name = 'default user'
 		req.session.lastLogin = date
 		req.session.userAgent = agent
 		req.session.url = req.url
@@ -116,9 +102,13 @@ start = ( envirement, callback ) ->
 	MongoClient.connect CONFIG.db.mongo.url.dev , native_parser: true , ( err, db) =>
 		if err then throw new Error err
 		module.db = db
-		console.log 'connecteding mongo...'
+		console.log 'mongodb connected'
 		date = new Date()
 		date = date.toString()
+		
+		db.collection('users').update {name: 'default user'}, {name: 'default user', lastLogin: date}, (args...) -> 
+			true
+
 		http.createServer( app ).listen CONFIG.port, ->
 			console.log "Express server listening on port " + CONFIG.port
 
