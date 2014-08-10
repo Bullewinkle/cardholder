@@ -1,5 +1,16 @@
 app.module 'CardGenerator', ->
 	@addInitializer ->
+
+
+
+
+		html = templatizer.cardsgreed()		
+		$('#app').html html
+
+
+
+
+
 		console.log 'Init: CardGenerator', @Router
 
 		@router = new @Router()
