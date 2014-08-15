@@ -12,9 +12,9 @@
 		#1
 		(context,args...) ->
 
-			if !gen.options.defaultOptions
+			if !gen.options.isDefault
 				randomVal1 = gen.options.definedVal1
-			else if gen.options.defaultOptions
+			else if gen.options.isDefault
 				randomVal1 = app.getRandom(0,gen.options.colorScheme.length-1)
 
 			context.fillStyle = '#fff'
@@ -32,17 +32,17 @@
 		context = canvas.getContext("2d")
 
 		$.extend( @options,model.get 'generators.'+ @name )
-		if model.get 'generators.'+ @name+ '.defaultOptions'
+		if model.get 'generators.'+ @name+ '.isDefault'
 
 			randomVariant = app.getRandom(0, @gradientVariants.length-1)
 
 			@gradientVariants[ randomVariant ](context)
 			@options.gradientVariantNum = randomVariant
 
-			@options.defaultOptions = false
+			@options.isDefault = false
 
-		else if !model.get 'generators.'+ @name+ '.defaultOptions'
-			@defaultOptions = false
+		else if !model.get 'generators.'+ @name+ '.isDefault'
+			@isDefault = false
 			predefinedVariant = model.get 'generators.'+ @name+ '.gradientVariantNum'
 			@gradientVariants[ predefinedVariant ](context)
 

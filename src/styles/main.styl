@@ -6,7 +6,7 @@
 #app
 	position relative
 	height 0
-	padding 2.25% 0 54% 0
+	padding 0 0 56.25% 0
 
 #cardsGreed
 	width 100%
@@ -22,7 +22,7 @@
 	height 100%
 
 .card
-.main_controller_wrapper
+.step-form-controller
 	position relative
 	float left
 	width 19.4%
@@ -32,6 +32,7 @@
 	border 0px solid transparent
 	border-radius: 2px
 	z-index 1
+
 
 .card
 	transition transform 0.5s
@@ -50,6 +51,8 @@
 		box-shadow 0 0 1px 1px #000, -3px 5px 5px 0 rgba(0,0,0,0.4)
 		transform rotateY( 180deg ) 
 
+	&:nth-child(13)
+		margin 0 20.3% 0 0.3%
 
 	// &.fliped &_inner_werapper
 	// 	box-shadow 0 0 1px 1px #000, -3px 5px 5px 0 rgba(0,0,0,0.4)
@@ -116,7 +119,7 @@
 				background #fff
 				transform rotateY( 180deg ) 
 	
-.main_controller
+.step_form_controller
 	
 	&_wrapper
 		overflow hidden
@@ -186,7 +189,7 @@
 			left 0
 			width 100%
 			font-size 25px
-		main_controller_form_control
+		step_form_controller_form_control
 		&_control
 			width 25px
 			height 25px

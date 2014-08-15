@@ -1,8 +1,8 @@
-@app.module 'CardGenerator.models', (Models) ->
-	class Models.CardModel extends Backbone.DeepModel
+@app.module 'CardGenerator.cards', (Cards) ->
+	class Cards.CardModel extends Backbone.DeepModel
 		defaults: 
 			data:
-				defaultData: true
+				isDefault: true
 				sex: 'male'
 				name: 'Default'
 				surname: 'Default'
@@ -12,7 +12,7 @@
 
 			generators:
 				gradientGen: 
-					defaultOptions: true
+					isDefault: true
 					gradientVariantNum: 0
 					gradientType: 'linear'
 					gradientDirection: '45deg'
@@ -22,6 +22,6 @@
 					# fromColor: '#000'
 					# toColor: 'transparent'
 				textGen:
-					defaultOptions: true
+					isDefault: true
 					textAlign: 'auto'
 					fontFamily: 'sans-serif'

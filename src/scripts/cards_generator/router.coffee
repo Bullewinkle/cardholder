@@ -1,11 +1,11 @@
 @app.module 'CardGenerator', (CardGenerator) ->
-
 	class CardGenerator.Router extends Marionette.AppRouter
 
+		logger: off
+
 		initialize: ->
-			console.log 'Init: Router1'
 			@bind 'all', ->
-				console.info 'CardGenerator Router:', arguments
+				console.info 'CardGenerator Router:', arguments if @logger is on
 
 		appRoutes: 
 			'(/)': 'showHome'

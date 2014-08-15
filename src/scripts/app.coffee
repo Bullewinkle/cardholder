@@ -29,7 +29,7 @@ delay = (ms, fn) -> setTimeout ms, fn
 		$('#app').find('.cards').show()
 
 @App = class App extends Marionette.Application
-	logger: off
+	logger: on
 
 	# router: new Router
 	
@@ -103,7 +103,7 @@ delay = (ms, fn) -> setTimeout ms, fn
 
 @app = new App
 @app.addInitializer ->
-	console.info 'App started', window.location.pathname
+	console.info 'App started', arguments
 	date = new Date()
 	@trigger 'initialize', 'at ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + '.' + date.getMilliseconds()
 	@bind 'all', (trigger, args) => 
@@ -119,7 +119,7 @@ delay = (ms, fn) -> setTimeout ms, fn
 
 	# @controllerModel = new App.MainControllerModel
 	# @controllerView = new App.MainControllerView
-	# 	el: $('.main_controller_wrapper')
+	# 	el: $('.step_form_controller_wrapper')
 	# 	model: @controllerModel
 
 	# @cardsCollection = new App.CardsCollection
@@ -129,13 +129,12 @@ delay = (ms, fn) -> setTimeout ms, fn
 	# 	el: $('.cards','#app')
 	# 	collection: @cardsCollection
 
-	# onResize = _.debounce =>
-	# 	@trigger 'resize'
-	# 	console.log  @cardsCollectionView.$el.height()
-
-	# $(window).on
-	# 	resize: onResize
+	onResize = _.debounce =>
+		@trigger 'resize'
+	$(window).on
+		resize: onResize
 
 jQuery =>
-	@app.start()
+	@app.start
+		hello: true
 

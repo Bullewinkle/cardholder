@@ -1,33 +1,38 @@
-@app.module 'CardGenerator.views', (Views) ->
-	class Views.MainControllerView extends Backbone.View
+@app.module 'CardGenerator.stepForm', (StepForm) ->
+	class StepForm.StepFormView extends Backbone.View
 		loger: off
 
+		template: (model) ->
+			templatizer.cardsGenerator.stepForm
+				data: model
+				
 		tagName: 'li'
-		className: 'main_controller_wrapper'
-		el: $('.main_controller_wrapper')[0]
+		className: 'card step_form_controller_wrapper'
+		# el: $('.step_form_controller_wrapper')[0]
 
 		events: 
-			'submit .main_controller_form': 'submit'
-			'click .main_controller_form_control.prev': 'stepPrev'
-			'click .main_controller_form_control.next': 'stepNext'
-			'select2-selecting .main_controller_form_input': 'select2ChoiseSelected'
-			'select2-removed .main_controller_form_input': 'select2choiseRemoved'
+			'submit .step_form_controller_form': 'submit'
+			'click .step_form_controller_form_control.prev': 'stepPrev'
+			'click .step_form_controller_form_control.next': 'stepNext'
+			'select2-selecting .step_form_controller_form_input': 'select2ChoiseSelected'
+			'select2-removed .step_form_controller_form_input': 'select2choiseRemoved'
 
 		initialize: =>
-			@bind 'all', (trigger, args) => 
-				if @loger is on
-					console.info 'MainControllerView says :',trigger,args
+			@model = new StepForm.StepFormModel()
+			# @bind 'all', (trigger, args) => 
+			# 	if @loger is on
+			# 		console.info 'StepFormView says :',trigger,args
 
-			@elements = 
-				formNode : @$('.main_controller_form')
-				questionNode : @$('.main_controller_form_label')
-				inputNode : @$('.main_controller_form_input')
-				currentStepNode : @$('.main_controller_form_statusbar_current')
-				questionsQuantityNode : @$('.main_controller_form_statusbar_quantity')
-				controls : 
-					prev: @$('.main_controller_form_control.prev')
-					next: @$('.main_controller_form_control.next')
-			@start()
+			# @elements = 
+			# 	formNode : @$('.step_form_controller_form')
+			# 	questionNode : @$('.step_form_controller_form_label')
+			# 	inputNode : @$('.step_form_controller_form_input')
+			# 	currentStepNode : @$('.step_form_controller_form_statusbar_current')
+			# 	questionsQuantityNode : @$('.step_form_controller_form_statusbar_quantity')
+			# 	controls : 
+			# 		prev: @$('.step_form_controller_form_control.prev')
+			# 		next: @$('.step_form_controller_form_control.next')
+			# @start()
 
 		start: =>
 			@trigger 'start'
@@ -86,7 +91,7 @@
 
 		submit: (e) =>
 			e.preventDefault()
-			formVal = @$('.main_controller_form_statusbar_value')
+			formVal = @$('.step_form_controller_form_statusbar_value')
 			questionNum = @formStep
 			questionNum++
 			formVal.width (100/ @questions.length * (questionNum-1) + '%')
@@ -153,4 +158,4 @@
 			if @formStep is 2
 				@surnames = []
 
-		render: =>
+		# render: =>

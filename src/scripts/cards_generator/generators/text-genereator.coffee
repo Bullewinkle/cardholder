@@ -1,28 +1,30 @@
-@app.module 'CardGenerator.generators.textGen', (TextGen) ->
-
-	@options = {}
-
+@app.module 'CardGenerator.generators.textGen', (TextGen, app, Backbone, Marionette, $, _) ->
+	# TODO make text rendering with out triggering Resize (yes, it is posible)
 	@draw = (canvas,model,args...) ->
-		options = model.get 'generators.' + @name
+		# get current text ptions and card info from model
+		srcData = app.CardGenerator.data.get 'appdata'
+		srcData.textAligns = ['left','center','right']
+		fontsList = app.CardGenerator.data.get 'fontsList'
+		textOptions = model.get 'generators.textGen'
 		cardData = model.get 'data'
-
-		srcData = app.data.attributes
-
-		name = model.get 'data.name'
-		surname = model.get 'data.surname'
-		sex = model.get 'data.sex'
-		phone = model.get 'data.phone'
-		eMail = model.get 'data.eMail'
-		position = model.get 'data.position'
-
-		textAligns = ['left','center','right']
-		textAlign = options.textAlign
-		fontsList = app.data.get 'fontsList'
-		fontFamily = options.fontFamily
+		
+		# card info
+		name = cardData.name
+		surname = cardData.surname
+		sex = cardData.sex
+		phone = cardData.phone
+		eMail = cardData.eMail
+		position = cardData.position
+		
+		# text ptions
+		textAlign = textOptions.textAlign
+		fontFamily = textOptions.fontFamily
 
 		context = canvas.getContext('2d')
 
 		renderText = (fontFamily) ->
+			console.log 'render'
+			fontFamily = 'sans-serif'
 			if fontFamily is 'sans-serif'
 				font = fontFamily
 			else 
@@ -76,6 +78,7 @@
 
 			context.save()
 
+		# generateRandomCardInfo
 		renderInitials = (name, surname) ->
 
 			if sex is 'male'
@@ -87,68 +90,65 @@
 					surname = surname+'ая'
 				else
 					surname = surname+'a' 
-			name + ' ' + surname
+			name + ' ' + surname					
+		generateRandomCardInfo = (cardData) ->
 
+		if cardData.isDefault
+			cardData
+			# console.log 'cardData default'
+			#add all new values to this object
+			randomCardInfo =
+				isDefault: false
 
-		if cardData.defaultData
-			newData = {}
+			#local variables
 			randomNameNum = app.getRandom(0, srcData.names.length-1 )
-
-			name =  srcData.names[ randomNameNum ].text
-			newData.name = name
-
-			sex = srcData.names[ randomNameNum ].sex
-			newData.sex = sex
-
-			surname =  srcData.surnames[ app.getRandom(0, srcData.surnames.length-1 ) ]
-			newData.surname = surname
-
 			randomPhoneEnd = app.getRandom(0, srcData.names.length-1 )
-			if (''+ randomPhoneEnd).length < 2 
-				randomPhoneEnd = '0' + randomPhoneEnd
-			phone = '+7-' + srcData.phones + randomPhoneEnd
-			newData.phone = phone
+			randomPhoneEnd = '0' + randomPhoneEnd if (''+ randomPhoneEnd).length < 2 
+			#end local variables
 
-			eMail =  srcData.emails[ app.getRandom(0, srcData.emails.length-1 ) ]
-			newData.eMail = eMail
+			randomCardInfo.sex = srcData.names[ randomNameNum ].sex
+			randomCardInfo.name =  srcData.names[ randomNameNum ].text
+			randomCardInfo.surname =  srcData.surnames[ app.getRandom(0, srcData.surnames.length-1 ) ]
+			randomCardInfo.eMail =  srcData.emails[ app.getRandom(0, srcData.emails.length-1 ) ]
+			randomCardInfo.position =  srcData.positions[ app.getRandom(0, srcData.positions.length-1 ) ]
+			randomCardInfo.phone = '+7-' + srcData.phones + randomPhoneEnd
 
-			position =  srcData.positions[ app.getRandom(0, srcData.positions.length-1 ) ]
-			newData.position = position
-
-			newData.defaultData = false
-			model.set 'data', newData,
+			# set new card info to model
+			model.set 'data', randomCardInfo,
 				silent: true
 
-		if options.defaultOptions
+		if textOptions.isDefault
+			# console.log 'textOptions default', textOptions
+			randomCardInfo =
+				isDefault: false
 
-			textAlign = textAligns[app.getRandom(0,textAligns.length-1)]
-			model.set 'generators.'+@name+'.textAlign', textAlign,
-				silent: true
-			randomFontNumber = app.getRandom(0,app.data.get 'fontsList' .length-1)
-			randomFont = app.data.get 'fontsList'
-			fontFamily = ''+ randomFont[randomFontNumber]
+			#local variables
+			#end local variables
+
+			randomCardInfo.textAlign = srcData.textAligns[app.getRandom(0,srcData.textAligns.length-1)]
+			randomCardInfo.fontFamily = ''+ fontsList[ app.getRandom(0, fontsList.length-1) ]
+			# debugger;
 
 			# Load fonts dinamicaly through google web loader
 			WebFont.load
-
 				custom:
-					families: [fontFamily]
-					urls: ['/assets/font/card_fonts/' + fontFamily + '/' + fontFamily + '.css']
-				active: =>
+					families: [randomCardInfo.fontFamily]
+					urls: ['/assets/font/card_fonts/' + randomCardInfo.fontFamily + '/' + randomCardInfo.fontFamily + '.css']
+				fontloading:  =>
+					# console.log 'fontloading:\t', arguments
+				fontactive: (fontFamily, fontOptions)  =>
+					# console.log 'fontactive:\t \t', fontFamily
 					renderText(fontFamily)
-					model.set 'generators.' + @name + '.fontFamily', fontFamily,
-						silent: true
-				loading: =>
-				fontloading: =>
-				fontactive: =>
-				inactive: =>	
-					renderText( model.defaults.generators[ @name ].fontFamily )
-					console.log 'INACTIVE FONT : ' + fontFamily
-				fontinactive: =>
+				fontinactive:  =>
+					# console.log 'fontinactive:\t \t', arguments
+					renderText( fontFamily )
+			# set new card info to model
+			model.set 'generators.textGen', randomCardInfo,
+				silent: true
 
-		
-		else
+		else 
+			console.warn 'not default!!!'
 			renderText(fontFamily)
 
-		model.set 'generators.'+@name+'.defaultOptions', false,
+		model.set 'generators.textGen.isDefault', false,
 			silent: true

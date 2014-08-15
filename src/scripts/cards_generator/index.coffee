@@ -1,14 +1,16 @@
 app.module 'CardGenerator', (CardGenerator) ->
 	@addInitializer ->
-		console.log 'Initializing: CardGenerator module...'
+		console.debug 'Initializing: CardGenerator module...'
+
+		# @bind 'all', =>
+		# 	console.log arguments
 
 		@controller =  new CardGenerator.Controller
-		@router = new CardGenerator.Router
-			controller: @controller
+		@router = new CardGenerator.Router controller: @controller
 
-		@data = new Backbone.Model
-		@state = new Backbone.Model
-		@data.set dataFromServer.appdata
+		@data = new Backbone.DeepModel dataFromServer
+
+		@cardsView = new CardGenerator.CardsView
 
 		$("a[href^='/']","body").click  (e) =>
 			href = $(e.target).attr 'href'
@@ -29,4 +31,3 @@ app.module 'CardGenerator', (CardGenerator) ->
 		if not Backbone.history.started
 			Backbone.history.start
 				pushState: true
-			console.log 'backbone history started'
