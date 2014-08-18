@@ -13,7 +13,7 @@
 	top 55px
 
 .card
-.step_form_controller_wrapper
+.step-form-controller-wrapper
 	position relative
 	float left
 	width 19%
@@ -29,45 +29,45 @@
 	transition box-shadow 0.5s
 	text-align center
 
-	&.is_fliping
+	&.is-fliping
 		z-index 10
 		&:before
 			background rgba(0,0,0,0) !important
-	&.is_fliping .js_lock_config_button
+	&.is-fliping .js-lock-config-button
 		display none
-	&.is_fliping &_perspective_inner_wrapper:before
+	&.is-fliping &-perspective-inner-wrapper:before
 		background none !important
-	&.fliped &_perspective_inner_wrapper
+	&.fliped &-perspective-inner-wrapper
 		box-shadow 0 0 1px 1px #000, -3px 5px 5px 0 rgba(0,0,0,0.4)
 		transform rotateY( 180deg ) 
 
 
-	// &.fliped &_inner_werapper
+	// &.fliped &-inner-werapper
 	// 	box-shadow 0 0 1px 1px #000, -3px 5px 5px 0 rgba(0,0,0,0.4)
 
-	// &.fliped_0-90 &_inner_werapper
+	// &.fliped-0-90 &-inner-werapper
 	// 	box-shadow 0 0 1px 1px #000, 3px 5px 5px 0px rgba(0,0,0,0.4)
-	// 	animation fliped_0-90  0.5s alternate both ease-in
-	// &.fliped_90-0 &_inner_werapper
+	// 	animation fliped-0-90  0.5s alternate both ease-in
+	// &.fliped-90-0 &-inner-werapper
 	// 	box-shadow 0 0 1px 1px #000, 3px 5px 5px 0px rgba(0,0,0,0.4)
 	// 	transform rotateY( 180deg ) 
-	// 	animation fliped_90-0  0.5s alternate both ease-out
-	// &.fliped_90-180 &_inner_werapper
+	// 	animation fliped-90-0  0.5s alternate both ease-out
+	// &.fliped-90-180 &-inner-werapper
 	// 	box-shadow 0 0 1px 1px #000, -3px 5px 5px 0px rgba(0,0,0,0.4)
-	// 	animation fliped_90-180 0.5s alternate both ease-out
-	// 	& .card_canvas
+	// 	animation fliped-90-180 0.5s alternate both ease-out
+	// 	& .card-canvas
 	// 	transform rotateY( 180deg ) 
-	// &.fliped_180-90 &_inner_werapper
+	// &.fliped-180-90 &-inner-werapper
 	// 	box-shadow 0 0 1px 1px #000, -3px 5px 5px 0px rgba(0,0,0,0.4)
-	// 	animation fliped_180-90 0.5s alternate both ease-in
-	// 	& .card_canvas
+	// 	animation fliped-180-90 0.5s alternate both ease-in
+	// 	& .card-canvas
 	// 	transform rotateY( 180deg ) 
 
 
-	// &.fliped &_inner_werapper
+	// &.fliped &-inner-werapper
 	// 	box-shadow 0 0 1px 1px #000, -3px 5px 5px 0 rgba(0,0,0,0.4)
 	// 	transform rotateY( 180deg ) 
-	// &.fliped .card_canvas
+	// &.fliped .card-canvas
 	// 	transform rotateY( 180deg ) 
 
 
@@ -84,11 +84,11 @@
 		background rgba(0,0,0,0.0)
 		transition all .3s ease
 		z-index 10
-	&_perspective
+	&-perspective
 		width 100%
 		height 100%
 		perspective 660px
-		&_inner_wrapper
+		&-inner-wrapper
 			position absolute
 			width 100%
 			height 100%
@@ -107,9 +107,9 @@
 				background #fff
 				transform rotateY( 180deg ) 
 	
-.step_form_controller
+.step-form-controller
 	
-	&_wrapper
+	&-wrapper
 		overflow hidden
 		box-shadow 0px 0px 0px 1px rgba(0,0,0,0.2) inset, 0px 6px 4px -4px rgba(0,0,0,0.4) inset,  0 0 7px 2px rgba(0,0,0,0.4) inset
 
@@ -129,12 +129,12 @@
 	user-select: none
 
 
-	&_form
+	&-form
 		width 100%
 		height 100%
 		float left
 
-		&_input
+		&-input
 			position absolute
 			top 40px
 			left 0
@@ -145,18 +145,18 @@
 			font-size 1em
 			padding 0
 
-		&_label
+		&-label
 			position absolute
 			top 2px
 			left 0
-		&_statusbar
+		&-statusbar
 			position absolute
 			top 70px
 			width 100%
 			height 30px
 			overflow hidden
 			border-top: 1px solid
-			&_value
+			&-value
 				position absolute
 				top 0
 				left 0
@@ -165,20 +165,20 @@
 				background #090
 				transition width .2s ease
 
-			&_step
+			&-step
 				position: absolute
 				bottom: 3px
 				width: 100%
 				text-align: center
 
-		&_controls
+		&-controls
 			position absolute
 			bottom 0
 			left 0
 			width 100%
 			font-size 25px
-		step_form_controller_form_control
-		&_control
+		step-form-controller-form-control
+		&-control
 			width 25px
 			height 25px
 			cursor pointer
@@ -192,7 +192,7 @@
 				margin-right: 1px
 				position relative
 
-		&_submit
+		&-submit
 			position absolute
 			top 43px
 			right 3px
@@ -204,8 +204,8 @@
 			font-size: 20px;
 			hover-color red
 
-.card_canvas
-.card_svg
+.card-canvas
+.card-svg
 	display block
 	transition none
 	width 100%
@@ -216,8 +216,8 @@
 	z-index 1
 	backface-visibility hidden
 
-.js_lock_config_button
-	&_wrapper
+.js-lock-config-button
+	&-wrapper
 		position absolute
 		top 0
 		left 0
@@ -259,7 +259,7 @@
 		transition all .2s ease
 		transform translate(-100%,0)
 
-.locked .js_lock_config_button
+.locked .js-lock-config-button
 	color #000
 	text-shadow 1px 1px 3px rgba(0,0,0,0.4)
 	&:before

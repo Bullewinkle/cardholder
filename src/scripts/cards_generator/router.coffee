@@ -14,4 +14,7 @@
 			'*other': 'showNotFound'
 
 		onRoute: (trigger, route, params) ->
-			$('.main_menu').find("a[href='#{window.location.pathname}']").eq(0).parent().addClass('active').siblings().removeClass('active')
+			# add new current link class 'active'
+			$activeLink = $('.main-menu').find("a[href='#{window.location.pathname}']").eq(0).parent()
+			if $activeLink.length is 0 then $activeLink = $('.main-menu').find("a[href='/other-route']").eq(0).parent()
+			$activeLink.addClass('active').siblings().removeClass('active')

@@ -1,35 +1,7 @@
 delay = (ms, fn) -> setTimeout ms, fn
 
-@Router = class Router extends Backbone.Router
-	logger: off
-
-	initialize: =>
-		@bind 'all', (trigger, args) => 
-			if @logger is on
-				console.info 'Router says :',trigger,args
-
-	routes:
-		'(/)' : 'root'
-		'json' : 'getJson'
-
-	getJson: =>
-		console.log window.location.href
-		$('#app').find('.cards').hide()
-		$('#app').find('.js_json_route').text('Back').attr('href','#')
-
-		mainJson = {}
-		mainJson.cardsCollection = app.cardsCollection.toJSON()
-		mainJson.userAgent = window.navigator.userAgent
-		$('#app').append '<pre id="main-json">' + JSON.stringify(mainJson, null, "\t") + '</pre>'
-
-	root: =>
-		console.log window.location.href
-		$('#app').find('.js_json_route').text('View JSON').attr('href','#/json')
-		$('#main-json').remove()
-		$('#app').find('.cards').show()
-
 @App = class App extends Marionette.Application
-	logger: on
+	logger: off
 
 	# router: new Router
 	
@@ -103,17 +75,14 @@ delay = (ms, fn) -> setTimeout ms, fn
 
 @app = new App
 @app.addInitializer ->
-	console.info 'App started', arguments
 	date = new Date()
 	@trigger 'initialize', 'at ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + '.' + date.getMilliseconds()
 	@bind 'all', (trigger, args) => 
 		if @logger is on
 			console.info 'App says :',trigger,args
-	@started = true
-
-	date = new Date()
 	@startTime = Date.now()
 	@trigger 'start', 'at ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + '.' + date.getMilliseconds()
+	@started = true
 	# @initColorScheme()
 
 
@@ -131,10 +100,10 @@ delay = (ms, fn) -> setTimeout ms, fn
 
 	onResize = _.debounce =>
 		@trigger 'resize'
+	, 250
 	$(window).on
 		resize: onResize
 
 jQuery =>
-	@app.start
-		hello: true
+	@app.start()
 

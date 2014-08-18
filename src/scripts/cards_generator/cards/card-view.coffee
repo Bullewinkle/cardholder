@@ -7,17 +7,16 @@
 		className: 'card'
 
 		ui:
-			canvasFront: '.card_canvas.back'
-			canvasBack: '.card_canvas.front'
+			canvasFront: '.card-canvas.back'
+			canvasBack: '.card-canvas.front'
 
 		template: =>
 			templatizer.cardsGenerator.card @model
-		# events:
-			# 'mouseenter':  'mouseenter'
-			# 'mouseleave':  'mouseleave'
-			# 'click .js_lock_config_button': 'locker'
-			# 'transitionend': 'transitionCallback'
-			# 'resize': 'resizer'
+		events:
+			'mouseenter':  'onMouseEnter'
+			'mouseleave':  'onMouseLeave'
+			'click .js-lock-config-button': 'onLockButtonClicked'
+			'transitionend': 'transitionCallback'
 
 		# modelEvents: {}
 		initialize: ->
@@ -25,14 +24,14 @@
 				console.log "CARD ITEM VIEW:\t \t \t", arguments if @logger is on
 
 			@model.view = @
-			# @listenTo @model,'change',@render
+			@listenTo @model,'change',@renderCanvas
 			@listenTo app,'resize', @resize
 
-		onShow: =>
+		renderCanvas: =>
 			if @$el.hasClass 'fliped'
-				 canvas = @$el.find('.card_canvas.back')[0]
+				 canvas = @$el.find('.card-canvas.back')[0]
 			else
-				canvas = @$el.find('.card_canvas.front')[0]
+				canvas = @$el.find('.card-canvas.front')[0]
 
 			canvas.width = @$el.width()
 			canvas.height = @$el.height()
@@ -42,10 +41,10 @@
 			@renderLayer1(canvas)
 			# @renderLayer2(canvas)
 			@renderLayer3(canvas)
+			
 			@
-
-		# onRender: =>
-
+		onShow: =>
+			@renderCanvas()
 
 		# initColorScheme: =>
 		# 	scm = new ColorScheme()
@@ -54,45 +53,29 @@
 		# 	variations = ['default', 'pastel', 'soft', 'light', 'hard', 'pale' ]
 		# 	variation = variations[ app.getRandom(0, variations.length-1) ]
 		# 	console.log variation
-		# 	scm.from_hue(hue)
+		# 	scm.from-hue(hue)
 		# 	.scheme('tetrade')
 		# 	.distance(0.1)
-		# 	.add_complement(false)
+		# 	.add-complement(false)
 		# 	.variation(variation)
-		# 	.web_safe(false)
+		# 	.web-safe(false)
 		# 	@model.set 'colorScheme', scm.colors()
 		# 	console.log @model
 
 		# transitionCallback : (e) =>
 		# 	e.view = @
 		# 	propertyName = e.originalEvent.propertyName
-		# 	if e.target is @$el.find('.card_perspective_inner_wrapper')[0] and propertyName.search('transform') > -1
-		# 		if @$el.hasClass 'is_fliping'
-		# 			@$el.removeClass 'is_fliping'
+		# 	if e.target is @$el.find('.card-perspective-inner-wrapper')[0] and propertyName.search('transform') > -1
+		# 		if @$el.hasClass 'is-fliping'
+		# 			@$el.removeClass 'is-fliping'
 		# 	@trigger 'transitionend', e
 
 
-		# render: =>
-		# 	if @$el.hasClass 'fliped'
-		# 		canvas = @$el.find('.card_canvas.back')[0]
-		# 	else
-		# 		canvas = @$el.find('.card_canvas.front')[0]
-
-		# 	canvas.width = @$el.width()
-		# 	canvas.height = @$el.height()
-		# 	# @initColorScheme()
-
-		# 	# console.log @model
-		# 	@renderLayer1(canvas)
-		# 	# @renderLayer2(canvas)
-		# 	@renderLayer3(canvas)
-		# 	@
-		
 		# animatedRender: =>
 		# 	if !@$el.hasClass 'fliped'
-		# 		canvas = @$el.find('.card_canvas.back')[0]
+		# 		canvas = @$el.find('.card-canvas.back')[0]
 		# 	else
-		# 		canvas = @$el.find('.card_canvas.front')[0]
+		# 		canvas = @$el.find('.card-canvas.front')[0]
 
 		# 	canvas.width = @$el.width()
 		# 	canvas.height = @$el.height()
@@ -108,7 +91,7 @@
 			
 		# 	# afterFlip = ->
 		# 	# 	@trigger 'afterFlip' , 
-		# 		# @$el.removeClass 'is_fliping'
+		# 		# @$el.removeClass 'is-fliping'
 		# 	# console.log ((@model.id-1) * transitionD*0.2).toFixed()
 		# 	# setTimeout flip, ((@model.id-1) * 200).toFixed()
 				
@@ -118,45 +101,42 @@
 		# flip: =>
 		# 	@trigger 'flip'
 		# 	@$el.toggleClass 'fliped'
-		# 	@$el.addClass 'is_fliping'
+		# 	@$el.addClass 'is-fliping'
+		# 	# if @$el.hasClass 'fliped-90-0'
+		# 	# 	@$el.removeClass 'fliped-90-0'
+		# 	# 	@$el.addClass 'fliped-0-90'
 
-		# 	@trigger 'flip'
-		# 	@$el.addClass 'is_fliping'
-		# 	# if @$el.hasClass 'fliped_90-0'
-		# 	# 	@$el.removeClass 'fliped_90-0'
-		# 	# 	@$el.addClass 'fliped_0-90'
-
-		# 	# else if @$el.hasClass 'fliped_90-180'
-		# 	# 	@$el.removeClass 'fliped_90-180'
-		# 	# 	@$el.addClass 'fliped_180-90'
+		# 	# else if @$el.hasClass 'fliped-90-180'
+		# 	# 	@$el.removeClass 'fliped-90-180'
+		# 	# 	@$el.addClass 'fliped-180-90'
 		# 	# else
-		# 	# 	@$el.addClass 'fliped_0-90'
+		# 	# 	@$el.addClass 'fliped-0-90'
 
-		# 	# @$el.addClass 'is_fliping'
+		# 	# @$el.addClass 'is-fliping'
 		# 	setTimeout () =>
 		# 		console.log animationD,transitionD
-		# 		animationD = ( parseFloat @$el.find('.card_perspective_inner_wrapper').css 'animation-duration' ) * 1000
-		# 		canvas = @$el.find('.card_canvas.front')[0]
+		# 		animationD = ( parseFloat @$el.find('.card-perspective-inner-wrapper').css 'animation-duration' ) * 1000
+		# 		canvas = @$el.find('.card-canvas.front')[0]
 		# 		canvas.width = @$el.width()
 		# 		canvas.height = @$el.height()
 		# 		@renderLayer1(canvas)
 		# 		# @renderLayer2(canvas)
 		# 		@renderLayer3(canvas)
 
-		# 		if @$el.hasClass 'fliped_0-90'
-		# 			@$el.removeClass 'fliped_0-90'
-		# 			@$el.addClass 'fliped_90-180'
+		# 		if @$el.hasClass 'fliped-0-90'
+		# 			@$el.removeClass 'fliped-0-90'
+		# 			@$el.addClass 'fliped-90-180'
 
-		# 		else if @$el.hasClass 'fliped_180-90'
-		# 			@$el.removeClass 'fliped_180-90'
-		# 			@$el.addClass 'fliped_90-0'
+		# 		else if @$el.hasClass 'fliped-180-90'
+		# 			@$el.removeClass 'fliped-180-90'
+		# 			@$el.addClass 'fliped-90-0'
 		# 		else
-		# 			@$el.addClass 'fliped_90-180'
+		# 			@$el.addClass 'fliped-90-180'
 		# 		setTimeout () ->
-		# 			@$el.removeClass 'is_fliping'
-		# 		, parseFloat(@$el.find('.card_perspective_inner_wrapper').css 'animation-duration') * 1000z
+		# 			@$el.removeClass 'is-fliping'
+		# 		, parseFloat(@$el.find('.card-perspective-inner-wrapper').css 'animation-duration') * 1000z
 		# 		# console.log transitionD/2
-		# 	, parseFloat(@$el.find('.card_perspective_inner_wrapper').css 'animation-duration') * 1000
+		# 	, parseFloat(@$el.find('.card-perspective-inner-wrapper').css 'animation-duration') * 1000
 		# 	# flip = (@,canvas) ->
 		# 		# delay = (transitionD * (@model.id-1)).toFixed()
 		# 		# console.log transitionD
@@ -172,28 +152,28 @@
 			app.CardGenerator.generators.textGen.draw canvas, @model
 
 		resize:-> 
-			@onShow()
+			@renderCanvas()
 
-		# locker: ->
-		# 	if @model.get('locked') is true
-		# 		@model.set 'locked', false,
-		# 			silent: true
-		# 		@$el.removeClass('locked')
-		# 		.find '.js_lock_config_button'
-		# 		.text 'Закрепить' 
-		# 	else
-		# 		@model.set 'locked', true,
-		# 			silent: true
-		# 		@$el.addClass('locked')
-		# 		.find '.js_lock_config_button'
-		# 		.text 'Открепить' 
+		onLockButtonClicked: ->
+			if @model.get('locked') is true
+				@model.set 'locked', false,
+					silent: true
+				@$el.removeClass('locked')
+				.find '.js-lock-config-button'
+				.text 'Закрепить' 
+			else
+				@model.set 'locked', true,
+					silent: true
+				@$el.addClass('locked')
+				.find '.js-lock-config-button'
+				.text 'Открепить' 
 
-		# mouseenter: ->
-		# 	if !@model.has('locked') or @model.get('locked') isnt true 
-		# 		if @$el.hasClass('is_fliping')
-		# 			@$el.toggleClass 'fliped'
-		# 		@$el.prepend '<div class="js_lock_config_button_wrapper"><button class="js_lock_config_button">Закрепить</button></div>'
-		# mouseleave: ->
-		# 	if !@model.has('locked') or @model.get('locked') isnt true
-		# 		@$el.find('.js_lock_config_button_wrapper').remove()
+		onMouseEnter: ->
+			if !@model.has('locked') or @model.get('locked') isnt true 
+				if @$el.hasClass('is-fliping')
+					@$el.toggleClass 'fliped'
+				@$el.prepend '<div class="js-lock-config-button-wrapper"><button class="js-lock-config-button">Закрепить</button></div>'
+		onMouseLeave: ->
+			if !@model.has('locked') or @model.get('locked') isnt true
+				@$el.find('.js-lock-config-button-wrapper').remove()
 

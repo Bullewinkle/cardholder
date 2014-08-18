@@ -9,8 +9,6 @@ g = require 'gulp'
 $ = require('gulp-load-plugins')(lazy: false, camelize: true)
 $.grunt g
 
-
-
 # Dependencies
 # ====================================================================
 streamqueue = require 'streamqueue'
@@ -22,6 +20,18 @@ path = require 'path'
 _ = require 'lodash'
 q = require 'q'
 
+
+# Preparing clients DATA, uses in JADE
+# ====================================================================
+clientsData = {}
+
+fonts = fs.readdirSync './src/assets/font/card_fonts'
+fonts = fonts.filter (item,i) =>
+	item.charAt(0) != '.' and item.charAt(0) != '_'
+
+clientsData.cardsConfig = require './src/assets/data/cards-config.json'
+clientsData.appData = require './src/assets/data/data.json'
+clientsData.appData.fontsList = fonts
 
 
 # Config
@@ -37,9 +47,7 @@ CONFIG =
 CONFIG.JADE = 
 	pretty: true
 	data:
-		fromServer:
-			appdata: require './src/assets/data/data.json'
-			cardsConfig: require './src/assets/data/cards-config.json'
+		fromServer: clientsData
 
 TIMESTAMP = Date.now()
 PROD = argv.prod

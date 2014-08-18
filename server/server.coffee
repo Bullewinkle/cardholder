@@ -10,8 +10,6 @@ ReplSetServers = require('mongodb').ReplSetServers
 ObjectID = require('mongodb').ObjectID
 
 winston = require 'winston'
-winston.log 'info', 'Hello distributed log files!'
-winston.error 'Hello again distributed logs'
 
 express = require 'express'
 session = require 'express-session'
@@ -21,10 +19,6 @@ useragent = require('useragent')
 useragent(true)
 
 GLOBAL.Promise = require 'bluebird'
-
-app = express()
-app.set 'port', process.env.PORT || CONFIG.port
-
 # Promise example
 # promise = new Promise (resolve, reject) ->
 # 	if (true)
@@ -37,9 +31,14 @@ app.set 'port', process.env.PORT || CONFIG.port
 # 	console.log(result)
 # , (err) ->
 # 	console.log(err)
+
+app = express()
+app.set 'port', process.env.PORT || CONFIG.port
+
 app.use (err, req, res, next) ->
 	if err then res.status(500).send 'Server error'
 	next
+
 # SESSION
 # Redistore
 app.use session
@@ -50,7 +49,6 @@ app.use session
 	secret: "cardholder"
 	resave: true
 	saveUninitialized: true
-
 
 # ROUTER
 router = express.Router()
@@ -64,6 +62,7 @@ router.use '/css', express.static("#{CONFIG.dist}/css")
 router.use '/views', express.static("#{CONFIG.dist}/views")
 router.use '/assets', express.static("#{CONFIG.dist}/assets")
 
+# CONTROLLER
 routerController = require('./controller')
 routerController.initialize router
 require('./routes')(router, routerController)
@@ -105,8 +104,6 @@ start = ( envirement, callback ) ->
 if not module.parent
 	start()
 else module.exports.start = start
-
-
 
 
 # app.configure "development", ->

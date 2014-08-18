@@ -4,13 +4,11 @@ RedisStore = require('connect-redis')(session)
 
 module.exports = (router) ->
 
-	# router.get '/', controller.getIndex 
-
 	router.get '/api/cards-generator', controller.getCards
 
-	router.get '/api/cards', controller.getCards
+	router.get '/api/card', controller.getCards
 	
-	router.get '/api/cards/:cardId', controller.getCardById
+	router.get '/api/card/:cardId', controller.getCardById
 	
 	router.get '/api/data' , controller.getAllData
 
@@ -20,9 +18,9 @@ module.exports = (router) ->
 
 	router.get '/api/step-form/:property', controller.getStepFormDataByKey
 
-	router.get '/api/fonts-list', controller.getFontsList
+	router.get '/api/font-list', controller.getFontsList
 
-	router.get '/api/fonts-list/:font', controller.getFontByName
+	router.get '/api/font-list/:font', controller.getFontByName
 
 	router.all '/*', controller.getIndex 
 

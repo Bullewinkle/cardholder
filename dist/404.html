@@ -16,22 +16,24 @@
       <div class="l-main">
         <div class="l-header">
           <div class="header">
-            <div class="top_bar_region">
-              <ul role="navigation" class="nav nav-tabs main_menu">
+            <div class="top-bar-region">
+              <ul role="navigation" class="nav nav-tabs main-menu">
                 <li><a href="/">Home</a></li>
                 <li><a href="/cards-generator"> Cards-generator</a></li>
-                <li><a href="/page"> Some page</a></li>
+                <li><a href="/page"> About</a></li>
                 <li><a href="/other-route"> Other route</a></li>
                 <li class="dropdown"><a data-toggle="dropdown" href="#" class="dropdown-toggle">API<span class="caret"></span></a>
                   <ul role="menu" class="dropdown-menu">
-                    <li role="presentation" class="dropdown-header text-center">- CONFIG DATA -</li>
-                    <li><a href="/api/cards-generator">/api/cards-generator</a></li>
-                    <li><a href="/api/cards">/api/cards</a></li>
-                    <li><a href="/api/cards/1">/api/cards/:id</a></li>
                     <li role="presentation" class="dropdown-header text-center">- APP DATA -</li>
                     <li><a href="/api/data">/api/data</a></li>
                     <li><a href="/api/data/names">/api/data/:property</a></li>
                     <li><a href="/api/step-form">/api/step-form </a></li>
+                    <li><a href="/api/font-list">/api/font-list </a></li>
+                    <li><a href="/api/font-list/aaargh">/api/font-list/:font </a></li>
+                    <li role="presentation" class="dropdown-header text-center">- CONFIG DATA -</li>
+                    <li><a href="/api/cards-generator">/api/cards-generator</a></li>
+                    <li><a href="/api/card">/api/card</a></li>
+                    <li><a href="/api/card/1">/api/card/:id</a></li>
                   </ul>
                 </li>
               </ul>
@@ -65,7 +67,6 @@
     <script src="/js/cards_generator/index.js"></script>
     <script src="/js/cards_generator/cards/card-model.js"></script>
     <script src="/js/cards_generator/cards/card-view.js"></script>
-    <script src="/js/cards_generator/cards/cards-collection-view.js"></script>
     <script src="/js/cards_generator/cards/cards-collection.js"></script>
     <script src="/js/cards_generator/generators/gradient-generator.js"></script>
     <script src="/js/cards_generator/generators/prev-method.js"></script>

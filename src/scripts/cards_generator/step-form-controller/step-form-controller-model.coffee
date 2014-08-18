@@ -3,7 +3,7 @@
 		loger: off
 
 		defaults:
-			formStep : 1
+			currentStep : 1
 
 		initialize: ->
 			@bind 'all', (trigger, args) => 
