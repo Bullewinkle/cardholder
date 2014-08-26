@@ -4,16 +4,16 @@ CONFIG = require './config'
 fs = require 'fs'
 http = require 'http'
 
-Db = require('mongodb').Db
-MongoClient = require('mongodb').MongoClient
-ReplSetServers = require('mongodb').ReplSetServers
-ObjectID = require('mongodb').ObjectID
+# Db = require('mongodb').Db
+# MongoClient = require('mongodb').MongoClient
+# ReplSetServers = require('mongodb').ReplSetServers
+# ObjectID = require('mongodb').ObjectID
 
 winston = require 'winston'
 
 express = require 'express'
-session = require 'express-session'
-RedisStore = require('connect-redis')(session)
+# session = require 'express-session'
+# RedisStore = require('connect-redis')(session)
 
 useragent = require('useragent')
 useragent(true)
@@ -41,14 +41,14 @@ app.use (err, req, res, next) ->
 
 # SESSION
 # Redistore
-app.use session
-	store: new RedisStore
-		host: '127.0.0.1'
-		port: CONFIG.db.rediss.port.dev
-		prefix:'sid_'
-	secret: "cardholder"
-	resave: true
-	saveUninitialized: true
+# app.use session
+# 	store: new RedisStore
+# 		host: '127.0.0.1'
+# 		port: CONFIG.db.rediss.port.dev
+# 		prefix:'sid_'
+# 	secret: "cardholder"
+# 	resave: true
+# 	saveUninitialized: true
 
 # ROUTER
 router = express.Router()
@@ -68,38 +68,41 @@ routerController.initialize router
 require('./routes')(router, routerController)
 
 app.use ( err, req, res, next) ->
-	headersUserAgent = req.headers['user-agent']
-	agent = useragent.parse( headersUserAgent )
-	date = new Date()
-	date = date.toString()
-	#mongoDB testing
-	module.db.collection('users').update {name: 'default user'}, {name: 'default user', lastLogin: date}, (args...) -> 
-		true
-	if req.session
-		req.session.name = 'default user'
-		req.session.lastLogin = date
-		req.session.userAgent = agent
-		req.session.url = req.url
-		req.session.query = req.query
-		req.session.params = req.params
+	# headersUserAgent = req.headers['user-agent']
+	# agent = useragent.parse( headersUserAgent )
+	# date = new Date()
+	# date = date.toString()
+	# #mongoDB testing
+	# module.db.collection('users').update {name: 'default user'}, {name: 'default user', lastLogin: date}, (args...) -> 
+	# 	true
+	# if req.session
+	# 	req.session.name = 'default user'
+	# 	req.session.lastLogin = date
+	# 	req.session.userAgent = agent
+	# 	req.session.url = req.url
+	# 	req.session.query = req.query
+	# 	req.session.params = req.params
 	next()
 
 app.use '/', router
 
 start = ( envirement, callback ) -> 
 	# MongoClient
-	MongoClient.connect CONFIG.db.mongo.url.dev , native_parser: true , ( err, db) =>
-		if err then throw new Error err
-		module.db = db
-		console.log 'mongodb connected'
-		date = new Date()
-		date = date.toString()
+	# MongoClient.connect CONFIG.db.mongo.url.dev , native_parser: true , ( err, db) =>
+	# 	if err then throw new Error err
+	# 	module.db = db
+	# 	console.log 'mongodb connected'
+	# 	date = new Date()
+	# 	date = date.toString()
 		
-		db.collection('users').update {name: 'default user'}, {name: 'default user', lastLogin: date}, (args...) -> 
-			true
+	# 	db.collection('users').update {name: 'default user'}, {name: 'default user', lastLogin: date}, (args...) -> 
+	# 		true
 
-		http.createServer( app ).listen CONFIG.port, ->
-			console.log "Express server listening on port " + CONFIG.port
+	# 	http.createServer( app ).listen CONFIG.port, ->
+	# 		console.log "Express server listening on port " + CONFIG.port
+
+	http.createServer( app ).listen CONFIG.port, ->
+		console.log "Express server listening on port " + CONFIG.port	
 
 if not module.parent
 	start()
