@@ -35,32 +35,14 @@
 
 			canvas.width = @$el.width()
 			canvas.height = @$el.height()
-			# @initColorScheme()
 
-			# console.log @model
 			@renderLayer1(canvas)
-			# @renderLayer2(canvas)
+			@renderLayer2(canvas)
 			@renderLayer3(canvas)
 			
 			@
 		onShow: =>
 			@renderCanvas()
-
-		# initColorScheme: =>
-		# 	scm = new ColorScheme()
-		# 	hue = app.getRandom(0.2, 359, 1)
-
-		# 	variations = ['default', 'pastel', 'soft', 'light', 'hard', 'pale' ]
-		# 	variation = variations[ app.getRandom(0, variations.length-1) ]
-		# 	console.log variation
-		# 	scm.from-hue(hue)
-		# 	.scheme('tetrade')
-		# 	.distance(0.1)
-		# 	.add-complement(false)
-		# 	.variation(variation)
-		# 	.web-safe(false)
-		# 	@model.set 'colorScheme', scm.colors()
-		# 	console.log @model
 
 		# transitionCallback : (e) =>
 		# 	e.view = @
@@ -146,7 +128,7 @@
 			app.CardGenerator.generators.gradientGen.draw canvas, @model
 
 		renderLayer2: (canvas)->
-			app.generators[@model.attributes.plugin.name].draw canvas, @model.attributes.plugin.options
+			app.CardGenerator.generators.starsGen.draw canvas, @model
 
 		renderLayer3: (canvas)->
 			app.CardGenerator.generators.textGen.draw canvas, @model

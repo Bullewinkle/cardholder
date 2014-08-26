@@ -627,145 +627,99 @@
 			GradientGen.options.definedVal1 = randomVal1
 			GradientGen.options.definedVal2 = randomVal2
 
-		#19 Stars
-		(context,args...) ->
+		# # Импровизация
+		# (context,args...) ->
+		# 	if !GradientGen.options.isDefault
+		# 		colorScheme = GradientGen.options.colorScheme
+		# 		randomVal1 = GradientGen.options.definedVal1
+		# 		randomVal2 = GradientGen.options.definedVal2
+		# 		randomVal3 = GradientGen.options.definedVal3
+		# 		randomVal4 = GradientGen.options.definedVal4
+		# 		randomVal5 = GradientGen.options.definedVal5
+		# 		randomVal6 = GradientGen.options.definedVal6
+		# 		gradientType = GradientGen.options.gradientType
 
-			canvas = context.canvas
+		# 	else if GradientGen.options.isDefault
+		# 		colorScheme = GradientGen.options.colorScheme
+		# 		randomVal1 = app.getRandom(0,colorScheme.length-1)
+		# 		randomVal2 = app.getRandom(0,colorScheme.length-1)
+		# 		randomVal3 = app.getRandom(0, 150)
+		# 		randomVal4 = app.getRandom(0, 150)
+		# 		randomVal5 = app.getRandom(0, 150)
+		# 		randomVal6 = app.getRandom(0, 150)
+		# 		# TODO generate random gradientType!
+		# 		gradientType = GradientGen.options.gradientType
 
-			if !GradientGen.options.isDefault
-				colorScheme = GradientGen.options.colorScheme
-				randomVal1 = GradientGen.options.definedVal1
-				randomVal2 = GradientGen.options.definedVal2
+		# 	context.fillStyle = '#fff'
+		# 	context.fillRect(0,0,context.canvas.width,context.canvas.height)
+		# 	if gradientType is 'linear'
+		# 		gradient = context.createLinearGradient(randomVal3,randomVal4,randomVal5,randomVal6)
+		# 	else if gradientType is 'radial'
+		# 		gradient = context.createRadialGradient(150,75,50,150,75,49)
+		# 	gradient.addColorStop(0,'#'+colorScheme[randomVal1])
+		# 	gradient.addColorStop(1,'#'+colorScheme[randomVal2])
+		# 	context.fillStyle = gradient
+		# 	context.fillRect(0,0,context.canvas.width,context.canvas.height)
 
-				gradientType = GradientGen.options.gradientType
+		# 	# save options to current model
+		# 	GradientGen.options.definedVal1 = randomVal1
+		# 	GradientGen.options.definedVal2 = randomVal2
+		# 	GradientGen.options.definedVal3 = randomVal3
+		# 	GradientGen.options.definedVal4 = randomVal4
+		# 	GradientGen.options.definedVal5 = randomVal5
+		# 	GradientGen.options.definedVal6 = randomVal6
 
-			else if GradientGen.options.isDefault
-				colorScheme = GradientGen.options.colorScheme
-				randomVal1 = app.getRandom(0,colorScheme.length-1)
-				randomVal2 = app.getRandom(0,colorScheme.length-1)
+		# # Импровизация 2
+		# (context,args...) ->
+		# 	if !GradientGen.options.isDefault
+		# 		colorScheme = GradientGen.options.colorScheme
+		# 		randomVal1 = GradientGen.options.definedVal1
+		# 		randomVal2 = GradientGen.options.definedVal2
+		# 		randomVal3 = GradientGen.options.definedVal3
+		# 		randomVal4 = GradientGen.options.definedVal4
+		# 		randomVal5 = GradientGen.options.definedVal5
+		# 		gradientType = GradientGen.options.gradientType
 
-				gradientType = GradientGen.options.gradientType
+		# 	else if GradientGen.options.isDefault
+		# 		colorScheme = GradientGen.options.colorScheme
+		# 		randomVal1 = app.getRandom(50,250)
+		# 		randomVal2 = app.getRandom(50,250)
+		# 		randomVal3 = app.getRandom(50,200)
+		# 		randomVal4 = app.getRandom(50,200)
+		# 		randomVal5 = 150
+		# 		# TODO generate random gradientType!
+		# 		gradientType = GradientGen.options.gradientType
 
-			context.fillStyle = '#fff'
-			context.fillRect(0,0,context.canvas.width,context.canvas.height)
-			
-			#    drawStar(ctx, canvas.width/2, canvas.height/2, 1000,30, 300);
-			star = (context, xCenter, yCenter, nPoints, outerRadius, innerRadius) ->
-				context.beginPath()
-				ixVertex = 0
+		# 	context.fillStyle = '#fff'
+		# 	context.fillRect(0,0,context.canvas.width,context.canvas.height)
+		# 	# if gradientType is 'linear'
+		# 	# 	gradient = context.createLinearGradient(randomVal3,randomVal4,randomVal5,randomVal6)
+		# 	# else if gradientType is 'radial'
+		# 	# 	gradient = context.createRadialGradient(150,75,50,150,75,49)
 
-				while ixVertex <= 2 * nPoints
-					angle = ixVertex * Math.PI / nPoints - Math.PI / 2
-					radius = (if ixVertex % 2 is 0 then innerRadius else outerRadius)
-					context.lineTo xCenter + radius * Math.cos(angle), yCenter + radius * Math.sin(angle)
-					++ixVertex
-				return
+		# 	grd = context.createRadialGradient( randomVal1, randomVal2, 0.000, randomVal3, randomVal4, randomVal5)
 
-			context.beginPath()
-			context.fillStyle = "#C40043"
-			context.arc canvas.width / 2, canvas.height / 2, canvas.width/4, 0, Math.PI * 2
-			context.fill()
-			context.fillStyle = "green"
-			star context, canvas.width / 2, canvas.height / 2, 9, canvas.width/3, 10
-			context.fill()
+		# 	# Add colors
+		# 	grd.addColorStop 0.000, "rgba(14, 14, 16, 1.000)"
+		# 	grd.addColorStop 0.170, "rgba(14, 14, 16, 1.000)"
+		# 	grd.addColorStop 0.270, "rgba(96, 109, 91, 1.000)"
+		# 	grd.addColorStop 0.610, "rgba(75, 93, 103, 1.000)"
+		# 	grd.addColorStop 0.620, "rgba(75, 93, 103, 1.000)"
+		# 	grd.addColorStop 0.690, "rgba(255, 250, 250, 1.000)"
+		# 	grd.addColorStop 0.920, "rgba(255, 250, 250, 1.000)"
+		# 	grd.addColorStop 0.930, "rgba(0, 0, 0, 1.000)"
+		# 	grd.addColorStop 0.940, "rgba(255, 255, 255, 1.000)"
 
-			# save options to current model
-			GradientGen.options.definedVal1 = randomVal1
-			GradientGen.options.definedVal2 = randomVal2
+		# 	# Fill with gradient
+		# 	context.fillStyle = grd
+		# 	context.fillRect 0, 0, context.canvas.width, context.canvas.height
 
-		# Импровизация
-		(context,args...) ->
-			if !GradientGen.options.isDefault
-				colorScheme = GradientGen.options.colorScheme
-				randomVal1 = GradientGen.options.definedVal1
-				randomVal2 = GradientGen.options.definedVal2
-				randomVal3 = GradientGen.options.definedVal3
-				randomVal4 = GradientGen.options.definedVal4
-				randomVal5 = GradientGen.options.definedVal5
-				randomVal6 = GradientGen.options.definedVal6
-				gradientType = GradientGen.options.gradientType
-
-			else if GradientGen.options.isDefault
-				colorScheme = GradientGen.options.colorScheme
-				randomVal1 = app.getRandom(0,colorScheme.length-1)
-				randomVal2 = app.getRandom(0,colorScheme.length-1)
-				randomVal3 = app.getRandom(0, 150)
-				randomVal4 = app.getRandom(0, 150)
-				randomVal5 = app.getRandom(0, 150)
-				randomVal6 = app.getRandom(0, 150)
-				# TODO generate random gradientType!
-				gradientType = GradientGen.options.gradientType
-
-			context.fillStyle = '#fff'
-			context.fillRect(0,0,context.canvas.width,context.canvas.height)
-			if gradientType is 'linear'
-				gradient = context.createLinearGradient(randomVal3,randomVal4,randomVal5,randomVal6)
-			else if gradientType is 'radial'
-				gradient = context.createRadialGradient(150,75,50,150,75,49)
-			gradient.addColorStop(0,'#'+colorScheme[randomVal1])
-			gradient.addColorStop(1,'#'+colorScheme[randomVal2])
-			context.fillStyle = gradient
-			context.fillRect(0,0,context.canvas.width,context.canvas.height)
-
-			# save options to current model
-			GradientGen.options.definedVal1 = randomVal1
-			GradientGen.options.definedVal2 = randomVal2
-			GradientGen.options.definedVal3 = randomVal3
-			GradientGen.options.definedVal4 = randomVal4
-			GradientGen.options.definedVal5 = randomVal5
-			GradientGen.options.definedVal6 = randomVal6
-
-		# Импровизация 2
-		(context,args...) ->
-			if !GradientGen.options.isDefault
-				colorScheme = GradientGen.options.colorScheme
-				randomVal1 = GradientGen.options.definedVal1
-				randomVal2 = GradientGen.options.definedVal2
-				randomVal3 = GradientGen.options.definedVal3
-				randomVal4 = GradientGen.options.definedVal4
-				randomVal5 = GradientGen.options.definedVal5
-				gradientType = GradientGen.options.gradientType
-
-			else if GradientGen.options.isDefault
-				colorScheme = GradientGen.options.colorScheme
-				randomVal1 = app.getRandom(50,250)
-				randomVal2 = app.getRandom(50,250)
-				randomVal3 = app.getRandom(50,200)
-				randomVal4 = app.getRandom(50,200)
-				randomVal5 = 150
-				# TODO generate random gradientType!
-				gradientType = GradientGen.options.gradientType
-
-			context.fillStyle = '#fff'
-			context.fillRect(0,0,context.canvas.width,context.canvas.height)
-			# if gradientType is 'linear'
-			# 	gradient = context.createLinearGradient(randomVal3,randomVal4,randomVal5,randomVal6)
-			# else if gradientType is 'radial'
-			# 	gradient = context.createRadialGradient(150,75,50,150,75,49)
-
-			grd = context.createRadialGradient( randomVal1, randomVal2, 0.000, randomVal3, randomVal4, randomVal5)
-
-			# Add colors
-			grd.addColorStop 0.000, "rgba(14, 14, 16, 1.000)"
-			grd.addColorStop 0.170, "rgba(14, 14, 16, 1.000)"
-			grd.addColorStop 0.270, "rgba(96, 109, 91, 1.000)"
-			grd.addColorStop 0.610, "rgba(75, 93, 103, 1.000)"
-			grd.addColorStop 0.620, "rgba(75, 93, 103, 1.000)"
-			grd.addColorStop 0.690, "rgba(255, 250, 250, 1.000)"
-			grd.addColorStop 0.920, "rgba(255, 250, 250, 1.000)"
-			grd.addColorStop 0.930, "rgba(0, 0, 0, 1.000)"
-			grd.addColorStop 0.940, "rgba(255, 255, 255, 1.000)"
-
-			# Fill with gradient
-			context.fillStyle = grd
-			context.fillRect 0, 0, context.canvas.width, context.canvas.height
-
-			# save options to current model
-			GradientGen.options.definedVal1 = randomVal1
-			GradientGen.options.definedVal2 = randomVal2
-			GradientGen.options.definedVal3 = randomVal3
-			GradientGen.options.definedVal4 = randomVal4
-			GradientGen.options.definedVal5 = randomVal5
+		# 	# save options to current model
+		# 	GradientGen.options.definedVal1 = randomVal1
+		# 	GradientGen.options.definedVal2 = randomVal2
+		# 	GradientGen.options.definedVal3 = randomVal3
+		# 	GradientGen.options.definedVal4 = randomVal4
+		# 	GradientGen.options.definedVal5 = randomVal5
 
 	]
 
