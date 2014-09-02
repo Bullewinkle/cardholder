@@ -21,7 +21,7 @@
 
     // cardEditor/editor.jade compiled template
     templatizer["cardEditor"]["editor"] = function tmpl_cardEditor_editor() {
-        return '<h1 class="text-center">Edit your card!</h1><div class="container-fluid"><div class="row"><div class="editor-viewport col-sm-7 left"><div id="canvas-container"></div></div><div class="toolbar col-sm-5 right">toolbar<input id="slider" type="range" min="0" max="360" step="5" value="20"/></div></div></div>';
+        return '<h1 class="text-center">Edit your card!</h1><div class="container-fluid"><div class="row"><div class="editor-viewport col-sm-7 left"><div id="canvas-container"></div></div><div class="toolbar col-sm-5 right"><h2>toolbar</h2><br/><label for="kaleidoscope-slider">Калейдоскоп</label><input id="kaleidoscope-slider" type="range" min="0" max="360" step="5" value="20"/></div></div></div>';
     };
 
     // cardGenerator/card.jade compiled template

@@ -23,31 +23,45 @@
 		onShow: =>
 			imageObj = new Image()
 			imageObj.onload = ->
-				stage = new Kinetic.Stage(
+				stage = new Kinetic.Stage
 					container: "canvas-container"
-					width: 700
-					height: 600
-				)
+					width: 800
+					height: 640
+
 				layer = new Kinetic.Layer()
-				darth = new Kinetic.Image(
+
+				stripesJPG = new Kinetic.Image
 					x: 10
 					y: 10
 					image: imageObj
 					draggable: true
-					blurRadius: 20
-				)
-				layer.add darth
+					blurRadius: 0
+
+				text = new Kinetic.Text
+					x: 20
+					y: 20
+					text: 'Таскаемый рыба-текст'
+					fontSize: '50'
+					fontFamily: 'sans-serif'
+					fill: 'white'
+					stroke: 'red'
+					strokeWidth: 2
+					draggable: true
+
+				layer.add stripesJPG
+				layer.add text
 				stage.add layer
-				darth.cache()
-				darth.filters [Kinetic.Filters.Kaleidoscope]
-				darth.kaleidoscopePower 3
+
+				stripesJPG.cache()
+				stripesJPG.filters [Kinetic.Filters.Kaleidoscope]
+				stripesJPG.kaleidoscopePower 5
 				layer.draw()
-				slider = document.getElementById("slider")
+				slider = document.getElementById("kaleidoscope-slider")
 				slider.onchange = ->
-					darth.kaleidoscopeAngle slider.value
+					stripesJPG.kaleidoscopeAngle slider.value
 					layer.batchDraw()
 					return
 
 				return
 
-			imageObj.src = "/assets/img/darth-vader.jpg"
+			imageObj.src = "/assets/img/stripes.jpg"
