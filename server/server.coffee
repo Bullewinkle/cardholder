@@ -1,4 +1,5 @@
 console.log '\n\n<---------SERVER LOG--------->\n'
+# TODO
 
 CONFIG = require './config'
 fs = require 'fs'
