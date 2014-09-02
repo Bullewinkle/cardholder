@@ -1,12 +1,13 @@
 delay = (ms, fn) -> setTimeout ms, fn
 
-@App = class App extends Marionette.Application
+class window.App extends Marionette.Application
 	logger: off
-
-	# router: new Router
 	
 	view: new Backbone.View
 		el: $('#app')
+
+	regions:
+		mainRegion: '#app'
 
 	intervalRenderer: =>
 		prevCard = {}
@@ -31,24 +32,7 @@ delay = (ms, fn) -> setTimeout ms, fn
 			else renderRandom()
 
 		setInterval renderRandom, 2000
-
-	cacheNodes: =>
-		@rootNode = $('.cards').eq(0)
-
-	regions:
-		mainRegion: '#app'
-	# initColorScheme: =>
-	# 	scm = new ColorScheme()
-	# 	hue = app.getRandom(0.2, 359, 1)
-
-	# 	scm.from_hue(hue)
-	# 	.scheme('tetrade')
-	# 	.distance(0.1)
-	# 	.add_complement(false)
-	# 	.variation('soft')
-	# 	.web_safe(false)
-	# 	@colorScheme = scm.colors()
-
+		
 	getRandom: (min = 0,max = 100,decimal = 0) ->
 		+(Math.random() * (max - min) + min).toFixed(decimal)
 
@@ -70,21 +54,20 @@ delay = (ms, fn) -> setTimeout ms, fn
 
 	generators : {}
 
-	started : false
 
-
-@app = new App
-@app.addInitializer ->
-	date = new Date()
-	@trigger 'initialize', 'at ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + '.' + date.getMilliseconds()
+window.app = new App
+window.app.module 'Common'
+window.app.addInitializer ->
 	@bind 'all', (trigger, args) => 
 		if @logger is on
-			console.info 'App says :',trigger,args
+			date = new Date()
+			console.info("App says : #{ trigger } at #{date.getHours()}:#{date.getMinutes()}:#{date.getSeconds()}.#{date.getMilliseconds()}" ,args)
 	@startTime = Date.now()
-	@trigger 'start', 'at ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() + '.' + date.getMilliseconds()
-	@started = true
-	# @initColorScheme()
-
+	@trigger 'initialize'
+	
+	# @on 'start', =>
+	@controller = new @Common.Controller()
+	@router = new @Common.Router controller: @controller
 
 	# @controllerModel = new App.MainControllerModel
 	# @controllerView = new App.MainControllerView
@@ -98,12 +81,22 @@ delay = (ms, fn) -> setTimeout ms, fn
 	# 	el: $('.cards','#app')
 	# 	collection: @cardsCollection
 
-	onResize = _.debounce =>
-		@trigger 'resize'
-	, 250
-	$(window).on
-		resize: onResize
+	
+	# COMMON SETUP
+	$("a[href^='/']","body").click  (e) =>
+		href = $(e.target).attr 'href'
+		if href.indexOf('/api') isnt 0
+			e.preventDefault()
+			@router.navigate href,
+				trigger: true
+
+	onResize = _.debounce => @trigger 'resize', 250
+	$(window).on resize: onResize
+
+	if not Backbone.history.started
+		Backbone.history.start
+			pushState: true
 
 jQuery =>
-	@app.start()
+	window.app.start()
 
