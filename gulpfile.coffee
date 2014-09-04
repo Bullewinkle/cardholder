@@ -76,6 +76,8 @@ paths =
 			'bower_components/backbone/backbone.js'
 			'bower_components/marionette/lib/backbone.marionette.js'
 			'other_components/deep-model.js'
+			'other_components/backbone.epoxy.min.js'
+
 			# 'other_components/modernizr/modernizr.js'
 			# 'other_components/foundation/js/foundation.js'
 			'other_components/deep-model.js'
@@ -86,8 +88,6 @@ paths =
 		dest: "#{DIST}/css/dep"
 		src: [
 			'bower_components/bootstrap/dist/css/bootstrap.css'
-			'bower_components/jquery-ui/themes/ui-darkness/jquery-ui.min.css'
-			# 'bower_components/jquery-ui/themes/ui-darkness/theme.css'
 		]
 
 	appScripts:

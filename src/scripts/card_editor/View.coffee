@@ -1,6 +1,6 @@
 @app.module 'CardEditor', (CardEditor) ->
 	class CardEditor.CardEditorView extends Marionette.ItemView
-		logging: off
+		logging: on
 		counter: 0
 
 		className: 'card-editor-view'
@@ -16,7 +16,7 @@
 			'addShape': '.add-shape'
 			'removeShape': '.remove-shape'
 
-			'saveToImage': '.save-to-image'
+			'saveImageFileButton': '.save-to-image'
 					
 		events:
 			'change @ui.slider': 'onSliderChange'
@@ -24,25 +24,26 @@
 			'click @ui.removeLayer': 'removeLayer'
 			'click @ui.addShape': 'addShape'
 			'click @ui.removeShape': 'removeShape'
-			'click @ui.saveToImage': 'saveGeneratedCardToImage'
+			'click @ui.saveImageFileButton': 'saveGeneratedCardToImage'
 
 		# collectionEvents:
 		# 	'add': 'addLayer'	
 
-		template: (model) ->
-			templatizer.cardEditor.editor @model
 
 		initialize: ->
 			@bind 'all', ->
-				console.log "CARDS COMPOSITE VIEW:\t", arguments if @logging is on
+				console.log "CARD EDITOR VIEW:\t", arguments if @logging is on
 
 			@state      = new Backbone.Model
 				currentLayer: {}
 			@model      = new Backbone.Model()
 			@collection = new LayerCollection()
 
-		onShow: =>
+		template: (model) ->
+			templatizer.cardEditor.editor @model
 
+		onShow: =>
+			@listenTo app, 'resize', @resize
 			@ui.layerList.sortable()
 			@ui.layerList.disableSelection()
 			
@@ -57,6 +58,37 @@
 				width: stageWidth
 				height: 600
 
+			stageParams =
+				scale: @stage.scale()
+				width: @ui.canvasContainer.innerWidth()
+				height: @ui.canvasContainer.innerHeight()
+
+			@state.set 'stageParams', stageParams
+
+		resize: =>
+			@trigger 'resize'
+			stageParams = @state.get 'stageParams'
+			newStageParams = {}
+
+			newStageParams.width = @ui.canvasContainer.innerWidth() # new width of page
+			newStageParams.height = newStageParams.width * 0.5625 # new height of page
+
+			xScale = (newStageParams.width / stageParams.width) * stageParams.scale.x # percent change in width (Ex: 1000 - 400/1000 means the page scaled down 60%, you should play with this to get wanted results)
+			yScale = (newStageParams.height / stageParams.height) * stageParams.scale.y
+			
+			newStageParams.scale =
+				x: xScale
+				y: yScale
+
+			@stage.setAttr "width", newStageParams.width
+			@stage.setAttr "height", newStageParams.height
+			@stage.setAttr "scale", newStageParams.scale
+
+			@state.set 'stageParams', newStageParams
+
+			@stage.draw()
+
+
 		addLayer: (e, layer, params) =>
 			params = params or
 				name: 'default layer'
@@ -65,7 +97,7 @@
 			@stage.add layer
 			@state.set 'currentLayer', layer
 			@collection.add layer.toObject()
-			@ui.layerList.append "<li class='ui-state-default ui-sortable-handle'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>Слой #{ @stage.getLayers().length }</li>"
+			@ui.layerList.append "<li class='list-group-item ui-state-default ui-sortable-handle'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>Слой #{ @stage.getLayers().length }</li>"
 			console.log @stage.getLayers().length
 		
 		removeLayer: =>
@@ -73,11 +105,14 @@
 			if layers.length > 0
 				@ui.layerList.find(".ui-sortable-handle").eq(layers.length-1).remove()
 				layers[layers.length-1].destroy()
-				@state.set 'currentLayer', layers[layers.length-1]
+				@state.set 'currentLayer', layers[layers.length-1] or {}
 			console.log @stage.getLayers().length
 
 		addShape: =>
 			console.log 'addShape'
+			if @stage.getLayers().length < 1
+				@addLayer()
+
 			layer = @state.get 'currentLayer'
 
 			shape = new Kinetic.RegularPolygon
@@ -93,13 +128,13 @@
 			layer.add shape
 			layer.draw()
 
-			@ui.shapeList.append "<li class='ui-state-default ui-sortable-handle'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>Случайная фигура #{ @state.get('currentLayer').children.length }</li>"
+			@ui.shapeList.append "<li class='list-group-item ui-state-default ui-sortable-handle'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>Случайная фигура #{ @state.get('currentLayer').children.length }</li>"
 
 		removeShape: =>
 			console.log 'removeShape'
 			layer = @state.get 'currentLayer'
 			shapes = layer.children
-			if shapes.length > 0
+			if shapes and shapes.length > 0
 				@ui.shapeList.find(".ui-sortable-handle").eq(shapes.length-1).remove()
 				shapes[shapes.length-1].destroy()
 				layer.draw()
