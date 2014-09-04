@@ -2,11 +2,24 @@ h1.text-center Edit your card!
 .container-fluid
 	.row
 		.editor-viewport.col-sm-7.left
+			h2.text-center CARD VIEW
+			br
+
 			#canvas-container
 
 
 		.toolbar.col-sm-5.right
-			h2 toolbar
+			h2.text-center TOOLBAR
 			br
-			label(for="kaleidoscope-slider") Калейдоскоп
-			input(id="kaleidoscope-slider", type="range", min="0", max="360", step="5", value="20")
+			.row.text-center: button.save-to-image Сохранить в PNG
+			br
+			button.add-layer Добавить слой | 
+			button.remove-layer  Удалить слой
+			ul.ui-layer-list
+
+			button.add-shape Добавить фигуру | 
+			button.remove-shape  Удалить фигуру
+			ul.ui-shape-list
+
+
+	

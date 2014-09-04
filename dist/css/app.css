@@ -874,6 +874,9 @@ i {
       -ms-transform: translate(0, 0);
           transform: translate(0, 0);
 }
+#canvas-container {
+  background: rgba(0,0,0,0.1);
+}
 .l-inline > * {
   display: inline-block !important;
 }

@@ -1,13 +1,33 @@
 @app.module 'CardEditor', (CardEditor) ->
 	class CardEditor.CardEditorView extends Marionette.ItemView
-		logging: on
+		logging: off
 		counter: 0
 
 		className: 'card-editor-view'
 
-		# ui:
+		ui:
+			'canvasContainer': '#canvas-container'
+			'slider': '#kaleidoscope-slider'
+			'layerList': '.ui-layer-list'
+			'addLayer' : '.add-layer'
+			'removeLayer' : '.remove-layer'
+
+			'shapeList': '.ui-shape-list'
+			'addShape': '.add-shape'
+			'removeShape': '.remove-shape'
+
+			'saveToImage': '.save-to-image'
 					
-		# events:
+		events:
+			'change @ui.slider': 'onSliderChange'
+			'click @ui.addLayer': 'addLayer'
+			'click @ui.removeLayer': 'removeLayer'
+			'click @ui.addShape': 'addShape'
+			'click @ui.removeShape': 'removeShape'
+			'click @ui.saveToImage': 'saveGeneratedCardToImage'
+
+		# collectionEvents:
+		# 	'add': 'addLayer'	
 
 		template: (model) ->
 			templatizer.cardEditor.editor @model
@@ -15,53 +35,90 @@
 		initialize: ->
 			@bind 'all', ->
 				console.log "CARDS COMPOSITE VIEW:\t", arguments if @logging is on
-			
-			# @state      = new Backbone.Model()
-			# @model      = new CardGenerator.stepForm.StepFormModel()
-			# @collection = new CardGenerator.cards.CardsCollection()
+
+			@state      = new Backbone.Model
+				currentLayer: {}
+			@model      = new Backbone.Model()
+			@collection = new LayerCollection()
 
 		onShow: =>
-			imageObj = new Image()
-			imageObj.onload = ->
-				stage = new Kinetic.Stage
-					container: "canvas-container"
-					width: 800
-					height: 640
 
-				layer = new Kinetic.Layer()
+			@ui.layerList.sortable()
+			@ui.layerList.disableSelection()
+			
+			@ui.shapeList.sortable()
+			@ui.shapeList.disableSelection()
 
-				stripesJPG = new Kinetic.Image
-					x: 10
-					y: 10
-					image: imageObj
-					draggable: true
-					blurRadius: 0
+			stageWidth = @ui.canvasContainer.width()
+			stageHeight = @ui.canvasContainer.height()
 
-				text = new Kinetic.Text
-					x: 20
-					y: 20
-					text: 'Таскаемый рыба-текст'
-					fontSize: '50'
-					fontFamily: 'sans-serif'
-					fill: 'white'
-					stroke: 'red'
-					strokeWidth: 2
-					draggable: true
+			@stage = new Kinetic.Stage
+				container: "canvas-container"
+				width: stageWidth
+				height: 600
 
-				layer.add stripesJPG
-				layer.add text
-				stage.add layer
+		addLayer: (e, layer, params) =>
+			params = params or
+				name: 'default layer'
+			layer = layer or new Kinetic.Layer params
 
-				stripesJPG.cache()
-				stripesJPG.filters [Kinetic.Filters.Kaleidoscope]
-				stripesJPG.kaleidoscopePower 5
+			@stage.add layer
+			@state.set 'currentLayer', layer
+			@collection.add layer.toObject()
+			@ui.layerList.append "<li class='ui-state-default ui-sortable-handle'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>Слой #{ @stage.getLayers().length }</li>"
+			console.log @stage.getLayers().length
+		
+		removeLayer: =>
+			layers = @stage.getLayers()
+			if layers.length > 0
+				@ui.layerList.find(".ui-sortable-handle").eq(layers.length-1).remove()
+				layers[layers.length-1].destroy()
+				@state.set 'currentLayer', layers[layers.length-1]
+			console.log @stage.getLayers().length
+
+		addShape: =>
+			console.log 'addShape'
+			layer = @state.get 'currentLayer'
+
+			shape = new Kinetic.RegularPolygon
+				x: app.getRandom 0, @stage.getWidth()
+				y: app.getRandom 0, @stage.getHeight()
+				sides: app.getRandom 3, 9
+				radius: app.getRandom 10, 140
+				fillRed: app.getRandom 1, 255
+				fillGreen: app.getRandom 1, 255
+				fillBlue: app.getRandom 1, 255
+				opacity: app.getRandom 0.1, 1, 2
+				draggable: true
+			layer.add shape
+			layer.draw()
+
+			@ui.shapeList.append "<li class='ui-state-default ui-sortable-handle'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>Случайная фигура #{ @state.get('currentLayer').children.length }</li>"
+
+		removeShape: =>
+			console.log 'removeShape'
+			layer = @state.get 'currentLayer'
+			shapes = layer.children
+			if shapes.length > 0
+				@ui.shapeList.find(".ui-sortable-handle").eq(shapes.length-1).remove()
+				shapes[shapes.length-1].destroy()
 				layer.draw()
-				slider = document.getElementById("kaleidoscope-slider")
-				slider.onchange = ->
-					stripesJPG.kaleidoscopeAngle slider.value
-					layer.batchDraw()
-					return
 
-				return
+		saveGeneratedCardToImage: =>
+			@stage.toDataURL
+				miteType: "image/png"
+				callback: (data) ->
+					# image = data.replace("image/png", "image/octet-stream")
+					image = data
+					imageWindow = window.open(image)
+					$(imageWindow.document.body).prepend("<p>Нажмите сохранить (ctrl/cmd + s)</p>");
 
-			imageObj.src = "/assets/img/stripes.jpg"
+
+			
+
+	class Layer extends Backbone.Model
+		# defaults:
+		# 	zIndex: 0
+
+	class LayerCollection extends Backbone.Collection
+		model: Layer

@@ -21,7 +21,7 @@
 
     // cardEditor/editor.jade compiled template
     templatizer["cardEditor"]["editor"] = function tmpl_cardEditor_editor() {
-        return '<h1 class="text-center">Edit your card!</h1><div class="container-fluid"><div class="row"><div class="editor-viewport col-sm-7 left"><div id="canvas-container"></div></div><div class="toolbar col-sm-5 right"><h2>toolbar</h2><br/><label for="kaleidoscope-slider">Калейдоскоп</label><input id="kaleidoscope-slider" type="range" min="0" max="360" step="5" value="20"/></div></div></div>';
+        return '<h1 class="text-center">Edit your card!</h1><div class="container-fluid"><div class="row"><div class="editor-viewport col-sm-7 left"><h2 class="text-center">CARD VIEW</h2><br/><div id="canvas-container"></div></div><div class="toolbar col-sm-5 right"><h2 class="text-center">TOOLBAR</h2><br/><div class="row text-center"><button class="save-to-image">Сохранить в PNG</button></div><br/><button class="add-layer">Добавить слой | </button><button class="remove-layer"> Удалить слой</button><ul class="ui-layer-list"></ul><button class="add-shape">Добавить фигуру | </button><button class="remove-shape"> Удалить фигуру</button><ul class="ui-shape-list"></ul></div></div></div>';
     };
 
     // cardGenerator/card.jade compiled template
