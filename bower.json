@@ -4,6 +4,7 @@
 	"dependencies": {
 		"lodash": "",
 		"jquery": "1",
+		"jquery-ui": "",
 		"select2": "",
 		"bootstrap": "",
 		"foundation": "",

@@ -66,6 +66,8 @@ paths =
 		dest: "#{DIST}/js/dep"
 		src: [
 			'bower_components/jquery/dist/jquery.js'
+			'bower_components/jquery-ui/jquery-ui.min.js'
+
 			'bower_components/select2/select2.js'
 			'bower_components/bootstrap/js/tab.js'
 			'bower_components/bootstrap/js/dropdown.js'
@@ -74,6 +76,8 @@ paths =
 			'bower_components/backbone/backbone.js'
 			'bower_components/marionette/lib/backbone.marionette.js'
 			'other_components/deep-model.js'
+			'other_components/backbone.epoxy.min.js'
+
 			# 'other_components/modernizr/modernizr.js'
 			# 'other_components/foundation/js/foundation.js'
 			'other_components/deep-model.js'

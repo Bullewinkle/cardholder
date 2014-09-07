@@ -1,0 +1,17 @@
+#canvas-container
+	background rgba(0,0,0,0.1)	
+
+.panel
+	transition: all .3s ease
+	max-height: 354px
+	overflow: hidden
+	*:focus
+		outline: none !important
+
+	ul 
+		// height : 6 items
+		max-height: 246px
+		overflow: scroll
+	
+	&.is-collapsed
+		max-height: 42px
