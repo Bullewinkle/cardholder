@@ -1,0 +1,12 @@
+.col-sm-12
+	.panel.panel-default
+		.panel-heading
+			.text-center= title
+				button.collapse-toggler.btn.btn-default.btn-xs.right: span.caret
+		.panel-body
+			.row
+				.col-sm-6.text-center
+					button.add-child.btn.btn-success(type="button")= addButtonText
+				.col-sm-6.text-center
+					button.remove-child.btn.btn-danger(type="button")= removeButtonText
+		ul.items-container.list-group

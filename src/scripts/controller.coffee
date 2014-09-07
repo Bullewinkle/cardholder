@@ -14,7 +14,7 @@ window.app.module 'Common', (Common) ->
 			app.mainRegion.show new app.CardGenerator.CardsView
 
 		showCardEditor: ->
-			app.mainRegion.show new app.CardEditor.CardEditorView
+			app.mainRegion.show new app.CardEditor.CardEditorLayout
 
 		showPage: ->
 			html = templatizer.page()
