@@ -1,4 +1,28 @@
 @app.module 'CardEditor', (CardEditor) ->
+
+	#Define editors data strucrure
+	class AbstractShapeModel extends Backbone.Model
+
+	class ShapeCollection extends Backbone.Collection
+		model: AbstractShapeModel
+
+	class LayerModel extends Backbone.Model
+		defaults:
+			layerName: 'Default'
+			shapeCollection: new ShapeCollection()
+
+	class LayerCollection extends Backbone.Collection
+		model: LayerModel
+
+	class EditorModel extends Backbone.Model
+		defaults:
+			layerCollection: new LayerCollection()
+
+	class EditorState extends Backbone.Model
+		defaults:
+			currentLayer: {}		
+
+	# Define editors layout		
 	class CardEditor.CardEditorLayout extends Marionette.LayoutView
 		logging: on
 		counter: 0
@@ -17,42 +41,61 @@
 			panel2: '#panel-2'
 			panel3: '#panel-3'
 
+
+
 		initialize: ->
-			console.log 'CardEditorLayout', @options
 			@bind 'all', ->
 				console.log "CARD EDITOR LAYOUT:\t", arguments if @logging is on
 
-			@state = new Backbone.Model currentLayer: {}
-			@model = new Backbone.Model()
-
+			@editorState = new EditorState()
+			@model = new EditorModel()
 		template: (model) ->
 			templatizer.cardEditor.editor @model
 
 		onShow: =>
-			@panel1.show new CardEditor.views.LayersPanel
-			@panel2.show new CardEditor.views.LayerChildsPanel
-
-
 			@listenTo app, 'resize', @resize
 
+			#Define Kinetic stage
 			stageWidth = @ui.canvasContainer.width()
 			stageHeight = @ui.canvasContainer.height()
-
 			@stage = new Kinetic.Stage
 				container: "canvas-container"
 				width: stageWidth
 				height: 600
-
 			stageParams =
 				scale: @stage.scale()
 				width: @ui.canvasContainer.innerWidth()
 				height: @ui.canvasContainer.innerHeight()
+			@editorState.set 'stageParams', stageParams
+			
 
-			@state.set 'stageParams', stageParams
+			# Define GUI panels, must be in the end of showing logic, because of canvas rendering
+			@panel1.show new CardEditor.views.LayersPanel 
+				state: @editorState
+				model: @model
+			@panel2.show new CardEditor.views.LayerChildsPanel 
+				state: @editorState
+				model: @model
+
+
+			@listenTo @model, 'change', @draw
+			@listenTo @model.get('layerCollection'), 'add', @addLayer
+			@listenTo @model.get('layerCollection'), 'remove', @removeLayer
+			@listenTo @model.get('layerCollection'), 'reset set sync fetch', @draw
+
+			# Add first layer
+			@model.get('layerCollection').add layerName: "Слой #{ @model.get('layerCollection').length+1 }" if @model.get('layerCollection').length is 0
+			@editorState.set 'currentLayer', @model.get('layerCollection').models[0]
+			console.log @editorState.get 'currentLayer'
+
+			@listenTo @editorState.get('currentLayer').get('shapeCollection'), 'add', @onAddShape
+			@listenTo @editorState.get('currentLayer').get('shapeCollection'), 'remove', @onRemoveShape
+			@listenTo @editorState.get('currentLayer').get('shapeCollection'), 'reset set sync fetch', @draw
+
 
 		resize: =>
 			@trigger 'resize'
-			stageParams = @state.get 'stageParams'
+			stageParams = @editorState.get 'stageParams'
 			newStageParams = {}
 
 			newStageParams.width = @ui.canvasContainer.innerWidth() # new width of page
@@ -69,10 +112,10 @@
 			@stage.setAttr "height", newStageParams.height
 			@stage.setAttr "scale", newStageParams.scale
 
-			@state.set 'stageParams', newStageParams
+			@editorState.set 'stageParams', newStageParams
 
 			@stage.draw()
-			
+
 		saveGeneratedCardToImage: =>
 			@stage.toDataURL
 				miteType: "image/png"
@@ -82,52 +125,45 @@
 					imageWindow = window.open(image)
 					$(imageWindow.document.body).prepend("<p>Нажмите сохранить (ctrl/cmd + s)</p>")
 
-		# addLayer: (e, layer, params) =>
-		# 	params = params or
-		# 		name: 'default layer'
-		# 	layer = layer or new Kinetic.Layer params
+		addLayer: (layerModel, layerCollection, options) =>
+			console.log 'add layer to stage'
+			params = layerModel.toJSON()
+			layer = new Kinetic.Layer params
+			@stage.add layer
 
-		# 	@stage.add layer
-		# 	@state.set 'currentLayer', layer
-		# 	@collection.add layer.toObject()
-		# 	@ui.layerList.append "<li class='list-group-item ui-state-default ui-sortable-handle'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>Слой #{ @stage.getLayers().length }</li>"
-		# 	console.log @stage.getLayers().length
-		
-		# removeLayer: =>
-		# 	layers = @stage.getLayers()
-		# 	if layers.length > 0
-		# 		@ui.layerList.find(".ui-sortable-handle").eq(layers.length-1).remove()
-		# 		layers[layers.length-1].destroy()
-		# 		@state.set 'currentLayer', layers[layers.length-1] or {}
-		# 	console.log @stage.getLayers().length
+		removeLayer: (layerModel, layerCollection, options) =>
+			console.log 'add layer to stage'
+			layers = @stage.getLayers()
+			if layers.length > 0
+				layers[layers.length-1].destroy()
 
-		# addShape: =>
-		# 	console.log 'addShape'
-		# 	if @stage.getLayers().length < 1
-		# 		@addLayer()
+		onAddShape: =>
+			console.log 'addShape'
 
-		# 	layer = @state.get 'currentLayer'
+			layer = @stage.children[0]
 
-		# 	shape = new Kinetic.RegularPolygon
-		# 		x: app.getRandom 0, @stage.getWidth()
-		# 		y: app.getRandom 0, @stage.getHeight()
-		# 		sides: app.getRandom 3, 9
-		# 		radius: app.getRandom 10, 140
-		# 		fillRed: app.getRandom 1, 255
-		# 		fillGreen: app.getRandom 1, 255
-		# 		fillBlue: app.getRandom 1, 255
-		# 		opacity: app.getRandom 0.1, 1, 2
-		# 		draggable: true
-		# 	layer.add shape
-		# 	layer.draw()
+			shape = new Kinetic.RegularPolygon
+				x: app.getRandom 0, @stage.getWidth()
+				y: app.getRandom 0, @stage.getHeight()
+				sides: app.getRandom 3, 9
+				radius: app.getRandom 10, 140
+				fillRed: app.getRandom 1, 255
+				fillGreen: app.getRandom 1, 255
+				fillBlue: app.getRandom 1, 255
+				opacity: app.getRandom 0.1, 1, 2
+				draggable: true
+			layer.add shape
+			layer.draw()
 
-		# 	@ui.shapeList.append "<li class='list-group-item ui-state-default ui-sortable-handle'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span>Случайная фигура #{ @state.get('currentLayer').children.length }</li>"
+			
+		onRemoveShape: =>
+			console.log 'removeShape'
+			layer = @stage.children[0]
+			shapes = layer.children
+			if shapes and shapes.length > 0
+				shapes[shapes.length-1].destroy()
+				layer.draw()	
 
-		# removeShape: =>
-		# 	console.log 'removeShape'
-		# 	layer = @state.get 'currentLayer'
-		# 	shapes = layer.children
-		# 	if shapes and shapes.length > 0
-		# 		@ui.shapeList.find(".ui-sortable-handle").eq(shapes.length-1).remove()
-		# 		shapes[shapes.length-1].destroy()
-		# 		layer.draw()
+		draw: =>
+			# console.log 'editor model changed, draw ', arguments
+			@stage.draw()

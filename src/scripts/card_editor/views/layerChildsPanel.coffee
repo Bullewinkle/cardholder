@@ -1,9 +1,4 @@
-app.module 'CardEditor.views', (views) ->
-
-	class LayerChildModel extends Backbone.Model
-
-	class LayerChildCollection extends Backbone.Collection
-		model: LayerChildModel
+app.module 'CardEditor.views', (views, app) ->
 	
 	class views.LayerChildsPanel extends views.BaseToolbarPanelView
 		logging: off
@@ -16,13 +11,42 @@ app.module 'CardEditor.views', (views) ->
 		# events:
 
 		initialize: ->
+			super
 			@bind 'all', ->
 				console.log "LAYER CHILDS PANEL VIEW:\t", arguments if @logging is on
 
-			@model = new Backbone.Model()
-			@collection = new LayerChildCollection()
+			@listenTo @editorState, 'change', @update
+			# @model = new Backbone.Model()
+			# console.log @editorState.get('currentLayer')
 
-			@state.set 'templateOptions',
+			@collection = new Backbone.Collection()
+
+			@panelViewState.set 'templateOptions',
 				title: 'Фигуры'
 				addButtonText: 'Добавить фигуру'
 				removeButtonText: 'Удалить фигуру'
+
+		update: =>
+			@currentLayerShapeCollection = @editorState.get('currentLayer').get('shapeCollection')
+			@collection.reset @currentLayerShapeCollection.models
+			# @collection.on 'add', (model, collection, options) ->
+			# 	currentLayerShapeCollection.add model
+			# 	console.warn arguments, currentLayerShapeCollection
+			# @collection.on 'remove', (model, collection, options) ->
+			# 	currentLayerShapeCollection.pop()
+			# 	console.warn arguments, currentLayerShapeCollection
+
+		# addToCurrentLayerShapeCollection: (model, collection, options) =>
+		# 	@currentLayerShapeCollection.add model
+		# popFromCurrentLayerShapeCollection: (model, collection, options) =>
+		# 	@currentLayerShapeCollection.pop()
+		onAddChildClicked: =>
+			@collection.add shapeName: "Фигура #{ @collection.length+1 }"
+			@editorState.get('currentLayer').get('shapeCollection').add shapeName: "Фигура #{ @collection.length+1 }"
+
+		onRemoveChildCkicked: =>
+			@collection.pop()
+			@editorState.get('currentLayer').get('shapeCollection').pop()
+
+		onAddChild: =>
+		onRemoveChild: =>

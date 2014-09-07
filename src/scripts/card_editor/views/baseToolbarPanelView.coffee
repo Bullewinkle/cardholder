@@ -1,6 +1,6 @@
-app.module 'CardEditor.views', (views) ->
+app.module 'CardEditor.views', (views, app) ->
 
-	class ToolbarPanelState extends Backbone.Model
+	class PanelViewState extends Backbone.Model
 		defaults:
 			isOpened: true
 			isVisible: true
@@ -11,7 +11,7 @@ app.module 'CardEditor.views', (views) ->
 				removeButtonText: 'Какая-то кнопка'				
 
 	class views.BaseToolbarPanelView extends Marionette.CompositeView
-		logging: off
+		logging: on
 
 		ui:
 			'panel': '.panel'
@@ -29,33 +29,32 @@ app.module 'CardEditor.views', (views) ->
 
 		childViewContainer: '.items-container'
 
-		state: new ToolbarPanelState()
+		panelViewState: new PanelViewState()
 
-		initialize: ->
-			@bind 'all', ->
-				console.log "PANEL VIEW:\t", arguments if @logging is on
+		initialize: (options) ->
+			@editorState = options.state
+			@editorModel = options.model
 
 		template: (model) =>
-			options = @state.get 'templateOptions'
+			options = @panelViewState.get 'templateOptions'
 			templatizer.cardEditor.toolbar.baseToolbarPanel options
 
 		onShow: =>
 			@ui.childViewContainer.sortable()
 			@ui.childViewContainer.disableSelection()
 		
-		onAddChildClicked: =>
-			@collection.add name: 'one'
-
-		onRemoveChildCkicked: =>
-			@collection.models[@collection.models.length-1]?.destroy()
-
 		onCollapseToggle: =>
-			console.log 'toggle collapse'
 			@ui.panel.toggleClass 'is-collapsed'
 
 		onMouseEnter: =>
-			@state.set 'currentOverflow', $('body').css('overflow')
+			@panelViewState.set 'currentOverflow', $('body').css('overflow')
 			$('body').css 'overflow', 'hidden'
 
 		onMouseLeave: =>
-			$('body').css 'overflow', @state.get 'currentOverflow'
+			$('body').css 'overflow', @panelViewState.get 'currentOverflow'
+
+		onAddChildClicked: =>
+			@collection.add {}
+
+		onRemoveChildCkicked: =>
+			@collection.pop()

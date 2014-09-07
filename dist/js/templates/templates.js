@@ -38,13 +38,27 @@
     };
 
     // cardEditor/toolbar/layer.jade compiled template
-    templatizer["cardEditor"]["toolbar"]["layer"] = function tmpl_cardEditor_toolbar_layer() {
-        return '<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Слой<button class="close right"><span aria-hidden="true">&times;</span></button>';
+    templatizer["cardEditor"]["toolbar"]["layer"] = function tmpl_cardEditor_toolbar_layer(locals) {
+        var buf = [];
+        var jade_mixins = {};
+        var jade_interp;
+        var locals_for_with = locals || {};
+        (function(layerName) {
+            buf.push('<span class="ui-icon ui-icon-arrowthick-2-n-s">' + jade.escape(null == (jade_interp = layerName) ? "" : jade_interp) + '</span><button class="close right"><span aria-hidden="true">&times;</span></button>');
+        })("layerName" in locals_for_with ? locals_for_with.layerName : typeof layerName !== "undefined" ? layerName : undefined);
+        return buf.join("");
     };
 
     // cardEditor/toolbar/layerChild.jade compiled template
-    templatizer["cardEditor"]["toolbar"]["layerChild"] = function tmpl_cardEditor_toolbar_layerChild() {
-        return '<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Случайная фигура<button class="close right"><span aria-hidden="true">&times;</span></button>';
+    templatizer["cardEditor"]["toolbar"]["layerChild"] = function tmpl_cardEditor_toolbar_layerChild(locals) {
+        var buf = [];
+        var jade_mixins = {};
+        var jade_interp;
+        var locals_for_with = locals || {};
+        (function(shapeName) {
+            buf.push('<span class="ui-icon ui-icon-arrowthick-2-n-s">' + jade.escape(null == (jade_interp = shapeName) ? "" : jade_interp) + '</span><button class="close right"><span aria-hidden="true">&times;</span></button>');
+        })("shapeName" in locals_for_with ? locals_for_with.shapeName : typeof shapeName !== "undefined" ? shapeName : undefined);
+        return buf.join("");
     };
 
     // cardGenerator/card.jade compiled template
