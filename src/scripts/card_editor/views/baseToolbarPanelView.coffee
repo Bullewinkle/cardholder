@@ -47,11 +47,15 @@ app.module 'CardEditor.views', (views, app) ->
 			@ui.panel.toggleClass 'is-collapsed'
 
 		onMouseEnter: =>
-			@panelViewState.set 'currentOverflow', $('body').css('overflow')
-			$('body').css 'overflow', 'hidden'
+			@panelViewState.set 'currentOverflow', 
+				both: $('body').css('overflow')
+				x: $('body').css('overflow-x')
+				y: $('body').css('overflow-y')
+
+			$('body').css 'overflow-y', 'hidden'
 
 		onMouseLeave: =>
-			$('body').css 'overflow', @panelViewState.get 'currentOverflow'
+			$('body').css 'overflow-y', @panelViewState.get('currentOverflow').y
 
 		onAddChildClicked: =>
 			@collection.add {}
