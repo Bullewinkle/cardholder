@@ -6,8 +6,8 @@
 		#0
 		(context,args...) ->
 
-			context.fillStyle = '#fff'
-			context.fillRect(0,0,context.canvas.width,context.canvas.height)
+			# context.fillStyle = 'rgba(0,0,0,0)'
+			context.clearRect(0,0,context.canvas.width,context.canvas.height)
 
 		#1
 		(context,args...) ->
@@ -18,7 +18,9 @@
 				randomVal1 = app.getRandom(0,GradientGen.options.colorScheme.length-1)
 
 			context.fillStyle = '#fff'
-			context.fillRect(0,0,context.canvas.width,context.canvas.height)
+			context.clearRect(0,0,context.canvas.width, context.canvas.height)
+			context.fillRect(0,0,context.canvas.width, context.canvas.height)
+			
 			context.fillStyle = '#'+GradientGen.options.colorScheme[randomVal1]
 			context.fillRect(0,0,context.canvas.width,context.canvas.height)
 
@@ -33,7 +35,9 @@
 				randomVal1 = app.getRandom(0,GradientGen.options.colorScheme.length-1)
 
 			context.fillStyle = '#fff'
-			context.fillRect(0,0,context.canvas.width,context.canvas.height)
+			context.clearRect(0,0,context.canvas.width, context.canvas.height)
+			context.fillRect(0,0,context.canvas.width, context.canvas.height)
+			
 			context.fillStyle = '#'+GradientGen.options.colorScheme[randomVal1]
 			context.fillRect(0,0,context.canvas.width/2,context.canvas.height)
 
@@ -49,7 +53,9 @@
 				randomVal1 = app.getRandom(0,GradientGen.options.colorScheme.length-1)
 
 			context.fillStyle = '#fff'
-			context.fillRect(0,0,context.canvas.width,context.canvas.height)
+			context.clearRect(0,0,context.canvas.width, context.canvas.height)
+			context.fillRect(0,0,context.canvas.width, context.canvas.height)
+			
 			context.fillStyle = '#'+GradientGen.options.colorScheme[randomVal1]
 			context.fillRect(0,context.canvas.height/2,context.canvas.width,context.canvas.height)
 
@@ -70,7 +76,9 @@
 				randomVal2 = app.getRandom(0,colorScheme.length-1)
 
 			context.fillStyle = '#fff'
-			context.fillRect(0,0,canvas.width,canvas.height)
+			context.clearRect(0,0,context.canvas.width, context.canvas.height)
+			context.fillRect(0,0,context.canvas.width, context.canvas.height)
+			
 
 			gradient = context.createLinearGradient(0, canvas.height/2, canvas.width, canvas.height*1.5);
 			gradient.addColorStop(0.000, '#' + colorScheme[randomVal1] )
@@ -107,7 +115,9 @@
 				randomVal2 = app.getRandom(0.6,0.9,2)
 
 			context.fillStyle = '#fff'
-			context.fillRect(0,0,context.canvas.width,context.canvas.height)
+			context.clearRect(0,0,context.canvas.width, context.canvas.height)
+			context.fillRect(0,0,context.canvas.width, context.canvas.height)
+			
 			context.fillStyle = '#'+GradientGen.options.colorScheme[randomVal1]
 			context.fillRect(0,context.canvas.height*randomVal2 ,context.canvas.width,context.canvas.height)
 
@@ -130,7 +140,9 @@
 				randomVal2 = app.getRandom(0,colorScheme.length-1)
 
 			context.fillStyle = '#fff'
-			context.fillRect(0,0,canvas.width,canvas.height)
+			context.clearRect(0,0,context.canvas.width, context.canvas.height)
+			context.fillRect(0,0,context.canvas.width, context.canvas.height)
+			
 			context.rect( canvas.width*10/100, 0, canvas.width*40/100, canvas.height)
 			gradient = context.createLinearGradient( 0, canvas.height/2, canvas.width, canvas.height/2);
 			gradient.addColorStop(0.000, '#' + colorScheme[randomVal1] )
@@ -158,7 +170,9 @@
 				randomVal2 = app.getRandom(0,colorScheme.length-1)
 
 			context.fillStyle = '#fff'
-			context.fillRect(0,0,canvas.width,canvas.height)
+			context.clearRect(0,0,context.canvas.width, context.canvas.height)
+			context.fillRect(0,0,context.canvas.width, context.canvas.height)
+			
 			gradient = context.createLinearGradient(0, canvas.height/2, canvas.width, canvas.height*0.25);
 			gradient.addColorStop(0.000, '#' + colorScheme[randomVal1] )
 			gradient.addColorStop(0.495, '#' + colorScheme[randomVal1] )
@@ -207,7 +221,9 @@
 				gradientType = GradientGen.options.gradientType
 
 			context.fillStyle = '#fff'
-			context.fillRect(0,0,context.canvas.width,context.canvas.height)
+			context.clearRect(0,0,context.canvas.width, context.canvas.height)
+			context.fillRect(0,0,context.canvas.width, context.canvas.height)
+			
 			
 			gradient = context.createRadialGradient(canvas.width, canvas.height, 0.000, canvas.width, canvas.height, 80.000)
 
@@ -259,7 +275,9 @@
 				gradientType = GradientGen.options.gradientType
 
 			context.fillStyle = '#fff'
-			context.fillRect(0,0,context.canvas.width,context.canvas.height)
+			context.clearRect(0,0,context.canvas.width, context.canvas.height)
+			context.fillRect(0,0,context.canvas.width, context.canvas.height)
+			
 			
 			gradient = context.createRadialGradient(canvas.width+5, canvas.height/2, 0.000, canvas.width+5, canvas.height/2, 120.000)
 
@@ -309,7 +327,9 @@
 				gradientType = GradientGen.options.gradientType
 
 			context.fillStyle = '#fff'
-			context.fillRect(0,0,context.canvas.width,context.canvas.height)
+			context.clearRect(0,0,context.canvas.width, context.canvas.height)
+			context.fillRect(0,0,context.canvas.width, context.canvas.height)
+			
 			
 			gradient = context.createRadialGradient(canvas.width/2, canvas.height-8, 0.000, canvas.width/2, canvas.height+200, 270.000)
 
@@ -352,7 +372,9 @@
 				gradientType = GradientGen.options.gradientType
 
 			context.fillStyle = '#fff'
-			context.fillRect(0,0,context.canvas.width,context.canvas.height)
+			context.clearRect(0,0,context.canvas.width, context.canvas.height)
+			context.fillRect(0,0,context.canvas.width, context.canvas.height)
+			
 			
 			gradient = context.createRadialGradient(canvas.width/2, 0 , 0.000, canvas.width/2, 0-310, 400.000)
 			gradient.addColorStop 0.000, '#fff'
@@ -388,7 +410,9 @@
 				gradientType = GradientGen.options.gradientType
 
 			context.fillStyle = '#fff'
-			context.fillRect(0,0,context.canvas.width,context.canvas.height)
+			context.clearRect(0,0,context.canvas.width, context.canvas.height)
+			context.fillRect(0,0,context.canvas.width, context.canvas.height)
+			
 			
 			gradient = context.createRadialGradient(canvas.width/2, canvas.height/2 , 0.000, canvas.width/2, canvas.height/2, randomVal3)
 
@@ -426,7 +450,9 @@
 				gradientType = GradientGen.options.gradientType
 
 			context.fillStyle = '#fff'
-			context.fillRect(0,0,context.canvas.width,context.canvas.height)
+			context.clearRect(0,0,context.canvas.width, context.canvas.height)
+			context.fillRect(0,0,context.canvas.width, context.canvas.height)
+			
 			
 			gradient = context.createLinearGradient(0, canvas.height/2, canvas.width, canvas.height/2+42)
 
@@ -479,7 +505,9 @@
 				randomVal2 = app.getRandom(0,colorScheme.length-1)
 
 			context.fillStyle = '#fff'
-			context.fillRect(0,0,canvas.width,canvas.height)
+			context.clearRect(0,0,context.canvas.width, context.canvas.height)
+			context.fillRect(0,0,context.canvas.width, context.canvas.height)
+			
 			context.rect( 0,canvas.height*50/100, canvas.width, canvas.height*40/100)
 			gradient = context.createLinearGradient( canvas.width/2, 0 , canvas.width/2, canvas.height);
 			gradient.addColorStop(0, '#' + colorScheme[randomVal1] )
@@ -512,7 +540,9 @@
 				gradientType = GradientGen.options.gradientType
 
 			context.fillStyle = '#fff'
-			context.fillRect(0,0,context.canvas.width,context.canvas.height)
+			context.clearRect(0,0,context.canvas.width, context.canvas.height)
+			context.fillRect(0,0,context.canvas.width, context.canvas.height)
+			
 			
 			gradient = context.createLinearGradient(0, canvas.height/2, canvas.width, canvas.height/2+42)
 
@@ -559,7 +589,9 @@
 				gradientType = GradientGen.options.gradientType
 
 			context.fillStyle = '#fff'
-			context.fillRect(0,0,context.canvas.width,context.canvas.height)
+			context.clearRect(0,0,context.canvas.width, context.canvas.height)
+			context.fillRect(0,0,context.canvas.width, context.canvas.height)
+			
 			
 			gradient = context.createLinearGradient(0, canvas.height/2, canvas.width, canvas.height/2+42)
 
@@ -607,7 +639,9 @@
 				gradientType = GradientGen.options.gradientType
 
 			context.fillStyle = '#fff'
-			context.fillRect(0,0,context.canvas.width,context.canvas.height)
+			context.clearRect(0,0,context.canvas.width, context.canvas.height)
+			context.fillRect(0,0,context.canvas.width, context.canvas.height)
+			
 			
 			gradient = context.createLinearGradient(0, canvas.height/2, canvas.width, canvas.height/2+42)
 			gradient.addColorStop 0.000, '#' + colorScheme[randomVal1]
@@ -650,7 +684,7 @@
 		# 		# TODO generate random gradientType!
 		# 		gradientType = GradientGen.options.gradientType
 
-		# 	context.fillStyle = '#fff'
+		# 	context.fillStyle = 'rgba(0,0,0,0)'
 		# 	context.fillRect(0,0,context.canvas.width,context.canvas.height)
 		# 	if gradientType is 'linear'
 		# 		gradient = context.createLinearGradient(randomVal3,randomVal4,randomVal5,randomVal6)
@@ -690,7 +724,7 @@
 		# 		# TODO generate random gradientType!
 		# 		gradientType = GradientGen.options.gradientType
 
-		# 	context.fillStyle = '#fff'
+		# 	context.fillStyle = 'rgba(0,0,0,0)'
 		# 	context.fillRect(0,0,context.canvas.width,context.canvas.height)
 		# 	# if gradientType is 'linear'
 		# 	# 	gradient = context.createLinearGradient(randomVal3,randomVal4,randomVal5,randomVal6)

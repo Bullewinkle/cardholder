@@ -23,10 +23,10 @@ app.module 'CardEditor.views', (views, app) ->
 				removeButtonText: 'Удалить слой'
 
 		onAddChildClicked: =>
-			@collection.add layerName: "Слой #{ @collection.length+1 }"
+			@collection.add layerName: "Слой #{ @collection.length }"
 
 		onRemoveChildCkicked: =>
-			if @collection.length < 2
+			if @collection.length < 3
 				alert 'Необходим хотя бы 1 слой'
 				return false
 			super

@@ -1,18 +1,54 @@
 h1.text-center Edit your card!
 .container-fluid
 	.row
-		.editor-viewport.col-sm-7.left
+		.editor-viewport.col-sm-12.left
 			.row
 				//- h2.text-center CARD VIEW
-				.col-sm-12
+
+				.col-sm-2
+					.row.tools
+						.col-sm-12
+							.panel.panel-default
+								.panel-heading
+									.text-center Инструменты
+								.panel-body
+									button.draw-random-background.btn.btn-success.btn-block(type="button") Случайный фон
+
+									//- .row
+									//- 	.col-sm-6.text-center
+									//- 		button.btn.btn-success(type="button") Добавить
+									//- 	.col-sm-6.text-center
+									//- 		button.btn.btn-danger(type="button") Удалить
+
+									//- .row
+									//- 	.col-sm-6.text-center
+									//- 		button.btn.btn-success(type="button") Добавить
+									//- 	.col-sm-6.text-center
+									//- 		button.btn.btn-danger(type="button") Удалить
+
+									//- .row
+									//- 	.col-sm-6.text-center
+									//- 		button.btn.btn-success(type="button") Добавить
+									//- 	.col-sm-6.text-center
+									//- 		button.btn.btn-danger(type="button") Удалить
+
+									//- .row
+									//- 	.col-sm-6.text-center
+									//- 		button.btn.btn-success(type="button") Добавить
+									//- 	.col-sm-6.text-center
+									//- 		button.btn.btn-danger(type="button") Удалить
+
+									//- .row
+									//- 	.col-sm-6.text-center
+									//- 		button.btn.btn-success(type="button") Добавить
+									//- 	.col-sm-6.text-center
+									//- 		button.btn.btn-danger(type="button") Удалить						
+
+				.col-sm-7
 
 					#canvas-container
 
-
-		.editor-toolbar.col-sm-5.right
-			.row
-				//- h2.text-center TOOLBAR
-				.col-sm-6
+				.col-sm-3
 
 					#panel-1.row
 
@@ -24,46 +60,4 @@ h1.text-center Edit your card!
 						.col-sm-12
 							.text-center: button.save-to-image.btn.btn-default(type="button") Сохранить в PNG
 
-				.col-sm-6
-					.row.shapes
-						.col-sm-12
-							.panel.panel-default
-								.panel-heading
-									.text-center Инструменты
-								.panel-body
-									.row
-										.col-sm-6.text-center
-											button.btn.btn-success(type="button") Добавить
-										.col-sm-6.text-center
-											button.btn.btn-danger(type="button") Удалить
-
-									.row
-										.col-sm-6.text-center
-											button.btn.btn-success(type="button") Добавить
-										.col-sm-6.text-center
-											button.btn.btn-danger(type="button") Удалить
-
-									.row
-										.col-sm-6.text-center
-											button.btn.btn-success(type="button") Добавить
-										.col-sm-6.text-center
-											button.btn.btn-danger(type="button") Удалить
-
-									.row
-										.col-sm-6.text-center
-											button.btn.btn-success(type="button") Добавить
-										.col-sm-6.text-center
-											button.btn.btn-danger(type="button") Удалить
-
-									.row
-										.col-sm-6.text-center
-											button.btn.btn-success(type="button") Добавить
-										.col-sm-6.text-center
-											button.btn.btn-danger(type="button") Удалить
-
-									.row
-										.col-sm-6.text-center
-											button.btn.btn-success(type="button") Добавить
-										.col-sm-6.text-center
-											button.btn.btn-danger(type="button") Удалить
 
