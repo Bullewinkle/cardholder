@@ -24,8 +24,10 @@ app.module 'CardEditor.views', (views, app) ->
 			'click @ui.collapseToggler': 'onCollapseToggle'
 			'click @ui.addChild' : 'onAddChildClicked'
 			'click @ui.removeChild' : 'onRemoveChildCkicked'
-			'mouseenter @ui.childViewContainer': 'onMouseEnter'
-			'mouseleave @ui.childViewContainer': 'onMouseLeave'
+			# 'mouseenter @ui.childViewContainer': 'onMouseEnter'
+			# 'mouseleave @ui.childViewContainer': 'onMouseLeave'
+			# 'DOMMouseScroll @ui.childViewContainer': 'onScroll'
+			# 'mousewheel @ui.childViewContainer': 'onScroll'
 
 		childViewContainer: '.items-container'
 
@@ -40,22 +42,41 @@ app.module 'CardEditor.views', (views, app) ->
 			templatizer.cardEditor.toolbar.baseToolbarPanel options
 
 		onShow: =>
-			@ui.childViewContainer.sortable()
+			@ui.childViewContainer.sortable( containment: "parent" )
 			@ui.childViewContainer.disableSelection()
 		
 		onCollapseToggle: =>
 			@ui.panel.toggleClass 'is-collapsed'
 
-		onMouseEnter: =>
-			@panelViewState.set 'currentOverflow', 
-				both: $('body').css('overflow')
-				x: $('body').css('overflow-x')
-				y: $('body').css('overflow-y')
+		onScroll: (ev) =>
+			# enable this code ( from http://jsfiddle.net/TroyAlford/4wrxq/1/ )
+			`alert('hello')
+			var $this = $(this),
+			    scrollTop = this.scrollTop,
+			    scrollHeight = this.scrollHeight,
+			    height = $this.height(),
+			    delta = ev.originalEvent.wheelDelta,
+			    up = delta > 0;
 
-			$('body').css 'overflow-y', 'hidden'
+			var prevent = function() {
+			    ev.stopPropagation();
+			    ev.preventDefault();
+			    ev.returnValue = false;
+			    return false;
+			}
 
-		onMouseLeave: =>
-			$('body').css 'overflow-y', @panelViewState.get('currentOverflow').y
+			if (!up && -delta > scrollHeight - height - scrollTop) {
+			    // Scrolling down, but this will take us past the bottom.
+			    $this.scrollTop(scrollHeight);
+			    return prevent();
+			} else if (up && delta > scrollTop) {
+			    // Scrolling up, but this will take us past the top.
+			    $this.scrollTop(0);
+			    return prevent();
+			}`
+
+		onMouseEnter: (e) =>
+		onMouseLeave: (e) =>
 
 		onAddChildClicked: =>
 			@collection.add {}
