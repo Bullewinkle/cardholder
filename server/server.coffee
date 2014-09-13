@@ -101,7 +101,8 @@ start = ( envirement, callback ) ->
 
 	# 	http.createServer( app ).listen CONFIG.port, ->
 	# 		console.log "Express server listening on port " + CONFIG.port
-
+	console.log '!!!! Envirement', envirement
+	console.log '!!!! process.env', process.env
 	http.createServer( app ).listen CONFIG.port, ->
 		console.log "Express server listening on port " + CONFIG.port	
 

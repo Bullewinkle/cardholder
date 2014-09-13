@@ -71,7 +71,7 @@ body {
        box-sizing: border-box;
 }
 *:focus {
-  outline: none;
+  outline: none !important;
 }
 a,
 button {
@@ -874,17 +874,11 @@ i {
       -ms-transform: translate(0, 0);
           transform: translate(0, 0);
 }
-#canvas-container {
-  background: rgba(0,0,0,0.1);
-}
 .panel {
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
   max-height: 354px;
   overflow: hidden;
-}
-.panel *:focus {
-  outline: none !important;
 }
 .panel ul {
   max-height: 246px;
@@ -892,6 +886,23 @@ i {
 }
 .panel.is-collapsed {
   max-height: 42px;
+}
+.col-left {
+  width: 250px;
+}
+.col-center {
+  position: absolute;
+  padding: 0 360px 0 250px;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+.col-center #canvas-container {
+  background: rgba(0,0,0,0.1);
+}
+.col-right {
+  width: 360px;
+  float: right;
 }
 .l-inline > * {
   display: inline-block !important;

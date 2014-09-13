@@ -3,7 +3,7 @@ app.module 'CardEditor.views', (views, app) ->
 	class views.LayersPanel extends views.BaseToolbarPanelView
 		logging: off
 
-		className: 'row layers'
+		className: 'layers'
 
 		childView: views.Layer
 
