@@ -98,13 +98,8 @@ start = ( envirement, callback ) ->
 		
 	# 	db.collection('users').update {name: 'default user'}, {name: 'default user', lastLogin: date}, (args...) -> 
 	# 		true
-
-	# 	http.createServer( app ).listen CONFIG.port, ->
-	# 		console.log "Express server listening on port " + CONFIG.port
-	console.log '!!!! Envirement', envirement
-	console.log '!!!! process.env', process.env
-	http.createServer( app ).listen CONFIG.port, ->
-		console.log "Express server listening on port " + CONFIG.port	
+	http.createServer( app ).listen process.env.PORT or CONFIG.port or 9000, ->
+		console.log "Express server listening on port " + port	
 
 if not module.parent
 	start()
