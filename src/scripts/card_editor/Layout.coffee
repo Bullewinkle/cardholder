@@ -33,17 +33,16 @@
 			'canvasContainer': '#canvas-container'
 			'drawRandomBackgroundButton': '.draw-random-background'
 			'saveImageFileButton': '.save-to-image'
+			'iconsContainer': '.icons-container'
 					
 		events:
 			'click @ui.drawRandomBackgroundButton': 'drawRandomBackgroundButton'
 			'click @ui.saveImageFileButton': 'saveGeneratedCardToImage'
 
 		regions:
-			panel1: '#panel-1'
-			panel2: '#panel-2'
-			panel3: '#panel-3'
-
-
+			layersPanel: '#layers-panel-region'
+			shapesPanel: '#shapes-panel-region'
+			iconsPanel: '#icons-panel-region'
 
 		initialize: ->
 			@bind 'all', ->
@@ -51,7 +50,7 @@
 
 			@editorState = new EditorState()
 			@model = new EditorModel()
-		template: (model) ->
+		template: ->
 			templatizer.cardEditor.editor @model
 
 		onShow: =>
@@ -72,18 +71,12 @@
 			
 
 			# Define GUI panels, must be in the end of showing logic, because of canvas rendering
-			@panel1.show new CardEditor.views.LayersPanel 
-				state: @editorState
-				model: @model
-			@panel2.show new CardEditor.views.LayerChildsPanel 
-				state: @editorState
-				model: @model
+			@_showGuiPanels()
 
 			@listenTo @model, 'change', @draw
 			@listenTo @model.get('layerCollection'), 'add', @addLayer
 			@listenTo @model.get('layerCollection'), 'remove', @removeLayer
 			@listenTo @model.get('layerCollection'), 'reset set sync fetch', @draw
-
 
 			# Add first layer
 			@model.get('layerCollection').add layerName: "Фон" if @model.get('layerCollection').length is 0
@@ -98,7 +91,56 @@
 			@listenTo @editorState.get('currentLayer').get('shapeCollection'), 'remove', @onRemoveShape
 			@listenTo @editorState.get('currentLayer').get('shapeCollection'), 'reset set sync fetch', @draw
 
+			# icons-container
 			@draw()
+
+		_showGuiPanels: =>
+			@layersPanel.show new CardEditor.views.LayersPanel 
+				state: @editorState
+				model: @model
+
+			@shapesPanel.show new CardEditor.views.LayerChildsPanel 
+				state: @editorState
+				model: @model
+
+			@iconsPanel.show new CardEditor.views.IconsPanel 
+				state: @editorState
+				model: @model
+			console.log @shapesPanel.currentView				
+			@listenTo @iconsPanel.currentView, 'childview:click:icon', @onAddIcon
+
+		onAddIcon: (view, options, args...) =>
+			layer = @stage.children[@stage.children.length-1]
+
+			# shape = new Kinetic.RegularPolygon
+			# 	x: app.getRandom 0, @stage.getWidth()
+			# 	y: app.getRandom 0, @stage.getHeight()
+			# 	sides: app.getRandom 3, 9
+			# 	radius: app.getRandom 10, 140
+				# fillRed: app.getRandom 1, 255
+				# fillGreen: app.getRandom 1, 255
+				# fillBlue: app.getRandom 1, 255
+			# 	opacity: app.getRandom 0.1, 1, 2
+			# 	draggable: true
+
+
+			icon = new Kinetic.Text
+				x: (@stage.getWidth()/2)-100
+				y: (@stage.getHeight()/2)-100
+				text: options.model.get 'content'
+				fontSize: 200,
+				fontFamily: 'icomoon',
+				fillRed: app.getRandom 1, 255
+				fillGreen: app.getRandom 1, 255
+				fillBlue: app.getRandom 1, 255
+				width: 200
+				height: 200
+				align: 'center'
+				draggable: true
+
+
+			layer.add icon
+			layer.draw()
 
 		resize: =>
 			@trigger 'resize'

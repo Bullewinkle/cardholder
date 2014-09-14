@@ -2,6 +2,7 @@ h1.text-center Chose card!
 #cardsGreed
 	ul.cards
 		li.step-form-controller-wrapper
+			
 			.step-form-controller
 				form(class="step-form-controller-form q1" action="/")
 					.step-form-controller-form-label Текст вопроса
@@ -16,28 +17,3 @@ h1.text-center Chose card!
 				.step-form-controller-form-controls
 					.step-form-controller-form-control.prev: a(class="icon-arrow-left")
 					.step-form-controller-form-control.next: a(class="icon-arrow-right")
-		//- - for (var i = 1; i <= 25; i++)
-		//- 	if i == 13
-		//- 		- var classname = 'card card-center'
-		//- 		li(class= 'card-' + i + ' step-form-controller-wrapper')
-		//- 			.step-form-controller
-		//- 				form(class="step-form-controller-form q1" action="/")
-		//- 					.step-form-controller-form-label Текст вопроса
-		//- 					.step-form-controller-form-input
-		//- 					button(type="submit" class="step-form-controller-form-submit icon-arrow-right2" value="")
-		//- 				.step-form-controller-form-statusbar
-		//- 					.step-form-controller-form-statusbar-value
-		//- 				.step-form-controller-form-statusbar-step
-		//- 					span.step-form-controller-form-statusbar-current 
-		//- 					| /  
-		//- 					span.step-form-controller-form-statusbar-quantity
-		//- 				.step-form-controller-form-controls
-		//- 					.step-form-controller-form-control.prev: a(class="icon-arrow-left")
-		//- 					.step-form-controller-form-control.next: a(class="icon-arrow-right")
-		//- 	else 
-		//- 		- var classname = 'card'
-		//- 		li(class= classname+' '+'card-'+i)
-		//- 			.card-perspective
-		//- 				.card-perspective-inner-wrapper
-		//- 					canvas(id='canvas-'+i, class='card-canvas front card-canvas-'+i, resize="true") HTML5 Canvas is not supported
-		//- 					canvas(id='canvas-back-'+i, class='card-canvas back card-canvas-'+i, resize="true") HTML5 Canvas is not supported

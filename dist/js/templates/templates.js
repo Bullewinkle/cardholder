@@ -22,7 +22,7 @@
 
     // cardEditor/editor.jade compiled template
     templatizer["cardEditor"]["editor"] = function tmpl_cardEditor_editor() {
-        return '<h1 class="text-center">Edit your card!</h1><div class="container-fluid"><div class="row"><div class="editor-viewport col-sm-12 left"><div class="row"><div class="col-left col-sm-2"><div class="row tools"><div class="col-sm-12"><div class="panel panel-default"><div class="panel-heading"><div class="text-center">Инструменты</div></div><div class="panel-body"><button type="button" class="draw-random-background btn btn-success btn-block">Случайный фон					</button></div></div></div></div></div><div class="col-center col-sm-7"><div id="canvas-container"></div></div><div class="col-right col-sm-3"><div id="panel-1" class="row"></div><div id="panel-2" class="row"></div><div id="panel-3" class="row"></div><div class="row save-button"><div class="col-sm-12"><div class="text-center"><button type="button" class="save-to-image btn btn-default">Сохранить в PNG</button></div></div></div></div></div></div></div></div>';
+        return '<h1 class="text-center">Edit your card!</h1><div class="container-fluid"><div class="row"><div class="editor-viewport col-sm-12 left"><div class="row"><div class="col-left col-sm-2"><div class="row tools"><div class="col-sm-12"><div class="panel panel-default"><div class="panel-heading"><div class="text-center">Инструменты</div></div><div class="panel-body"><button type="button" class="draw-random-background btn btn-success btn-block">Случайный фон</button></div></div></div></div><div id="icons-panel-region" class="row"></div></div><div class="col-center"><div class="row tools"><div id="canvas-container"></div></div></div><div class="col-right col-sm-3"><div id="layers-panel-region" class="row"></div><div id="shapes-panel-region" class="row"></div><div class="row save-button"><div class="col-sm-12"><div class="text-center"><button type="button" class="save-to-image btn btn-default">Сохранить в PNG</button></div></div></div></div></div></div></div></div>';
     };
 
     // cardEditor/toolbar/baseToolbarPanel.jade compiled template
@@ -31,10 +31,45 @@
         var jade_mixins = {};
         var jade_interp;
         var locals_for_with = locals || {};
-        (function(title, addButtonText, removeButtonText) {
-            buf.push('<div class="col-sm-12"><div class="panel panel-default"><div class="panel-heading"><div class="text-center">' + jade.escape(null == (jade_interp = title) ? "" : jade_interp) + '<button class="collapse-toggler btn btn-default btn-xs right"><span class="caret"></span></button></div></div><div class="panel-body"><div class="row"><div class="col-sm-6 text-center"><button type="button" class="add-child btn btn-success">' + jade.escape(null == (jade_interp = addButtonText) ? "" : jade_interp) + '</button></div><div class="col-sm-6 text-center"><button type="button" class="remove-child btn btn-danger">' + jade.escape(null == (jade_interp = removeButtonText) ? "" : jade_interp) + '</button></div></div></div><ul class="items-container list-group"></ul></div></div>');
-        })("title" in locals_for_with ? locals_for_with.title : typeof title !== "undefined" ? title : undefined, "addButtonText" in locals_for_with ? locals_for_with.addButtonText : typeof addButtonText !== "undefined" ? addButtonText : undefined, "removeButtonText" in locals_for_with ? locals_for_with.removeButtonText : typeof removeButtonText !== "undefined" ? removeButtonText : undefined);
+        (function(title, gotBody, addRemoveButtons, addButtonText, removeButtonText) {
+            buf.push('<div class="col-sm-12"><div class="panel panel-default">');
+            if (title) {
+                buf.push('<div class="panel-heading"><div class="text-center">' + jade.escape(null == (jade_interp = title) ? "" : jade_interp) + '<button class="collapse-toggler btn btn-default btn-xs right"><span class="caret"></span></button></div></div>');
+            }
+            if (gotBody) {
+                buf.push('<div class="panel-body">');
+                if (addRemoveButtons || addButtonText || removeButtonText) {
+                    buf.push('<div class="row">');
+                    if (addButtonText) {
+                        buf.push('<div class="col-sm-6 text-center"><button type="button" class="add-child btn btn-success">' + jade.escape(null == (jade_interp = addButtonText) ? "" : jade_interp) + "</button></div>");
+                    }
+                    if (removeButtonText) {
+                        buf.push('<div class="col-sm-6 text-center"><button type="button" class="remove-child btn btn-danger">' + jade.escape(null == (jade_interp = removeButtonText) ? "" : jade_interp) + "</button></div>");
+                    }
+                    buf.push("</div>");
+                }
+                buf.push("</div>");
+            }
+            buf.push('<ul class="items-container list-group"></ul></div></div>');
+        })("title" in locals_for_with ? locals_for_with.title : typeof title !== "undefined" ? title : undefined, "gotBody" in locals_for_with ? locals_for_with.gotBody : typeof gotBody !== "undefined" ? gotBody : undefined, "addRemoveButtons" in locals_for_with ? locals_for_with.addRemoveButtons : typeof addRemoveButtons !== "undefined" ? addRemoveButtons : undefined, "addButtonText" in locals_for_with ? locals_for_with.addButtonText : typeof addButtonText !== "undefined" ? addButtonText : undefined, "removeButtonText" in locals_for_with ? locals_for_with.removeButtonText : typeof removeButtonText !== "undefined" ? removeButtonText : undefined);
         return buf.join("");
+    };
+
+    // cardEditor/toolbar/icon.jade compiled template
+    templatizer["cardEditor"]["toolbar"]["icon"] = function tmpl_cardEditor_toolbar_icon(locals) {
+        var buf = [];
+        var jade_mixins = {};
+        var jade_interp;
+        var locals_for_with = locals || {};
+        (function(className) {
+            buf.push("<span>" + jade.escape(null == (jade_interp = className) ? "" : jade_interp) + "</span>");
+        })("className" in locals_for_with ? locals_for_with.className : typeof className !== "undefined" ? className : undefined);
+        return buf.join("");
+    };
+
+    // cardEditor/toolbar/icons.jade compiled template
+    templatizer["cardEditor"]["toolbar"]["icons"] = function tmpl_cardEditor_toolbar_icons() {
+        return '<ul class="items-container list-group"></ul>';
     };
 
     // cardEditor/toolbar/layer.jade compiled template

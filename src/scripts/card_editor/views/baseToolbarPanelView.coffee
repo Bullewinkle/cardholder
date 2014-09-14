@@ -5,10 +5,10 @@ app.module 'CardEditor.views', (views, app) ->
 			isOpened: true
 			isVisible: true
 			maxVisibleItems: 6
-			templateOptions:
-				title: 'Какая-то панель'
-				addButtonText: 'Какая-то кнопка'
-				removeButtonText: 'Какая-то кнопка'				
+			title: 'Какая-то панель'
+			gotBody: true
+			addButtonText: 'Какая-то кнопка'
+			removeButtonText: 'Какая-то кнопка'		
 
 	class views.BaseToolbarPanelView extends Marionette.CompositeView
 		logging: on
@@ -34,11 +34,14 @@ app.module 'CardEditor.views', (views, app) ->
 		panelViewState: new PanelViewState()
 
 		initialize: (options) ->
+			# set params to the view
+			if options.template then @template = options.template
 			@editorState = options.state
 			@editorModel = options.model
 
-		template: (model) =>
-			options = @panelViewState.get 'templateOptions'
+		template: =>
+			options = @panelViewState.attributes
+			console.log options
 			templatizer.cardEditor.toolbar.baseToolbarPanel options
 
 		onShow: =>

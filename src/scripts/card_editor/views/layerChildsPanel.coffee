@@ -21,7 +21,7 @@ app.module 'CardEditor.views', (views, app) ->
 
 			@collection = new Backbone.Collection()
 
-			@panelViewState.set 'templateOptions',
+			@panelViewState.set
 				title: 'Случайные фигуры'
 				addButtonText: 'Добавить фигуру'
 				removeButtonText: 'Удалить фигуру'

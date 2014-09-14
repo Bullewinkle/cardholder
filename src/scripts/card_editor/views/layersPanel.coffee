@@ -17,8 +17,9 @@ app.module 'CardEditor.views', (views, app) ->
 
 			# @model = new Backbone.Model
 			@collection = @editorModel.get 'layerCollection'
-			@panelViewState.set 'templateOptions',
+			@panelViewState.set
 				title: 'Слои ( пока только на первом )'
+				addRemoveButtons: true
 				addButtonText: 'Добавить слой'
 				removeButtonText: 'Удалить слой'
 

@@ -1,20 +1,21 @@
-.panel
-	transition: all .3s ease
-	max-height: 354px
-	overflow: hidden
-	ul 
-		// height : 6 items
-		max-height: 246px
-		overflow: scroll
-	
-	&.is-collapsed
-		max-height: 42px
-
 colLeftWidth = 250px
 colRightWidth = 360px
 
-.col-left
-	width colLeftWidth
+.editor-viewport
+	min-width 960px
+	
+.col-left,
+.col-right
+	z-index 2
+	padding 0 25px
+
+.col-left	
+	min-width colLeftWidth
+	float left
+
+.col-right
+	min-width colRightWidth
+	float right	
 
 .col-center
 	position absolute
@@ -22,10 +23,30 @@ colRightWidth = 360px
 	width 100%
 	top 0
 	left 0
+	z-index 1
 
 	#canvas-container
 		background rgba(0,0,0,0.1)
+		min-width 100px
 
-.col-right
-	width colRightWidth
-	float right
+.panel
+	transition: all .3s ease
+	max-height: 354px
+	overflow: hidden
+
+	.items-container
+		max-height: 246px // 6 items
+		overflow: scroll
+	
+	&.is-collapsed
+		max-height: 42px
+.icons
+	.items-container
+		font-family 'icomoon'
+		
+		.list-group-item
+			cursor: pointer
+			&:hover {
+				background #F5F5F5
+			}
+		

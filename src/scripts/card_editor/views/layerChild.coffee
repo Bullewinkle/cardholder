@@ -1,5 +1,5 @@
 app.module 'CardEditor.views', (views) ->
-	class views.LayerChild extends Marionette.CompositeView
+	class views.LayerChild extends Marionette.ItemView
 		tagName: 'li'
 		className: 'list-group-item ui-state-default ui-sortable-handle'
 

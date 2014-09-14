@@ -99,9 +99,9 @@ paths =
 			"#{SRC}/scripts/**/*.coffee"
 		]
 
-	# appTemplates: 
-	# 	dest: "#{DIST}/js/templates"
-	# 	src: "#{SRC}/scripts/**/*.jade"
+	appTemplates: 
+		dest: "#{DIST}/js/templates/templates.js"
+		src: "#{SRC}/jade/views"		
 
 	appStyles:
 		dest: "#{DIST}/css"
@@ -472,9 +472,9 @@ g.task 'scripts', tasks.appScripts
 g.task 'styles', tasks.appStyles
 g.task 'pages', tasks.pages
 g.task 'views', tasks.views
+g.task 'templates', tasks.appTemplates
 
 g.task 'inject', tasks.inject
-g.task 'templates', tasks.appTemplates
 g.task 'server', tasks.server
 
 
@@ -505,11 +505,13 @@ g.task 'watch', ->
 
 		if e.type is 'changed'
 			tasks.appScripts(true)
+	
 
 	# Jade
 	g.watch paths.views.src
 		.on 'change', ->
 			tasks.views(true)
+			tasks.appTemplates()
 
 	g.watch paths.pages.src
 		.on 'change', ->
@@ -519,6 +521,7 @@ g.task 'watch', ->
 		.on 'change', ->
 			tasks.pages()
 			tasks.views()
+
 
 	# Server
 	g.watch ["./server/server.coffee"], ['server']

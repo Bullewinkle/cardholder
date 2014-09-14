@@ -4,7 +4,7 @@ app.module 'CardEditor.views', (views) ->
 		defaults:
 			isCurrent: false
 
-	class views.Layer extends Marionette.CompositeView
+	class views.Layer extends Marionette.ItemView
 		tagName: 'li'
 		className: 'list-group-item ui-state-default ui-sortable-handle'
 				
