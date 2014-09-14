@@ -40,9 +40,10 @@
 			'click @ui.saveImageFileButton': 'saveGeneratedCardToImage'
 
 		regions:
-			layersPanel: '#layers-panel-region'
-			shapesPanel: '#shapes-panel-region'
-			iconsPanel: '#icons-panel-region'
+			layersPanelRegion: '#layers-panel-region'
+			textPanelRegion: '#text-panel-region'
+			shapesPanelRegion: '#shapes-panel-region'
+			iconsPanelRegion: '#icons-panel-region'
 
 		initialize: ->
 			@bind 'all', ->
@@ -96,19 +97,22 @@
 			@draw()
 
 		_showGuiPanels: =>
-			@layersPanel.show new CardEditor.views.LayersPanel 
+			@layersPanelRegion.show new CardEditor.views.LayersPanel 
 				state: @editorState
 				model: @model
 
-			@shapesPanel.show new CardEditor.views.LayerChildsPanel 
+			@textPanelRegion.show new CardEditor.views.TextPanel 
 				state: @editorState
 				model: @model
 
-			@iconsPanel.show new CardEditor.views.IconsPanel 
+			@shapesPanelRegion.show new CardEditor.views.LayerChildsPanel 
 				state: @editorState
 				model: @model
-			console.log @shapesPanel.currentView				
-			@listenTo @iconsPanel.currentView, 'childview:click:icon', @onAddIcon
+
+			@iconsPanelRegion.show new CardEditor.views.IconsPanel 
+				state: @editorState
+				model: @model
+			@listenTo @iconsPanelRegion.currentView, 'childview:click:icon', @onAddIcon
 
 		onAddIcon: (view, options, args...) =>
 			layer = @stage.children[@stage.children.length-1]
