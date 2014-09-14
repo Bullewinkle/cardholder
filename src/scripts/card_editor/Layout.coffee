@@ -85,7 +85,8 @@
 			console.log 'current layer',@editorState.get 'currentLayer'
 			
 			layer = @stage.children[0]
-			app.CardGenerator.generators.gradientGen.draw(layer.canvas._canvas, (new app.CardGenerator.cards.CardModel()))
+			if layer and layer.canvas
+				app.CardGenerator.generators.gradientGen.draw(layer.canvas._canvas, (new app.CardGenerator.cards.CardModel()))
 
 			@listenTo @editorState.get('currentLayer').get('shapeCollection'), 'add', @onAddShape
 			@listenTo @editorState.get('currentLayer').get('shapeCollection'), 'remove', @onRemoveShape
@@ -345,5 +346,6 @@
 			@stage.draw()
 			layer = @stage.children[0]
 			@stage.background = @stage.background or new app.CardGenerator.cards.CardModel()
-			app.CardGenerator.generators.gradientGen.draw(layer.canvas._canvas, @stage.background )
+			if layer and layer.canvas
+				app.CardGenerator.generators.gradientGen.draw(layer.canvas._canvas, @stage.background )
 

@@ -1,5 +1,5 @@
 console.log '\n\n<---------SERVER LOG--------->\n'
-# TODO
+# TODO enable gzip
 
 CONFIG = require './config'
 fs = require 'fs'
@@ -13,6 +13,7 @@ http = require 'http'
 winston = require 'winston'
 
 express = require 'express'
+compress = require('compression')
 # session = require 'express-session'
 # RedisStore = require('connect-redis')(session)
 
@@ -34,7 +35,8 @@ GLOBAL.Promise = require 'bluebird'
 # 	console.log(err)
 
 app = express()
-app.set 'port', process.env.PORT || CONFIG.port
+app.use compress()
+app.set 'port', process.env.PORT or CONFIG.port or 9000
 
 app.use (err, req, res, next) ->
 	if err then res.status(500).send 'Server error'
@@ -98,7 +100,8 @@ start = ( envirement, callback ) ->
 		
 	# 	db.collection('users').update {name: 'default user'}, {name: 'default user', lastLogin: date}, (args...) -> 
 	# 		true
-	listeningPort = process.env.PORT or CONFIG.port or 9000
+	# listeningPort = process.env.PORT or CONFIG.port or 9000
+	listeningPort = app.get('port')
 	http.createServer( app ).listen listeningPort, ->
 		console.log "Express server listening on port " + listeningPort	
 

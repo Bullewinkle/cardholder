@@ -8,6 +8,7 @@
     "connect-redis": "*",
     "cookie-parser": "*",
     "express": "^4.7.3",
+    "compression": "*",
     "express-session": "^1.7.2",
     "jade": "*",
     "logger": "*",
