@@ -102,7 +102,6 @@
 			# @iconsPanelRegion.currentView.children.toArray()[randomIcon].$el.trigger('click')
 			@textPanelRegion.currentView.model.set 'name', 'Семен'
 
-
 		_showGuiPanels: =>
 			@layersPanelRegion.show new CardEditor.views.LayersPanel 
 				state: @editorState
@@ -141,24 +140,72 @@
 			# 	opacity: app.getRandom 0.1, 1, 2
 			# 	draggable: true
 
+			iconGroup = new Kinetic.Group
+				draggable: true
 
 			icon = new Kinetic.Text
 				x: (@stage.getWidth()/2)-100
 				y: (@stage.getHeight()/2)-100
 				text: options.model.get 'content'
-				fontSize: 200
+				fontSize: 120
 				fontFamily: 'icomoon'
 				fillRed: app.getRandom 1, 255
 				fillGreen: app.getRandom 1, 255
 				fillBlue: app.getRandom 1, 255
-				width: 200
-				height: 200
+				width: 120
+				height: 120
 				align: 'center'
-				draggable: true
 
 
-			layer.add icon
+
+			iconGroup.add icon
+			
+			@addDrugHandler(iconGroup, icon.getX()+icon.getWidth(), icon.getY(), 'first')
+
+			layer.add iconGroup
 			layer.draw()
+
+		addDrugHandler: (group, x, y, name) =>
+			stage = group.getStage()
+			layer = group.getLayer()
+
+			drugHandler = new Kinetic.Circle
+				x: x
+				y: y
+				stroke: '#666'
+				fill: '#ddd'
+				strokeWidth: 2
+				radius: 8
+				name: name
+				draggable: true
+				dragOnTop: false
+
+			drugHandler.on 'dragmove', ->
+				console.log 'dragmove'
+			# 	update(this)
+			# 	layer.draw()
+			drugHandler.on 'mousedown touchstart', ->
+				console.log 'mousedown touchstart'
+			# 	group.setDraggable(false)
+			# 	this.moveToTop()
+			drugHandler.on 'dragend', ->
+				console.log 'dragend'
+			# 	group.setDraggable(true)
+			# 	layer.draw()
+			drugHandler.on 'mouseover', ->
+				console.log 'mouseover'
+			# 	var layer = this.getLayer()
+			# 	document.body.style.cursor = 'pointer'
+			# 	this.setStrokeWidth(4)
+			# 	layer.draw()
+			drugHandler.on 'mouseout', ->
+				console.log 'mouseout'
+			# 	var layer = this.getLayer()
+			# 	document.body.style.cursor = 'default'
+			# 	this.strokeWidth(2)
+			# 	layer.draw()
+
+			group.add drugHandler
 
 		resize: =>
 			@trigger 'resize'
@@ -181,6 +228,7 @@
 			@editorState.set 'stageParams', newStageParams
 
 			@draw()
+
 
 		saveGeneratedCardToImage: =>
 			@stage.toDataURL

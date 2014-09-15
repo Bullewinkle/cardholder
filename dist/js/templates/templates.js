@@ -22,7 +22,7 @@
 
     // cardEditor/editor.jade compiled template
     templatizer["cardEditor"]["editor"] = function tmpl_cardEditor_editor() {
-        return '<h1 class="text-center">Edit your card!</h1><div class="container"><div class="row"><div class="editor-viewport col-sm-12 left"><div class="row"><div class="col-left col-sm-2"><div id="backgrounds-panel-region" class="row"></div><div id="icons-panel-region" class="row"></div><div id="text-panel-region" class="row"></div></div><div class="col-center"><div class="row tools"><div id="canvas-container"></div></div></div><div class="col-right col-sm-3"><div id="layers-panel-region" class="row"></div><div id="shapes-panel-region" class="row"></div><div class="row save-button"><div class="col-sm-12"><div class="text-center"><button type="button" class="save-to-image btn btn-default">Сохранить в PNG</button></div></div></div></div></div></div></div></div>';
+        return '<h1 class="text-center">Edit your card!</h1><div class="container"><div class="row"><div class="editor-viewport col-sm-12 left"><div class="row"><div class="col-left col-sm-2"><div id="text-panel-region" class="row"></div><div id="backgrounds-panel-region" class="row"></div><div id="icons-panel-region" class="row"></div></div><div class="col-center"><div class="row tools"><div id="canvas-container"></div></div></div><div class="col-right col-sm-3"><div id="layers-panel-region" class="row"></div><div id="shapes-panel-region" class="row"></div><div class="row save-button"><div class="col-sm-12"><div class="text-center"><button type="button" class="save-to-image btn btn-default">Сохранить в PNG</button></div></div></div></div></div></div></div></div>';
     };
 
     // cardEditor/toolbar/backgrounds.jade compiled template
@@ -52,10 +52,13 @@
                 buf.push('<div class="panel-body">');
                 if (addRemoveButtons || addButtonText || removeButtonText) {
                     buf.push('<div class="row">');
-                    if (addButtonText) {}
-                    buf.push('<div class="col-sm-6 text-center"><button type="button" class="add-child btn btn-success">' + jade.escape(null == (jade_interp = addButtonText) ? "" : jade_interp) + "</button></div>");
-                    if (removeButtonText) {}
-                    buf.push('<div class="col-sm-6 text-center"><button type="button" class="remove-child btn btn-danger">' + jade.escape(null == (jade_interp = removeButtonText) ? "" : jade_interp) + "</button></div></div>");
+                    if (addButtonText) {
+                        buf.push('<div class="col-sm-6 text-center"><button type="button" class="add-child btn btn-success">' + jade.escape(null == (jade_interp = addButtonText) ? "" : jade_interp) + "</button></div>");
+                    }
+                    if (removeButtonText) {
+                        buf.push('<div class="col-sm-6 text-center"><button type="button" class="remove-child btn btn-danger">' + jade.escape(null == (jade_interp = removeButtonText) ? "" : jade_interp) + "</button></div>");
+                    }
+                    buf.push("</div>");
                 }
                 buf.push("</div>");
             }
@@ -112,7 +115,7 @@
         var jade_interp;
         var locals_for_with = locals || {};
         (function(title) {
-            buf.push('<div class="col-sm-12"><div class="panel panel-default"><div class="panel-heading"><div class="text-center">' + jade.escape(null == (jade_interp = title) ? "" : jade_interp) + '<button class="collapse-toggler btn btn-default btn-xs right"><span class="caret"></span></button></div></div><div class="panel-body"><label>Имя<input name="name" type="text" placeholder="name" class="form-control"/></label><label>Фамилия<input name="surname" type="text" placeholder="surname" class="form-control"/></label><label>Email<input name="email" type="text" placeholder="email" class="form-control"/></label><label>Телефон<input name="phone" type="text" placeholder="phone" class="form-control"/></label><label>position<input name="position" type="text" placeholder="position" class="form-control"/></label><label>Что-то<input name="Что-то" type="text" placeholder="Что-то" class="form-control"/></label></div></div></div>');
+            buf.push('<div class="col-sm-12"><div class="panel panel-default"><div class="panel-heading"><div class="text-center">' + jade.escape(null == (jade_interp = title) ? "" : jade_interp) + '<button class="collapse-toggler btn btn-default btn-xs right"><span class="caret"></span></button></div></div><ul class="items-container list-group"><li class="list-group-item ui-sortable-handle"><label>Имя<input name="name" type="text" class="form-control"/></label></li><li class="list-group-item ui-sortable-handle"><label>Фамилия<input name="surname" type="text" class="form-control"/></label></li><li class="list-group-item ui-sortable-handle"><label>Email<input name="email" type="text" class="form-control"/></label></li><li class="list-group-item ui-sortable-handle"><label>Телефон<input name="phone" type="text" class="form-control"/></label></li><li class="list-group-item ui-sortable-handle"><label>position<input name="position" type="text" class="form-control"/></label></li></ul></div></div>');
         })("title" in locals_for_with ? locals_for_with.title : typeof title !== "undefined" ? title : undefined);
         return buf.join("");
     };

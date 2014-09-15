@@ -19,5 +19,5 @@ app.module 'CardEditor.views', (views, app) ->
 			super
 			console.log app.module 'CardEditor.models'
 			@panelViewState.set
-				title: 'Фоны'
+				title: 'Фон'
 				gotBody: false

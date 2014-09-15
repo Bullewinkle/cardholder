@@ -14,15 +14,14 @@ app.module 'CardEditor.views', (views, app) ->
 			super
 			@bind 'all', ->
 				console.log "LAYER CHILDS PANEL VIEW:\t", arguments if @logging is on
-
 			@listenTo @editorState, 'change', @update
 			# @model = new Backbone.Model()
 			# console.log @editorState.get('currentLayer')
 
 			@collection = new Backbone.Collection()
-
 			@panelViewState.set
 				title: 'Случайные фигуры'
+				gotBody: true
 				addRemoveButtons: true
 				addButtonText: 'Добавить фигуру'
 				removeButtonText: 'Удалить фигуру'
