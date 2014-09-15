@@ -18,7 +18,7 @@ app.module 'CardEditor.views', (views, app) ->
 		# 	console.warn 'icon', @model.attributes
 
 	
-	class views.IconsPanel extends views.BaseToolbarPanelView
+	class views.IconsPanel extends views._BaseToolbarPanelView
 		logging: off
 
 		className: 'icons'

@@ -1,6 +1,6 @@
 app.module 'CardEditor.views', (views, app) ->
 	
-	class views.LayerChildsPanel extends views.BaseToolbarPanelView
+	class views.LayerChildsPanel extends views._BaseToolbarPanelView
 		logging: off
 
 		className: 'layer-childs'
@@ -23,6 +23,7 @@ app.module 'CardEditor.views', (views, app) ->
 
 			@panelViewState.set
 				title: 'Случайные фигуры'
+				addRemoveButtons: true
 				addButtonText: 'Добавить фигуру'
 				removeButtonText: 'Удалить фигуру'
 
@@ -36,10 +37,10 @@ app.module 'CardEditor.views', (views, app) ->
 			# 	currentLayerShapeCollection.pop()
 			# 	console.warn arguments, currentLayerShapeCollection
 
-		# addToCurrentLayerShapeCollection: (model, collection, options) =>
-		# 	@currentLayerShapeCollection.add model
-		# popFromCurrentLayerShapeCollection: (model, collection, options) =>
-		# 	@currentLayerShapeCollection.pop()
+			# addToCurrentLayerShapeCollection: (model, collection, options) =>
+			# 	@currentLayerShapeCollection.add model
+			# popFromCurrentLayerShapeCollection: (model, collection, options) =>
+			# 	@currentLayerShapeCollection.pop()
 		onAddChildClicked: =>
 			@collection.add shapeName: "Фигура #{ @collection.length+1 }"
 			@editorState.get('currentLayer').get('shapeCollection').add shapeName: "Фигура #{ @collection.length+1 }"

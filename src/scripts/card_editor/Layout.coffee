@@ -44,6 +44,7 @@
 			textPanelRegion: '#text-panel-region'
 			shapesPanelRegion: '#shapes-panel-region'
 			iconsPanelRegion: '#icons-panel-region'
+			backgroundsPanelRegion: '#backgrounds-panel-region'
 
 		initialize: ->
 			@bind 'all', ->
@@ -69,7 +70,6 @@
 				width: @ui.canvasContainer.innerWidth()
 				height: @ui.canvasContainer.innerHeight()
 			@editorState.set 'stageParams', stageParams
-			
 
 			# Define GUI panels, must be in the end of showing logic, because of canvas rendering
 			@_showGuiPanels()
@@ -79,7 +79,7 @@
 			@listenTo @model.get('layerCollection'), 'remove', @removeLayer
 			@listenTo @model.get('layerCollection'), 'reset set sync fetch', @draw
 
-			# Add first layer
+			# Add first layers
 			@model.get('layerCollection').add layerName: "Фон" if @model.get('layerCollection').length is 0
 			@model.get('layerCollection').add layerName: "Слой #{ @model.get('layerCollection').length }" if @model.get('layerCollection').length is 1
 			@editorState.set 'currentLayer', @model.get('layerCollection').models[0]
@@ -96,6 +96,13 @@
 			# icons-container
 			@draw()
 
+			# SHOW FIXES
+			# randomIcon = app.getRandom(0, @iconsPanelRegion.currentView.children.length-1)
+			# console.log @iconsPanelRegion.currentView.children, "view#{randomIcon}"
+			# @iconsPanelRegion.currentView.children.toArray()[randomIcon].$el.trigger('click')
+			@textPanelRegion.currentView.model.set 'name', 'Семен'
+
+
 		_showGuiPanels: =>
 			@layersPanelRegion.show new CardEditor.views.LayersPanel 
 				state: @editorState
@@ -104,6 +111,7 @@
 			@textPanelRegion.show new CardEditor.views.TextPanel 
 				state: @editorState
 				model: @model
+			@listenTo @textPanelRegion.currentView, 'text:changed', @onTextChange
 
 			@shapesPanelRegion.show new CardEditor.views.LayerChildsPanel 
 				state: @editorState
@@ -114,8 +122,13 @@
 				model: @model
 			@listenTo @iconsPanelRegion.currentView, 'childview:click:icon', @onAddIcon
 
+			# debugger;
+			@backgroundsPanelRegion.show new CardEditor.views.BackgroundsPanel
+				state: @editorState
+				model: @model
+
 		onAddIcon: (view, options, args...) =>
-			layer = @stage.children[@stage.children.length-1]
+			layer = @stage.children[@stage.children.length-2]
 
 			# shape = new Kinetic.RegularPolygon
 			# 	x: app.getRandom 0, @stage.getWidth()
@@ -133,8 +146,8 @@
 				x: (@stage.getWidth()/2)-100
 				y: (@stage.getHeight()/2)-100
 				text: options.model.get 'content'
-				fontSize: 200,
-				fontFamily: 'icomoon',
+				fontSize: 200
+				fontFamily: 'icomoon'
 				fillRed: app.getRandom 1, 255
 				fillGreen: app.getRandom 1, 255
 				fillBlue: app.getRandom 1, 255
@@ -223,6 +236,40 @@
 			@stage.background = new app.CardGenerator.cards.CardModel()
 			# app.CardGenerator.generators.gradientGen.draw(layer, @stage.background )
 			@draw()
+
+		onTextChange: (text) =>
+			console.info text
+			# unless @textLayer then 
+			# 	@textLayer = new Kinetic.FastLayer clearBeforeDraw: true
+			# 	@stage.add @textLayer
+			unless @textLayer
+				@textLayer = new Kinetic.Layer()
+				@stage.add @textLayer
+			# layer = @stage.children[@stage.children.length-1]
+			console.log @textLayer
+
+			unless @textLayer.children[0]
+				cardText = new Kinetic.Text
+					x: 20
+					y: 20
+					fontSize: 22
+					fontFamily: '"Helvetica Neue", Helvetica, Arial, sans-serif'
+					fill: '#333'
+					width: @stage.width()/1.25
+					padding: 20
+					align: 'left'
+					draggable: true
+				@textLayer.add cardText
+			else
+				cardText = @textLayer.children[0]	
+
+			console.log cardText
+			cardText.setText "Имя: \t\t#{text.name} \nФамилия: \t\t#{ text.surname } \nEmail: \t\t#{text.email} \nТелефон: \t\t#{text.phone} \nДолжность: \t\t#{text.position}"
+
+
+
+			@textLayer.draw()
+
 
 		draw: =>
 			@trigger 'draw'
