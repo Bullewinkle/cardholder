@@ -89,6 +89,17 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 
 			@changeStep(1)
 
+			# @randomRenderer()
+			setTimeout =>
+				setInterval @randomRenderer, 1000
+			, 2000	
+
+		randomRenderer: =>
+			randomModel = @collection.models[ app.getRandom 0,24-1 ]
+			console.log 'randomRenderer'
+
+
+
 		changeStep : (step) =>
 			@currentStep = step
 			@model.set 'formStep', step

@@ -45,13 +45,14 @@
 			handleError = -> console.error 'error loading font'
 			document.fonts.load("10px cardholder-icons").then @renderCanvas, handleError
 
-		# transitionCallback : (e) =>
-		# 	e.view = @
-		# 	propertyName = e.originalEvent.propertyName
-		# 	if e.target is @$el.find('.card-perspective-inner-wrapper')[0] and propertyName.search('transform') > -1
-		# 		if @$el.hasClass 'is-fliping'
-		# 			@$el.removeClass 'is-fliping'
-		# 	@trigger 'transitionend', e
+		transitionCallback : (e) =>
+			console.log 'transitionCallback'
+			e.view = @
+			propertyName = e.originalEvent.propertyName
+			if e.target is @$el.find('.card-perspective-inner-wrapper')[0] and propertyName.search('transform') > -1
+				if @$el.hasClass 'is-fliping'
+					@$el.removeClass 'is-fliping'
+			@trigger 'transitionend', e
 
 
 		# animatedRender: =>
@@ -81,49 +82,10 @@
 		# 	setTimeout @flip, 1000
 		# 	@
 			
-		# flip: =>
-		# 	@trigger 'flip'
-		# 	@$el.toggleClass 'fliped'
-		# 	@$el.addClass 'is-fliping'
-		# 	# if @$el.hasClass 'fliped-90-0'
-		# 	# 	@$el.removeClass 'fliped-90-0'
-		# 	# 	@$el.addClass 'fliped-0-90'
-
-		# 	# else if @$el.hasClass 'fliped-90-180'
-		# 	# 	@$el.removeClass 'fliped-90-180'
-		# 	# 	@$el.addClass 'fliped-180-90'
-		# 	# else
-		# 	# 	@$el.addClass 'fliped-0-90'
-
-		# 	# @$el.addClass 'is-fliping'
-		# 	setTimeout () =>
-		# 		console.log animationD,transitionD
-		# 		animationD = ( parseFloat @$el.find('.card-perspective-inner-wrapper').css 'animation-duration' ) * 1000
-		# 		canvas = @$el.find('.card-canvas.front')[0]
-		# 		canvas.width = @$el.width()
-		# 		canvas.height = @$el.height()
-		# 		@renderLayer1(canvas)
-		# 		# @renderLayer2(canvas)
-		# 		@renderLayer3(canvas)
-
-		# 		if @$el.hasClass 'fliped-0-90'
-		# 			@$el.removeClass 'fliped-0-90'
-		# 			@$el.addClass 'fliped-90-180'
-
-		# 		else if @$el.hasClass 'fliped-180-90'
-		# 			@$el.removeClass 'fliped-180-90'
-		# 			@$el.addClass 'fliped-90-0'
-		# 		else
-		# 			@$el.addClass 'fliped-90-180'
-		# 		setTimeout () ->
-		# 			@$el.removeClass 'is-fliping'
-		# 		, parseFloat(@$el.find('.card-perspective-inner-wrapper').css 'animation-duration') * 1000z
-		# 		# console.log transitionD/2
-		# 	, parseFloat(@$el.find('.card-perspective-inner-wrapper').css 'animation-duration') * 1000
-		# 	# flip = (@,canvas) ->
-		# 		# delay = (transitionD * (@model.id-1)).toFixed()
-		# 		# console.log transitionD
-		# 		# setTimeout afterFlip, transitionD
+		flip: =>
+			@trigger 'flip'
+			@$el.toggleClass 'fliped'
+			@$el.addClass 'is-fliping'
 
 		renderLayer1: (canvas)->
 			app.CardGenerator.generators.gradientGen.draw canvas, @model
