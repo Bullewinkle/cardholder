@@ -148,7 +148,7 @@
 				y: (@stage.getHeight()/2)-100
 				text: options.model.get 'content'
 				fontSize: 120
-				fontFamily: 'icomoon'
+				fontFamily: 'cardholder-icons'
 				fillRed: app.getRandom 1, 255
 				fillGreen: app.getRandom 1, 255
 				fillBlue: app.getRandom 1, 255
@@ -325,121 +325,6 @@
 			# layer = new Kinetic.FastLayer()
 			# layer.add new Kinetic.Rect
 			# 	x:0, y:0, width: @stage.width(), height: @stage.height()
-
-			# 	# cornerRadius
-			# 	# fill
-			# 	fillRed: app.getRandom 0, 255
-			# 	fillGree:n: app.getRandom 0, 255
-			# 	fillBlue: app.getRandom 0, 255
-			# 	fillAlpha: app.getRandom 0, 255
-			# 	# fillPatternImage
-			# 	# fill
-			# 	# fillPatternX
-			# 	# fillPatternY
-			# 	# fillPatternOffset
-			# 	# object
-			# 	# fillPatternOffsetX
-			# 	# fillPatternOffsetY
-			# 	# fillPatternScale
-			# 	# object
-			# 	# fillPatternScaleX
-			# 	# fillPatternScaleY
-			# 	# fillPatternRotation
-			# 	# fillPatternRepeat
-			# 	# can
-			# 	# fillLinearGradientStartPoint
-			# 	# object
-			# 	# fillLinearGradientStartPointX
-			# 	# fillLinearGradientStartPointY
-			# 	# fillLinearGradientEndPoint
-			# 	# fillLinearGradientEndPointX
-			# 	# fillLinearGradientEndPointY
-			# 	# fillLinearGradientColorStops
-			# 	# array
-			# 	# fillRadialGradientStartPoint
-			# 	# object
-			# 	# fillRadialGradientStartPointX
-			# 	# fillRadialGradientStartPointY
-			# 	# fillRadialGradientEndPoint
-			# 	# object
-			# 	# fillRadialGradientEndPointX
-			# 	# fillRadialGradientEndPointY
-			# 	# fillRadialGradientStartRadius
-			# 	# fillRadialGradientEndRadius
-			# 	# fillRadialGradientColorStops
-			# 	# array
-			# 	# fillEnabled
-			# 	# flag
-			# 	# fillPriority
-			# 	# can
-			# 	# stroke
-			# 	# stroke
-			# 	# strokeRed
-			# 	# set
-			# 	# strokeGreen
-			# 	# set
-			# 	# strokeBlue
-			# 	# set
-			# 	# strokeAlpha
-			# 	# set
-			# 	# strokeWidth
-			# 	# stroke
-			# 	# strokeScaleEnabled
-			# 	# flag
-			# 	# strokeEnabled
-			# 	# flag
-			# 	# lineJoin
-			# 	# can
-			# 	# lineCap
-			# 	# can
-			# 	# shadowColor
-			# 	# shadowRed
-			# 	# set
-			# 	# shadowGreen
-			# 	# set
-			# 	# shadowBlue
-			# 	# set
-			# 	# shadowAlpha
-			# 	# set
-			# 	# shadowBlur
-			# 	# shadowOffset
-			# 	# object
-			# 	# shadowOffsetX
-			# 	# shadowOffsetY
-			# 	# shadowOpacity
-			# 	# shadow
-			# 	# shadowEnabled
-			# 	# flag
-			# 	# dash
-			# 	# dashEnabled
-			# 	# flag
-			# 	# visible
-			# 	# listening
-			# 	# whether
-			# 	# id
-			# 	# unique
-			# 	# name
-			# 	# non
-			# 	# opacity
-			# 	# determines
-			# 	# scale
-			# 	# set
-			# 	# scaleX
-			# 	# set
-			# 	# scaleY
-			# 	# set
-			# 	# rotation
-			# 	# rotation
-			# 	# offset
-			# 	# offset
-			# 	# offsetX
-			# 	# set
-			# 	# offsetY
-			# 	# set
-			# 	# draggable
-			# 	# makes
-			# 	# dragDistance
-			# 	# dragBoundFunc
 
 			# @stage.add layer
 			@stage.draw()

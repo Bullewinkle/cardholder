@@ -3,6 +3,8 @@
         define([], factory);
     } else if (typeof exports === 'object') {
         module.exports = factory();
+    } else if (typeof root === 'undefined' || root !== Object(root)) {
+        throw new Error('templatizer: window does not exist or is not an object');
     } else {
         root.templatizer = factory();
     }
@@ -33,7 +35,7 @@
         var locals_for_with = locals || {};
         (function(title) {
             buf.push('<div class="col-sm-12"><div class="panel panel-default"><div class="panel-heading"><div class="text-center">' + jade.escape(null == (jade_interp = title) ? "" : jade_interp) + '<button class="collapse-toggler btn btn-default btn-xs right"><span class="caret"></span></button></div></div><div class="panel-body"><button type="button" class="draw-random-background btn btn-success btn-block">Случайный фон</button></div><ul class="items-container list-group"></ul></div></div>');
-        })("title" in locals_for_with ? locals_for_with.title : typeof title !== "undefined" ? title : undefined);
+        }).call(this, "title" in locals_for_with ? locals_for_with.title : typeof title !== "undefined" ? title : undefined);
         return buf.join("");
     };
 
@@ -63,7 +65,7 @@
                 buf.push("</div>");
             }
             buf.push('<ul class="items-container list-group"></ul></div></div>');
-        })("title" in locals_for_with ? locals_for_with.title : typeof title !== "undefined" ? title : undefined, "gotBody" in locals_for_with ? locals_for_with.gotBody : typeof gotBody !== "undefined" ? gotBody : undefined, "addRemoveButtons" in locals_for_with ? locals_for_with.addRemoveButtons : typeof addRemoveButtons !== "undefined" ? addRemoveButtons : undefined, "addButtonText" in locals_for_with ? locals_for_with.addButtonText : typeof addButtonText !== "undefined" ? addButtonText : undefined, "removeButtonText" in locals_for_with ? locals_for_with.removeButtonText : typeof removeButtonText !== "undefined" ? removeButtonText : undefined);
+        }).call(this, "title" in locals_for_with ? locals_for_with.title : typeof title !== "undefined" ? title : undefined, "gotBody" in locals_for_with ? locals_for_with.gotBody : typeof gotBody !== "undefined" ? gotBody : undefined, "addRemoveButtons" in locals_for_with ? locals_for_with.addRemoveButtons : typeof addRemoveButtons !== "undefined" ? addRemoveButtons : undefined, "addButtonText" in locals_for_with ? locals_for_with.addButtonText : typeof addButtonText !== "undefined" ? addButtonText : undefined, "removeButtonText" in locals_for_with ? locals_for_with.removeButtonText : typeof removeButtonText !== "undefined" ? removeButtonText : undefined);
         return buf.join("");
     };
 
@@ -75,7 +77,7 @@
         var locals_for_with = locals || {};
         (function(className) {
             buf.push("<span>" + jade.escape(null == (jade_interp = className) ? "" : jade_interp) + "</span>");
-        })("className" in locals_for_with ? locals_for_with.className : typeof className !== "undefined" ? className : undefined);
+        }).call(this, "className" in locals_for_with ? locals_for_with.className : typeof className !== "undefined" ? className : undefined);
         return buf.join("");
     };
 
@@ -92,7 +94,7 @@
         var locals_for_with = locals || {};
         (function(layerName) {
             buf.push('<span class="ui-icon ui-icon-arrowthick-2-n-s">' + jade.escape(null == (jade_interp = layerName) ? "" : jade_interp) + '</span><button class="close right"><span aria-hidden="true">&times;</span></button>');
-        })("layerName" in locals_for_with ? locals_for_with.layerName : typeof layerName !== "undefined" ? layerName : undefined);
+        }).call(this, "layerName" in locals_for_with ? locals_for_with.layerName : typeof layerName !== "undefined" ? layerName : undefined);
         return buf.join("");
     };
 
@@ -104,7 +106,7 @@
         var locals_for_with = locals || {};
         (function(shapeName) {
             buf.push('<span class="ui-icon ui-icon-arrowthick-2-n-s">' + jade.escape(null == (jade_interp = shapeName) ? "" : jade_interp) + '</span><button class="close right"><span aria-hidden="true">&times;</span></button>');
-        })("shapeName" in locals_for_with ? locals_for_with.shapeName : typeof shapeName !== "undefined" ? shapeName : undefined);
+        }).call(this, "shapeName" in locals_for_with ? locals_for_with.shapeName : typeof shapeName !== "undefined" ? shapeName : undefined);
         return buf.join("");
     };
 
@@ -116,7 +118,7 @@
         var locals_for_with = locals || {};
         (function(title) {
             buf.push('<div class="col-sm-12"><div class="panel panel-default"><div class="panel-heading"><div class="text-center">' + jade.escape(null == (jade_interp = title) ? "" : jade_interp) + '<button class="collapse-toggler btn btn-default btn-xs right"><span class="caret"></span></button></div></div><ul class="items-container list-group"><li class="list-group-item ui-sortable-handle"><label>Имя<input name="name" type="text" class="form-control"/></label></li><li class="list-group-item ui-sortable-handle"><label>Фамилия<input name="surname" type="text" class="form-control"/></label></li><li class="list-group-item ui-sortable-handle"><label>Email<input name="email" type="text" class="form-control"/></label></li><li class="list-group-item ui-sortable-handle"><label>Телефон<input name="phone" type="text" class="form-control"/></label></li><li class="list-group-item ui-sortable-handle"><label>position<input name="position" type="text" class="form-control"/></label></li></ul></div></div>');
-        })("title" in locals_for_with ? locals_for_with.title : typeof title !== "undefined" ? title : undefined);
+        }).call(this, "title" in locals_for_with ? locals_for_with.title : typeof title !== "undefined" ? title : undefined);
         return buf.join("");
     };
 
@@ -127,12 +129,12 @@
 
     // cardGenerator/cardsGreed.jade compiled template
     templatizer["cardGenerator"]["cardsGreed"] = function tmpl_cardGenerator_cardsGreed() {
-        return '<h1 class="text-center">Chose card!</h1><div id="cardsGreed"><ul class="cards"><li class="step-form-controller-wrapper"><div class="step-form-controller"><form action="/" class="step-form-controller-form q1"><div class="step-form-controller-form-label">Текст вопроса</div><div class="step-form-controller-form-input"></div><button type="submit" value="" class="step-form-controller-form-submit icon-arrow-right2"></button></form><div class="step-form-controller-form-statusbar"><div class="step-form-controller-form-statusbar-value"></div></div><div class="step-form-controller-form-statusbar-step"><span class="step-form-controller-form-statusbar-current"> </span>/  <span class="step-form-controller-form-statusbar-quantity"></span></div><div class="step-form-controller-form-controls"><div class="step-form-controller-form-control prev"><a class="icon-arrow-left"></a></div><div class="step-form-controller-form-control next"><a class="icon-arrow-right"></a></div></div></div></li></ul></div>';
+        return '<h1 class="text-center">Chose card!</h1><div id="cardsGreed"><ul class="cards"><li class="step-form-controller-wrapper"><div class="step-form-controller"><form action="/" class="step-form-controller-form q1"><div class="step-form-controller-form-label">Текст вопроса</div><div class="step-form-controller-form-input"></div><button type="submit" value="" class="step-form-controller-form-submit chi-arrow-right2"></button></form><div class="step-form-controller-form-statusbar"><div class="step-form-controller-form-statusbar-value"></div></div><div class="step-form-controller-form-statusbar-step"><span class="step-form-controller-form-statusbar-current"> </span>/  <span class="step-form-controller-form-statusbar-quantity"></span></div><div class="step-form-controller-form-controls"><div class="step-form-controller-form-control prev"><a class="chi-arrow-left"></a></div><div class="step-form-controller-form-control next"><a class="chi-arrow-right"></a></div></div></div></li></ul></div>';
     };
 
     // cardGenerator/stepForm.jade compiled template
     templatizer["cardGenerator"]["stepForm"] = function tmpl_cardGenerator_stepForm() {
-        return '<div class="step-form-controller"><form action="/" class="step-form-controller-form q1"><div class="step-form-controller-form-label">Текст вопроса</div><div class="step-form-controller-form-input"></div><button type="submit" value="" class="step-form-controller-form-submit icon-arrow-right2"></button></form><div class="step-form-controller-form-statusbar"><div class="step-form-controller-form-statusbar-value"></div></div><div class="step-form-controller-form-statusbar-step"><span class="step-form-controller-form-statusbar-current"> </span>/  <span class="step-form-controller-form-statusbar-quantity"></span></div><div class="step-form-controller-form-controls"><div class="step-form-controller-form-control prev"><a class="icon-arrow-left"></a></div><div class="step-form-controller-form-control next"><a class="icon-arrow-right"></a></div></div></div>';
+        return '<div class="step-form-controller"><form action="/" class="step-form-controller-form q1"><div class="step-form-controller-form-label">Текст вопроса</div><div class="step-form-controller-form-input"></div><button type="submit" value="" class="step-form-controller-form-submit chi-arrow-right2"></button></form><div class="step-form-controller-form-statusbar"><div class="step-form-controller-form-statusbar-value"></div></div><div class="step-form-controller-form-statusbar-step"><span class="step-form-controller-form-statusbar-current"> </span>/  <span class="step-form-controller-form-statusbar-quantity"></span></div><div class="step-form-controller-form-controls"><div class="step-form-controller-form-control prev"><a class="chi-arrow-left"></a></div><div class="step-form-controller-form-control next"><a class="chi-arrow-right"></a></div></div></div>';
     };
 
     // modal1.jade compiled template

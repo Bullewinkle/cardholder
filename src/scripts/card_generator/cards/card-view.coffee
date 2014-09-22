@@ -42,7 +42,8 @@
 			
 			@
 		onShow: =>
-			@renderCanvas()
+			handleError = -> console.error 'error loading font'
+			document.fonts.load("10px cardholder-icons").then @renderCanvas, handleError
 
 		# transitionCallback : (e) =>
 		# 	e.view = @
@@ -128,7 +129,7 @@
 			app.CardGenerator.generators.gradientGen.draw canvas, @model
 
 		renderLayer2: (canvas)->
-			app.CardGenerator.generators.starsGen.draw canvas, @model
+			app.CardGenerator.generators.iconsGen.draw canvas, @model
 
 		renderLayer3: (canvas)->
 			app.CardGenerator.generators.textGen.draw canvas, @model
