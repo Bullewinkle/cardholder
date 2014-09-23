@@ -74,8 +74,8 @@
 
 
 	&:hover:before
-	&.locked:before
-		background rgba(0,0,0,0.6)
+	&.is-locked:before
+		background rgba(0,0,0,0.8)
 	&:before
 		content ""
 		position absolute
@@ -267,7 +267,7 @@
 		transition all .2s ease
 		transform translate(-100%,0)
 
-.locked .js-lock-config-button
+.is-locked .js-lock-config-button
 	color #000
 	text-shadow 1px 1px 3px rgba(0,0,0,0.4)
 	&:before

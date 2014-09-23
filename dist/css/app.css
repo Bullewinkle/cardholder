@@ -3878,8 +3878,8 @@ i {
   margin: 0 20.3% 0 0.3%;
 }
 .card:hover:before,
-.card.locked:before {
-  background: rgba(0,0,0,0.6);
+.card.is-locked:before {
+  background: rgba(0,0,0,0.8);
 }
 .card:before {
   content: "";
@@ -4100,11 +4100,11 @@ i {
       -ms-transform: translate(-100%, 0);
           transform: translate(-100%, 0);
 }
-.locked .js-lock-config-button {
+.is-locked .js-lock-config-button {
   color: #000;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
 }
-.locked .js-lock-config-button:before {
+.is-locked .js-lock-config-button:before {
   -webkit-transform: translate(0, 0);
       -ms-transform: translate(0, 0);
           transform: translate(0, 0);

@@ -37,12 +37,6 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 			@model      = new CardGenerator.stepForm.StepFormModel()
 			@collection = new CardGenerator.cards.CardsCollection()
 
-			# @modelView  = new CardGenerator.stepForm.StepFormView()
-			# @stepForm = new CardGenerator.stepForm.StepFormView
-			# 	model: new CardGenerator.stepForm.StepFormModel()
-
-			# @start()	
-
 		onShow: =>
 			@currentStep = @model.get 'currentStep'
 			@questions  = @data.questions
@@ -89,14 +83,25 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 
 			@changeStep(1)
 
-			# @randomRenderer()
+			# @randomRender()
 			setTimeout =>
-				setInterval @randomRenderer, 1000
-			, 2000	
+				setInterval @randomRender, 5000
+			, 5000	
 
-		randomRenderer: =>
-			randomModel = @collection.models[ app.getRandom 0,24-1 ]
-			console.log 'randomRenderer'
+		randomRender: =>
+			notLockedViews = @children.filter (view) ->
+				return view.model.get('is-locked') isnt true
+			randomView = notLockedViews[ app.getRandom(0, notLockedViews.length-1) ]
+			if notLockedViews.length > 0 and randomView and not ( randomView.model.get('is-hovered') or randomView.model.get('is-locked') )
+				if notLockedViews.length < 3
+					@previousViewCid = randomView.cid
+					randomView.model.clear({silent: true}).set(randomView.model.defaults)
+				else
+					if randomView.cid isnt @previousViewCid
+						@previousViewCid = randomView.cid
+						randomView.model.clear({silent: true}).set(randomView.model.defaults)
+					else
+						@randomRender()
 
 
 
@@ -141,28 +146,28 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 				when 1
 					console.log "step: 1",e.object.sex
 					@collection.each (model,i) ->
-						if !model.get('locked') or model.get('locked') is not true
+						if !model.get('is-locked') or model.get('is-locked') is not true
 							model.set('data.name',e.object.text)
 							model.set('data.sex',e.object.sex)
 				when 2
 					console.log "step: 2"
 					@collection.each (model,i) ->
-						if !model.get('locked') or model.get('locked') is not true
+						if !model.get('is-locked') or model.get('is-locked') is not true
 							model.set('data.surname',e.object.text)
 				when 3
 					console.log "step: 3"
 					@collection.each (model,i) ->
-						if !model.get('locked') or model.get('locked') is not true
+						if !model.get('is-locked') or model.get('is-locked') is not true
 							model.set('data.eMail',e.object.text)
 				when 4
 					console.log "step: 4"
 					@collection.each (model,i) ->
-						if !model.get('locked') or model.get('locked') is not true
+						if !model.get('is-locked') or model.get('is-locked') is not true
 							model.set('data.phone',e.object.text)
 				when 5
 					console.log "step: 5"
 					@collection.each (model,i) ->
-						if !model.get('locked') or model.get('locked') is not true
+						if !model.get('is-locked') or model.get('is-locked') is not true
 							model.set('data.position',e.object.text)
 
 		select2choiseRemoved: (e) =>

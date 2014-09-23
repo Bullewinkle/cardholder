@@ -3,6 +3,8 @@
         define([], factory);
     } else if (typeof exports === 'object') {
         module.exports = factory();
+    } else if (typeof root === 'undefined' || root !== Object(root)) {
+        throw new Error('templatizer: window does not exist or is not an object');
     } else {
         root.templatizer = factory();
     }
@@ -22,7 +24,7 @@
 
     // cardEditor/editor.jade compiled template
     templatizer["cardEditor"]["editor"] = function tmpl_cardEditor_editor() {
-        return '<h1 class="text-center">Edit your card!</h1><div class="container"><div class="row"><div class="editor-viewport col-sm-12 left"><div class="row"><div class="col-left col-sm-2"><div id="text-panel-region" class="row"></div><div id="backgrounds-panel-region" class="row"></div><div id="icons-panel-region" class="row"></div></div><div class="col-center"><div class="row tools"><div id="canvas-container"></div></div></div><div class="col-right col-sm-3"><div id="layers-panel-region" class="row"></div><div id="shapes-panel-region" class="row"></div><div class="row save-button"><div class="col-sm-12"><div class="text-center"><button type="button" class="save-to-image btn btn-default">Сохранить в PNG</button></div></div></div></div></div></div></div></div>';
+        return '<h1 class="text-center">Отредактируйте визитку по вкусу!</h1><div class="container"><div class="row"><div class="editor-viewport col-sm-12 left"><div class="row"><div class="col-left col-sm-2"><div id="text-panel-region" class="row"></div><div id="backgrounds-panel-region" class="row"></div><div id="icons-panel-region" class="row"></div></div><div class="col-center"><div class="row tools"><div id="canvas-container"></div></div></div><div class="col-right col-sm-3"><div id="layers-panel-region" class="row"></div><div id="shapes-panel-region" class="row"></div><div class="row save-button"><div class="col-sm-12"><div class="text-center"><button type="button" class="save-to-image btn btn-default">Сохранить в PNG</button></div></div></div></div></div></div></div></div>';
     };
 
     // cardEditor/toolbar/backgrounds.jade compiled template
@@ -33,7 +35,7 @@
         var locals_for_with = locals || {};
         (function(title) {
             buf.push('<div class="col-sm-12"><div class="panel panel-default"><div class="panel-heading"><div class="text-center">' + jade.escape(null == (jade_interp = title) ? "" : jade_interp) + '<button class="collapse-toggler btn btn-default btn-xs right"><span class="caret"></span></button></div></div><div class="panel-body"><button type="button" class="draw-random-background btn btn-success btn-block">Случайный фон</button></div><ul class="items-container list-group"></ul></div></div>');
-        })("title" in locals_for_with ? locals_for_with.title : typeof title !== "undefined" ? title : undefined);
+        }).call(this, "title" in locals_for_with ? locals_for_with.title : typeof title !== "undefined" ? title : undefined);
         return buf.join("");
     };
 
@@ -63,7 +65,7 @@
                 buf.push("</div>");
             }
             buf.push('<ul class="items-container list-group"></ul></div></div>');
-        })("title" in locals_for_with ? locals_for_with.title : typeof title !== "undefined" ? title : undefined, "gotBody" in locals_for_with ? locals_for_with.gotBody : typeof gotBody !== "undefined" ? gotBody : undefined, "addRemoveButtons" in locals_for_with ? locals_for_with.addRemoveButtons : typeof addRemoveButtons !== "undefined" ? addRemoveButtons : undefined, "addButtonText" in locals_for_with ? locals_for_with.addButtonText : typeof addButtonText !== "undefined" ? addButtonText : undefined, "removeButtonText" in locals_for_with ? locals_for_with.removeButtonText : typeof removeButtonText !== "undefined" ? removeButtonText : undefined);
+        }).call(this, "title" in locals_for_with ? locals_for_with.title : typeof title !== "undefined" ? title : undefined, "gotBody" in locals_for_with ? locals_for_with.gotBody : typeof gotBody !== "undefined" ? gotBody : undefined, "addRemoveButtons" in locals_for_with ? locals_for_with.addRemoveButtons : typeof addRemoveButtons !== "undefined" ? addRemoveButtons : undefined, "addButtonText" in locals_for_with ? locals_for_with.addButtonText : typeof addButtonText !== "undefined" ? addButtonText : undefined, "removeButtonText" in locals_for_with ? locals_for_with.removeButtonText : typeof removeButtonText !== "undefined" ? removeButtonText : undefined);
         return buf.join("");
     };
 
@@ -75,7 +77,7 @@
         var locals_for_with = locals || {};
         (function(className) {
             buf.push("<span>" + jade.escape(null == (jade_interp = className) ? "" : jade_interp) + "</span>");
-        })("className" in locals_for_with ? locals_for_with.className : typeof className !== "undefined" ? className : undefined);
+        }).call(this, "className" in locals_for_with ? locals_for_with.className : typeof className !== "undefined" ? className : undefined);
         return buf.join("");
     };
 
@@ -92,7 +94,7 @@
         var locals_for_with = locals || {};
         (function(layerName) {
             buf.push('<span class="ui-icon ui-icon-arrowthick-2-n-s">' + jade.escape(null == (jade_interp = layerName) ? "" : jade_interp) + '</span><button class="close right"><span aria-hidden="true">&times;</span></button>');
-        })("layerName" in locals_for_with ? locals_for_with.layerName : typeof layerName !== "undefined" ? layerName : undefined);
+        }).call(this, "layerName" in locals_for_with ? locals_for_with.layerName : typeof layerName !== "undefined" ? layerName : undefined);
         return buf.join("");
     };
 
@@ -104,7 +106,7 @@
         var locals_for_with = locals || {};
         (function(shapeName) {
             buf.push('<span class="ui-icon ui-icon-arrowthick-2-n-s">' + jade.escape(null == (jade_interp = shapeName) ? "" : jade_interp) + '</span><button class="close right"><span aria-hidden="true">&times;</span></button>');
-        })("shapeName" in locals_for_with ? locals_for_with.shapeName : typeof shapeName !== "undefined" ? shapeName : undefined);
+        }).call(this, "shapeName" in locals_for_with ? locals_for_with.shapeName : typeof shapeName !== "undefined" ? shapeName : undefined);
         return buf.join("");
     };
 
@@ -116,7 +118,7 @@
         var locals_for_with = locals || {};
         (function(title) {
             buf.push('<div class="col-sm-12"><div class="panel panel-default"><div class="panel-heading"><div class="text-center">' + jade.escape(null == (jade_interp = title) ? "" : jade_interp) + '<button class="collapse-toggler btn btn-default btn-xs right"><span class="caret"></span></button></div></div><ul class="items-container list-group"><li class="list-group-item ui-sortable-handle"><label>Имя<input name="name" type="text" class="form-control"/></label></li><li class="list-group-item ui-sortable-handle"><label>Фамилия<input name="surname" type="text" class="form-control"/></label></li><li class="list-group-item ui-sortable-handle"><label>Email<input name="email" type="text" class="form-control"/></label></li><li class="list-group-item ui-sortable-handle"><label>Телефон<input name="phone" type="text" class="form-control"/></label></li><li class="list-group-item ui-sortable-handle"><label>position<input name="position" type="text" class="form-control"/></label></li></ul></div></div>');
-        })("title" in locals_for_with ? locals_for_with.title : typeof title !== "undefined" ? title : undefined);
+        }).call(this, "title" in locals_for_with ? locals_for_with.title : typeof title !== "undefined" ? title : undefined);
         return buf.join("");
     };
 
@@ -127,7 +129,7 @@
 
     // cardGenerator/cardsGreed.jade compiled template
     templatizer["cardGenerator"]["cardsGreed"] = function tmpl_cardGenerator_cardsGreed() {
-        return '<h1 class="text-center">Chose card!  (На данный момент карты отображаются корректно только в Google Chrome)</h1><div id="cardsGreed"><ul class="cards"><li class="step-form-controller-wrapper"><div class="step-form-controller"><form action="/" class="step-form-controller-form q1"><div class="step-form-controller-form-label">Текст вопроса</div><div class="step-form-controller-form-input"></div><button type="submit" value="" class="step-form-controller-form-submit chi-arrow-right2"></button></form><div class="step-form-controller-form-statusbar"><div class="step-form-controller-form-statusbar-value"></div></div><div class="step-form-controller-form-statusbar-step"><span class="step-form-controller-form-statusbar-current"> </span>/  <span class="step-form-controller-form-statusbar-quantity"></span></div><div class="step-form-controller-form-controls"><div class="step-form-controller-form-control prev"><a class="chi-arrow-left"></a></div><div class="step-form-controller-form-control next"><a class="chi-arrow-right"></a></div></div></div></li></ul></div>';
+        return '<h1 class="text-center">Выберите понравившиеся визитки!</h1><p class="text-center">На данный момент карты отображаются корректно только в Google Chrome</p><div id="cardsGreed"><ul class="cards"><li class="step-form-controller-wrapper"><div class="step-form-controller"><form action="/" class="step-form-controller-form q1"><div class="step-form-controller-form-label">Текст вопроса</div><div class="step-form-controller-form-input"></div><button type="submit" value="" class="step-form-controller-form-submit chi-arrow-right2"></button></form><div class="step-form-controller-form-statusbar"><div class="step-form-controller-form-statusbar-value"></div></div><div class="step-form-controller-form-statusbar-step"><span class="step-form-controller-form-statusbar-current"> </span>/  <span class="step-form-controller-form-statusbar-quantity"></span></div><div class="step-form-controller-form-controls"><div class="step-form-controller-form-control prev"><a class="chi-arrow-left"></a></div><div class="step-form-controller-form-control next"><a class="chi-arrow-right"></a></div></div></div></li></ul></div>';
     };
 
     // cardGenerator/stepForm.jade compiled template
@@ -157,7 +159,7 @@
 
     // welcome/welcomePage.jade compiled template
     templatizer["welcome"]["welcomePage"] = function tmpl_welcome_welcomePage() {
-        return '<div class="page"><h1 class="text-center">Welcome, User!</h1><div class="container-fluid"><div class="row"><div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"><div class="well text-justify">Здравствуйте! перед Вами - система которая делает готовые к печати визитки незнакомых Вам людей. Вы можете выбрать любую визитку из тех которые видите и сделать её СВОЕЙ. Максимально можно сделать 24 визитки за 1 раз, таковы ограничения при печати в приличных типографиях. Это позволяет делать визитки для группы лиц и облегчить  визиточную часть Вашего предприятия. С помощью удобного кабинета Вы сможете управлять всеми аспектами выбранных вами вариантов, палитрой, наполнением, оформлением и пользоваться системой в течении неограниченного периода времени просто обновляя макет через ЛК.</div></div><div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"><div class="well text-justify">Все телефоны которые вы видите при просмотре вариантов оформления визиток - часть закрытой сети мобильной связи, Вы можете подобрать себе номер или несколько номеров и подключить как сим карту так и перенаправление на любой номер на любой срок от 1 месяца. Воспользуйтесь нашей линейкой тарифов созданных специально для нашего сайта и раздавайте визитки даже ДПСникам и МЧСникам. Наша сеть защитит Вас от любых посягательств на тайну личной жизни. Работу определённого телефона вы можете приостановить или завершить в любой момент через личный кабинет. В сети есть также и "золотые" номера доступные через суппорт.</div></div><div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"><div class="well text-justify">Все адреса электронной почты которые вы видите реально существуют и никем не заняты, первые 2500 коммерческих пользователей бесплатно получает один адрес после процедуры регистрации и подтверждения любой контактной информации, возможность выбора адреса ограничена возможностями системы, для каждого посетителя делается своя подборка из 24 адресов на выбор. Если вы хотите адреса на своём домене и не воспользоватся выданным в подарок адресом, а передарить его - это можно сделать через личный кабинет отправив приглашение, после того как приложение будет принято адрес будет автоматически закреплён за приглашённым.</div></div><div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"><div class="well text-justify">Для того чтобы получить  регистрацию в системе, надо частично заполнить  поля и выбрать минимум 2 варианта визитки. При этом минимум 1 контакт (или телефон или почта) должен быть реальным настолько, чтобы вы могли получить доступ в кабинет по смс или письмом. В личном кабинете можно выбрать новые варианты, добавить набор данных, отредактировать шаблоны контактных данных, приобрести впн, сделать простой сайт визитку с данными из визитки и стилистически похожим на визитку дизайном, купить домен в зоне ru/рф  c данными из визитки (система сама вам предложить домены которые могут Вам подойти) и хостинг.</div></div></div></div></div>';
+        return '<div class="page"><h1 class="text-center">Добро пожаловать!</h1><div class="container-fluid"><div class="row"><div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"><div class="well text-justify">Здравствуйте! перед Вами - система которая делает готовые к печати визитки незнакомых Вам людей. Вы можете выбрать любую визитку из тех которые видите и сделать её СВОЕЙ. Максимально можно сделать 24 визитки за 1 раз, таковы ограничения при печати в приличных типографиях. Это позволяет делать визитки для группы лиц и облегчить  визиточную часть Вашего предприятия. С помощью удобного кабинета Вы сможете управлять всеми аспектами выбранных вами вариантов, палитрой, наполнением, оформлением и пользоваться системой в течении неограниченного периода времени просто обновляя макет через ЛК.</div></div><div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"><div class="well text-justify">Все телефоны которые вы видите при просмотре вариантов оформления визиток - часть закрытой сети мобильной связи, Вы можете подобрать себе номер или несколько номеров и подключить как сим карту так и перенаправление на любой номер на любой срок от 1 месяца. Воспользуйтесь нашей линейкой тарифов созданных специально для нашего сайта и раздавайте визитки даже ДПСникам и МЧСникам. Наша сеть защитит Вас от любых посягательств на тайну личной жизни. Работу определённого телефона вы можете приостановить или завершить в любой момент через личный кабинет. В сети есть также и "золотые" номера доступные через суппорт.</div></div><div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"><div class="well text-justify">Все адреса электронной почты которые вы видите реально существуют и никем не заняты, первые 2500 коммерческих пользователей бесплатно получает один адрес после процедуры регистрации и подтверждения любой контактной информации, возможность выбора адреса ограничена возможностями системы, для каждого посетителя делается своя подборка из 24 адресов на выбор. Если вы хотите адреса на своём домене и не воспользоватся выданным в подарок адресом, а передарить его - это можно сделать через личный кабинет отправив приглашение, после того как приложение будет принято адрес будет автоматически закреплён за приглашённым.</div></div><div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"><div class="well text-justify">Для того чтобы получить  регистрацию в системе, надо частично заполнить  поля и выбрать минимум 2 варианта визитки. При этом минимум 1 контакт (или телефон или почта) должен быть реальным настолько, чтобы вы могли получить доступ в кабинет по смс или письмом. В личном кабинете можно выбрать новые варианты, добавить набор данных, отредактировать шаблоны контактных данных, приобрести впн, сделать простой сайт визитку с данными из визитки и стилистически похожим на визитку дизайном, купить домен в зоне ru/рф  c данными из визитки (система сама вам предложить домены которые могут Вам подойти) и хостинг.</div></div></div></div></div>';
     };
 
     return templatizer;
