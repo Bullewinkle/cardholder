@@ -81,12 +81,23 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 						return []
 				multiple: true
 
-			@changeStep(1)
+						# wait fot common custom fonts
+			if document.fonts then document.fonts.load("10px cardholder-icons").then => 
+				@changeStep(1)
+	
+				# @randomRender()
+				setTimeout =>
+					setInterval @randomRender, 2000
+				, 1000
 
-			# @randomRender()
-			setTimeout =>
-				setInterval @randomRender, 5000
-			, 5000	
+			else $.get "/assets/font/cardholder-icons.woff?-a7jq52", => 
+				@changeStep(1)
+	
+				# @randomRender()
+				setTimeout =>
+					setInterval @randomRender, 2000
+				, 1000
+
 
 		randomRender: =>
 			notLockedViews = @children.filter (view) ->
@@ -102,8 +113,6 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 						randomView.model.clear({silent: true}).set(randomView.model.defaults)
 					else
 						@randomRender()
-
-
 
 		changeStep : (step) =>
 			@currentStep = step

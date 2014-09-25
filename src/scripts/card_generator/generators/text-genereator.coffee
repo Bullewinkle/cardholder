@@ -106,26 +106,29 @@
 				isDefault: false
 
 			randomTextOptions.textAlign = srcData.textAligns[app.getRandom(0,srcData.textAligns.length-1)]
-			randomTextOptions.fontFamily = ''+ fontsList[ app.getRandom(0, fontsList.length-1) ]
+			# randomTextOptions.fontFamily = ''+ fontsList[ app.getRandom(0, fontsList.length-1) ]
+			randomTextOptions.fontFamily = fontFamily
 
 
-			# Load fonts dinamicaly through google web loader
-			WebFont.load
-				custom:
-					families: [randomTextOptions.fontFamily]
-					urls: ['/assets/font/card_fonts/' + randomTextOptions.fontFamily + '/' + randomTextOptions.fontFamily + '.css']
-				fontloading:  =>
-					# console.log 'fontloading:\t', arguments
-				fontactive: (fontFamily, fontOptions)  =>
-					# console.info 'fontactive:\t \t', fontFamily, @
-					@draw(canvas, model)
-				fontinactive:  =>
-					# console.warn 'fontinactive:\t \t', arguments
-					@draw(canvas, model)
+			# # Load fonts dinamicaly through google web loader
+			# WebFont.load
+			# 	custom:
+			# 		families: [randomTextOptions.fontFamily]
+			# 		urls: ['/assets/font/card_fonts/' + randomTextOptions.fontFamily + '/' + randomTextOptions.fontFamily + '.css']
+			# 	fontloading:  =>
+			# 		# console.log 'fontloading:\t', arguments
+			# 	fontactive: (fontFamily, fontOptions)  =>
+			# 		# console.info 'fontactive:\t \t', fontFamily, @
+			# 		@draw(canvas, model)
+			# 	fontinactive:  =>
+			# 		# console.warn 'fontinactive:\t \t', arguments
+			# 		@draw(canvas, model)
 			
 			#set new random text options to model
 			model.set 'generators.textGen', randomTextOptions,
 				silent: true
+
+			@draw(canvas, model)
 
 		else 
 			renderText(fontFamily)

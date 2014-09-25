@@ -1,5 +1,5 @@
 console.log '\n\n<---------SERVER LOG--------->\n'
-# TODO enable gzip
+# TODO configure dev and prod
 
 CONFIG = require './config'
 fs = require 'fs'
@@ -55,7 +55,9 @@ app.use (err, req, res, next) ->
 
 # ROUTER
 router = express.Router()
-router.use (req, res, next) ->
+router.use (err, req, res, next) ->
+	# if err then res.status(500).send 'Server error'
+
 	console.log req.url, req.params, req.query
 	next()
 
