@@ -3,3 +3,35 @@
 	width 100%
 	height 100%	
 	height 0
+
+#printableCardsGreed {
+	display none
+}
+
+@media print
+	html, body
+		padding 0
+		margin 0
+		width 100%
+		height 100%
+
+	body .l-main
+		display none !important
+		visibility hidden !important
+
+	body #printableCardsGreed,
+	body #printableCardsGreed *
+		visibility visible !important
+
+	body #printableCardsGreed
+		display block !important
+		position absolute
+		top 0
+		left 0
+		width 100%
+
+	#printableCardsGreed .printable-images
+		display inline-block
+		border 2px solid rgba(0,0,0,0.5)
+		width 22.8%
+		margin 1%

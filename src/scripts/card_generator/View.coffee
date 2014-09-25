@@ -13,6 +13,7 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 			'question'          : '.step-form-controller-form-label'
 			'currentStep'       : '.step-form-controller-form-statusbar-current'
 			'questionsQuantity' : '.step-form-controller-form-statusbar-quantity'
+			'printButton'       : '.print-selected-cards'
 					
 		events: 
 			'submit @ui.stepForm'             : 'submit'
@@ -20,6 +21,7 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 			'select2-removed @ui.mainInput'   : 'select2choiseRemoved'
 			'click @ui.controlNext'           : 'stepNext'
 			'click @ui.controlPrev'           : 'stepPrev'
+			'click @ui.printButton'           : 'printSelectedCards'
 
 		template: (model) ->
 			templatizer.cardGenerator.cardsGreed @model
@@ -81,12 +83,23 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 						return []
 				multiple: true
 
-			@changeStep(1)
+						# wait fot common custom fonts
+			if document.fonts then document.fonts.load("10px cardholder-icons").then => 
+				@changeStep(1)
+	
+				# @randomRender()
+				setTimeout =>
+					setInterval @randomRender, 2000
+				, 1000
 
-			# @randomRender()
-			setTimeout =>
-				setInterval @randomRender, 5000
-			, 5000	
+			else $.get "/assets/font/cardholder-icons.woff?-a7jq52", => 
+				@changeStep(1)
+	
+				# @randomRender()
+				setTimeout =>
+					setInterval @randomRender, 2000
+				, 1000
+
 
 		randomRender: =>
 			notLockedViews = @children.filter (view) ->
@@ -102,8 +115,6 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 						randomView.model.clear({silent: true}).set(randomView.model.defaults)
 					else
 						@randomRender()
-
-
 
 		changeStep : (step) =>
 			@currentStep = step
@@ -180,4 +191,30 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 				@names = []
 			if @currentStep is 2
 				@surnames = []
+
+		printSelectedCards: =>
+			selectedCards = @children.filter (view) ->
+				view.model.get('is-locked') is true
+
+			buffer = $('<div></div>')
+			printableCardsGreed = $('<div id="printableCardsGreed"></div>').appendTo buffer
+			_.each selectedCards, (card, i) -> 
+
+				if not card.$el.hasClass 'fliped'
+					 imgData = card.$el.find('.card-canvas.front')[0].toDataURL()
+				else
+					imgData = card.$el.find('.card-canvas.back')[0].toDataURL()
+
+				imgTeg = $('<img class="printable-images" src="'+imgData+'"/>')
+				printableCardsGreed.append imgTeg
+			console.log buffer.html()
+
+			$('body').append buffer
+			window.print()
+			buffer.remove()
+			# w = window.open()
+			# w.document.write( buffer.html() );
+			# w.print();
+			# w.close();
+
 
