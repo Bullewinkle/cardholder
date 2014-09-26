@@ -193,6 +193,11 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 				@surnames = []
 
 		printSelectedCards: =>
+
+			pdf = new jsPDF('p','pt','a4')
+			# pdf.fromHTML $('body')[0], 20,20,
+			# 	'width': 300
+
 			selectedCards = @children.filter (view) ->
 				view.model.get('is-locked') is true
 
@@ -207,11 +212,19 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 
 				imgTeg = $('<img class="printable-images" src="'+imgData+'"/>')
 				printableCardsGreed.append imgTeg
-			console.log buffer.html()
+
+				# pdf.addImage(imgData, 'JPEG', 15, 15*i, 30, 30);
+				# pdf.addHTML imgTeg, ->
+				# 	console.log 'html added'
+
+			console.log buffer
 
 			$('body').append buffer
-			window.print()
-			buffer.remove()
+			pdf.fromHTML buffer[0], 15, 15, 200,200
+			# window.print()
+			pdf.save()
+
+			# buffer.remove()
 			# w = window.open()
 			# w.document.write( buffer.html() );
 			# w.print();

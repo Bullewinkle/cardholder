@@ -10,6 +10,7 @@
 		"foundation": "",
 		"modernizr": "",
 		"jquery": "1",
-		"marionette": ""
+		"marionette": "",
+		"jspdf": ""
 	}
 }
