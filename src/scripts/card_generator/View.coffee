@@ -194,35 +194,74 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 
 		printSelectedCards: =>
 
-			pdf = new jsPDF('p','pt','a4')
+			pdf = new jsPDF('p','pt')
+
+
+			# orientation
+			# One of "portrait" or "landscape" (or shortcuts "p" (Default), "l")
+			# unit
+			# Measurement unit to be used when coordinates are specified. One of "pt" (points), "mm" (Default), "cm", "in"
+			# format
+			# One of 'a3', 'a4' (Default),'a5' ,'letter' ,'legal'
+
+
+
 			# pdf.fromHTML $('body')[0], 20,20,
 			# 	'width': 300
 
 			selectedCards = @children.filter (view) ->
 				view.model.get('is-locked') is true
 
-			buffer = $('<div></div>')
-			printableCardsGreed = $('<div id="printableCardsGreed"></div>').appendTo buffer
+			cardWidth = @$el.find('.card-canvas').eq(0).width()
+			cardHeight = @$el.find('.card-canvas').eq(0).height()
+
+			oldY = 0
+			onLineCounter = 0
+			linesCounter = 0
+
+			# buffer = $('<div></div>')
+			# printableCardsGreed = $('<div id="printableCardsGreed"></div>').appendTo buffer
 			_.each selectedCards, (card, i) -> 
 
 				if not card.$el.hasClass 'fliped'
-					 imgData = card.$el.find('.card-canvas.front')[0].toDataURL()
+					 cardCanvas = card.$el.find('.card-canvas.front')[0]
 				else
-					imgData = card.$el.find('.card-canvas.back')[0].toDataURL()
+					cardCanvas = card.$el.find('.card-canvas.back')[0]
 
-				imgTeg = $('<img class="printable-images" src="'+imgData+'"/>')
-				printableCardsGreed.append imgTeg
+				imgData = cardCanvas.toDataURL()
+				# imgTeg = $('<img class="printable-images" src="'+imgData+'"/>')
+				# printableCardsGreed.append imgTeg
 
-				# pdf.addImage(imgData, 'JPEG', 15, 15*i, 30, 30);
+				newLineCounter = Math.floor(i/3)
+
+				if newLineCounter > linesCounter
+					linesCounter++
+					onLineCounter = 0
+
+				x = (cardWidth*onLineCounter++)
+				y = (cardHeight*linesCounter)
+				width = cardWidth
+				height = cardHeight
+				pdf.addImage(imgData, 'JPEG', x, y)
+
+				debugObj = 
+					x: x
+					y: y
+					width: width
+					height: height
+					oldY: oldY
+					onLineCounter: onLineCounter
+					linesCounter: linesCounter
+				console.log debugObj
 				# pdf.addHTML imgTeg, ->
 				# 	console.log 'html added'
 
-			console.log buffer
 
-			$('body').append buffer
-			pdf.fromHTML buffer[0], 15, 15, 200,200
+			# $('body').append buffer
+			# pdf.fromHTML buffer[0], 15, 15, 200,200
 			# window.print()
-			pdf.save()
+			pdf.save('card-holder.pdf')
+			window.pdf = pdf
 
 			# buffer.remove()
 			# w = window.open()
