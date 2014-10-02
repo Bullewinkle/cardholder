@@ -194,8 +194,13 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 
 		printSelectedCards: =>
 
-			pdf = new jsPDF('p','pt')
+			# width = '291.17mm'
+			# height = '442.98mm'
 
+			pdf = new jsPDF('p','mm', [ 291.17, 442.98 ])
+
+			@$el.find('#cardsGreed').addClass 'prepare-to-pdf'
+			app.trigger 'resize'
 
 			# orientation
 			# One of "portrait" or "landscape" (or shortcuts "p" (Default), "l")
@@ -219,8 +224,7 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 			onLineCounter = 0
 			linesCounter = 0
 
-			# buffer = $('<div></div>')
-			# printableCardsGreed = $('<div id="printableCardsGreed"></div>').appendTo buffer
+			printableCardsGreed = $('<div id="printable-region" class="template-1"></div>')
 			_.each selectedCards, (card, i) -> 
 
 				if not card.$el.hasClass 'fliped'
@@ -229,44 +233,55 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 					cardCanvas = card.$el.find('.card-canvas.back')[0]
 
 				imgData = cardCanvas.toDataURL()
-				# imgTeg = $('<img class="printable-images" src="'+imgData+'"/>')
+				imgTeg =  $('<img class="printable-image" src="'+imgData+'"/>')
+				printableCardsGreed.append(imgTeg)
 				# printableCardsGreed.append imgTeg
 
-				newLineCounter = Math.floor(i/3)
+				# newLineCounter = Math.floor(i/3)
 
-				if newLineCounter > linesCounter
-					linesCounter++
-					onLineCounter = 0
+				# if newLineCounter > linesCounter
+				# 	linesCounter++
+				# 	onLineCounter = 0
 
-				x = (cardWidth*onLineCounter++)
-				y = (cardHeight*linesCounter)
-				width = cardWidth
-				height = cardHeight
-				pdf.addImage(imgData, 'JPEG', x, y)
+				# x = (cardWidth*onLineCounter++)
+				# y = (cardHeight*linesCounter)
+				# width = cardWidth
+				# height = cardHeight
+				# pdf.addImage(imgData, 'JPEG', x, y)
 
-				debugObj = 
-					x: x
-					y: y
-					width: width
-					height: height
-					oldY: oldY
-					onLineCounter: onLineCounter
-					linesCounter: linesCounter
-				console.log debugObj
+				# debugObj = 
+				# 	x: x
+				# 	y: y
+				# 	width: width
+				# 	height: height
+				# 	oldY: oldY
+				# 	onLineCounter: onLineCounter
+				# 	linesCounter: linesCounter
+				# console.log debugObj
 				# pdf.addHTML imgTeg, ->
 				# 	console.log 'html added'
 
 
-			# $('body').append buffer
+			$('body').prepend printableCardsGreed
+			config = 
+				onrendered: (canvas) ->
+					console.log 'region rendered', pdf, arguments
+					dataURL =  canvas.toDataURL()
+					pdf.addImage(dataURL, 'JPEG', 0,0 )
+					pdf.save('card-holder.pdf')
+			html2canvas $('#printable-region')[0], config,
+			# $('#printable-region').remove()
 			# pdf.fromHTML buffer[0], 15, 15, 200,200
 			# window.print()
-			pdf.save('card-holder.pdf')
-			window.pdf = pdf
+			
+			# window.pdf = pdf
 
 			# buffer.remove()
 			# w = window.open()
 			# w.document.write( buffer.html() );
 			# w.print();
 			# w.close();
+
+
 
 

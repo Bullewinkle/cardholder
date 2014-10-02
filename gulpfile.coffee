@@ -78,6 +78,7 @@ paths =
 			'other_components/deep-model.js'
 			'other_components/backbone.epoxy.min.js'
 			'other_components/jspdf.js'
+			'other_components/html2canvas.js'
 
 			# 'other_components/modernizr/modernizr.js'
 			# 'other_components/foundation/js/foundation.js'

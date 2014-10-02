@@ -28,5 +28,3 @@
 		drawIcon(i) for i in [0...iconsData.amountOfIcons]
 
 		if iconsDataType is 'notdefined' then model.set 'iconsData', iconsData, silent: true
-
-

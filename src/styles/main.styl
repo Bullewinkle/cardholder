@@ -4,6 +4,15 @@
 	height 100%	
 	height 0
 
+#cardsGreed.prepare-to-pdf
+	width 2579.25pt
+	height 3924pt
+
+	.card
+		width 477.9375pt
+		height 831.9975pt
+		
+
 #printableCardsGreed
 	display block !important
 	position absolute
@@ -16,6 +25,29 @@
 		border 2px solid rgba(0,0,0,0.5)
 		width 22.8%
 		margin 1%
+
+
+#printable-region
+	position absolute
+	top 0
+	left 0
+
+	&.template-1
+		// width 2579.25pt
+		// height 3924pt
+
+		width 291.17mm
+		height 442.98mm
+
+		padding 3mm 6.5mm 6mm 4.7mm
+		
+
+		background tomato
+
+		.printable-image
+			width 30%
+			height 30%
+
 
 // @media print
 // 	html, body
