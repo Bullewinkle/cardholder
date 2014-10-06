@@ -15,7 +15,7 @@
     "message": "*",
     "method-override": "*",
     "mongoose": "^3.9.0",
-    "pdfkit": "^0.7.0",
+    "pdfkit": "0.7.0",
     "request": "^2.40.0",
     "restify": "*",
     "socket.io": "1.0.6",
