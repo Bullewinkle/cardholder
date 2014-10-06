@@ -74,12 +74,17 @@ module.exports =
 		# res.send './src/assets/font/card_fonts/' + font + '/' + font + '.css'
 		res.sendfile font
 
-	getPdf: (config) =>
-		console.log arguments
+	getPdf: (req, res) =>
+		console.log 'get pdf'
+
+		res.set
+			'Content-Type': 'application/pdf'
+		res.type('application/pdf')		
 
 		# Pipe it's output somewhere, like to a file or HTTP response
 		# See below for browser usage
-		pdf.pipe fs.createWriteStream './dist/assets/pdf/generated.pdf'
+		# pdf.pipe fs.createWriteStream './dist/assets/pdf/generated.pdf'
+		pdf.pipe res
 
 		# Embed a font, set the font size, and render some text
 		pdf.fontSize(25).text('Some text with an embedded font!', 100, 100)
@@ -98,5 +103,7 @@ module.exports =
 		# Finalize PDF file
 		pdf.end()
 
-		res.sendfile './dist/assets/pdf/generated.pdf'
+		# res.sendFile '/dist/assets/pdf/generated.pdf'
+
+		# res.sendFile '/dist/assets/pdf/generated.pdf'
 
