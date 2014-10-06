@@ -1,10 +1,14 @@
+express = require 'express'
+timeout = require 'connect-timeout'
 controller = require './controller'
 session = require 'express-session'
 RedisStore = require('connect-redis')(session)
 
 module.exports = (router) ->
 	# ---------------------- PDF ----------------------
-	router.get '/pdf-generator', controller.getPdf
+	# router.get '/pdf-generator', controller.getPdf
+
+	router.get '/pdf-generator', timeout(5000), controller.getPdf2
 
 	# ---------------------- API ----------------------
 	router.get '/api/cards-generator', controller.getCards
