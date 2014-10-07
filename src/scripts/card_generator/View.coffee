@@ -193,15 +193,22 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 				@surnames = []
 
 		printSelectedCards: =>
+			card = @children.findByIndex(0).$el
+			if card.$el.hasClass 'fliped'
+				 dataImg = card.$el.find('.card-canvas.front')[0].toDataURL()
+			else
+				dataImg = card.$el.find('.card-canvas.back')[0].toDataURL()
+			console.log dataImg
+			$.post('/pdf-generator', data: dataImg)
 
 			# width = '291.17mm'
 			# height = '442.98mm'
 
-			pdf = new jsPDF('p','mm', [ 291.17, 442.98 ] )
+			# pdf = new jsPDF('p','mm', [ 291.17, 442.98 ] )
 
-			@$el.find('#cardsGreed').addClass 'prepare-to-pdf'
+			# @$el.find('#cardsGreed').addClass 'prepare-to-pdf'
 
-			app.trigger 'resize'
+			# app.trigger 'resize'
 
 
 
@@ -217,28 +224,28 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 			# pdf.fromHTML $('body')[0], 20,20,
 			# 	'width': 300
 
-			selectedCards = @children.filter (view) ->
-				view.model.get('is-locked') is true
+			# selectedCards = @children.filter (view) ->
+			# 	view.model.get('is-locked') is true
 
-			cardWidth = @$el.find('.card-canvas').eq(0).width()
-			cardHeight = @$el.find('.card-canvas').eq(0).height()
+			# cardWidth = @$el.find('.card-canvas').eq(0).width()
+			# cardHeight = @$el.find('.card-canvas').eq(0).height()
 
-			oldY = 0
-			onLineCounter = 0
-			linesCounter = 0
+			# oldY = 0
+			# onLineCounter = 0
+			# linesCounter = 0
 
-			printableCardsGreed = $('<div id="printable-region" class="template-1"></div>')
-			_.each selectedCards, (card, i) -> 
-				# card.$el.addClass 'printable-image'
+			# printableCardsGreed = $('<div id="printable-region" class="template-1"></div>')
+			# _.each selectedCards, (card, i) -> 
+			# 	# card.$el.addClass 'printable-image'
 
-				if not card.$el.hasClass 'fliped'
-					 cardCanvas = card.$el.find('.card-canvas.front')[0]
-				else
-					cardCanvas = card.$el.find('.card-canvas.back')[0]
+			# 	if not card.$el.hasClass 'fliped'
+			# 		 cardCanvas = card.$el.find('.card-canvas.front')[0]
+			# 	else
+			# 		cardCanvas = card.$el.find('.card-canvas.back')[0]
 
-				imgData = cardCanvas.toDataURL()
-				imgTeg =  $('<img class="printable-image" src="'+imgData+'"/>')
-				printableCardsGreed.append(imgTeg)
+			# 	imgData = cardCanvas.toDataURL()
+			# 	imgTeg =  $('<img class="printable-image" src="'+imgData+'"/>')
+			# 	printableCardsGreed.append(imgTeg)
 				# printableCardsGreed.append imgTeg
 
 				# newLineCounter = Math.floor(i/3)
@@ -266,15 +273,15 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 				# 	console.log 'html added'
 
 
-			$('body').prepend printableCardsGreed
-			config = 
-				onrendered: (canvas) ->
-					console.log 'region rendered', pdf, arguments
-					dataURL =  canvas.toDataURL()
-					$('body').prepend (canvas)
-					# pdf.addImage(dataURL, 'JPEG', 0,0 )
-					# pdf.save('card-holder.pdf')
-			html2canvas $('#printable-region')[0], config
+			# $('body').prepend printableCardsGreed
+			# config = 
+			# 	onrendered: (canvas) ->
+			# 		console.log 'region rendered', pdf, arguments
+			# 		dataURL =  canvas.toDataURL()
+			# 		$('body').prepend (canvas)
+			# 		# pdf.addImage(dataURL, 'JPEG', 0,0 )
+			# 		# pdf.save('card-holder.pdf')
+			# html2canvas $('#printable-region')[0], config
 			# $('#printable-region').remove()
 			# pdf.fromHTML buffer[0], 15, 15, 200,200
 			# window.print()
