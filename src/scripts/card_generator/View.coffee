@@ -197,10 +197,13 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 			# width = '291.17mm'
 			# height = '442.98mm'
 
-			pdf = new jsPDF('p','mm', [ 291.17, 442.98 ])
+			pdf = new jsPDF('p','mm', [ 291.17, 442.98 ] )
 
 			@$el.find('#cardsGreed').addClass 'prepare-to-pdf'
+
 			app.trigger 'resize'
+
+
 
 			# orientation
 			# One of "portrait" or "landscape" (or shortcuts "p" (Default), "l")
@@ -226,6 +229,7 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 
 			printableCardsGreed = $('<div id="printable-region" class="template-1"></div>')
 			_.each selectedCards, (card, i) -> 
+				# card.$el.addClass 'printable-image'
 
 				if not card.$el.hasClass 'fliped'
 					 cardCanvas = card.$el.find('.card-canvas.front')[0]
