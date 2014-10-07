@@ -13,6 +13,7 @@ http = require 'http'
 winston = require 'winston'
 
 express = require 'express'
+bodyParser = require 'body-parser'
 compress = require('compression')
 # session = require 'express-session'
 # RedisStore = require('connect-redis')(session)
@@ -36,6 +37,10 @@ GLOBAL.Promise = require 'bluebird'
 
 app = express()
 app.use compress()
+
+app.use bodyParser.urlencoded extended: false
+app.use bodyParser.json()
+
 app.set 'port', process.env.PORT or CONFIG.port or 9000
 
 app.use (err, req, res, next) ->

@@ -9,7 +9,6 @@ fonts = fonts.filter (item,i) ->
 	item.charAt(0) != '.' and item.charAt(0) != '_'
 
 PdfKit = require 'pdfkit'
-pdf = new PdfKit()
 
 module.exports =
 
@@ -87,8 +86,7 @@ module.exports =
 
 	# /pdf-generator
 	getPdf: (req, res) =>
-		console.log 'get pdf'
-
+		console.log 'getPdf', req.body
 		# res.set
 		# 	'Content-Type': 'application/pdf'
 		# 	'lastModified': false
@@ -97,6 +95,7 @@ module.exports =
 
 		# Pipe it's output somewhere, like to a file or HTTP response
 		# See below for browser usage
+		pdf = new PdfKit()
 		pdf.pipe fs.createWriteStream './dist/assets/pdf/generated.pdf'
 		pdf.pipe res
 
@@ -118,78 +117,14 @@ module.exports =
 		pdf.on 'end', =>
 			console.log( '!!! pdf rendering ended !!!' )
 			console.log( '!!! pdf file saved !!!' )
-			# res.download '/dist/assets/pdf/generated.pdf'
+			# res.sendFile '/assets/pdf/generated.pdf'			
+			
 
 		# Finalize PDF file
 		pdf.end()
 
-		# res.sendFile '/dist/assets/pdf/generated.pdf'
 
 		# res.sendFile '/dist/assets/pdf/generated.pdf'
-
-	getPdf2: (req, res, next) =>
-		if @counter and @counter.getPdf2
-			@counter.getPdf2 += 1
-		else
-			if @counter
-				@counter.getPdf2 = 1
-			else
-				@counter = 
-					getPdf2: 1
-		console.log @counter.getPdf2
-
-		return  if res._header # someone already responded
-		timedout = false
-		req.on "timeout", ->
-			timedout = true
-			return
-		# pretend setTimeout is something long, like uploading file to s3
-
-
-
-
-		console.log 'get pdf'
-
-		res.set
-			# 'Content-Type': 'application/pdf'
-			'lastModified': false
-			'maxAge': 1
-			'couner': @counter.getPdf2
-		# res.type('application/pdf')
-
-		# Pipe it's output somewhere, like to a file or HTTP response
-		# See below for browser usage
-		pdf.pipe fs.createWriteStream './dist/assets/pdf/generated.pdf'
-		pdf.pipe res
-
-		# Embed a font, set the font size, and render some text
-		pdf.fontSize(25).text('Some text with an embedded font!', 100, 100)
-		# Add another page
-		pdf.addPage().fontSize(25).text('Here is some vector graphics...', 100, 100)
-
-		# Draw a triangle
-		pdf.save().moveTo(100, 150).lineTo(100, 250).lineTo(200, 250).fill("#FF3300")
-
-		# Apply some transforms and render an SVG path with the 'even-odd' fill rule
-		pdf.scale(0.6).translate(470, -380).path('M 250,75 L 323,301 131,161 369,161 177,301 z').fill('red', 'even-odd').restore()
-
-		# Add some text with annotations
-		pdf.addPage().fillColor("blue").text('Here is a link!', 100, 100).underline(100, 100, 160, 27, color: "#0000FF").link(100, 100, 160, 27, 'http://google.com/')
-
-
-		pdf.on 'end', =>
-			console.log( '!!! pdf rendering ended !!!' )
-			console.log( '!!! pdf file saved !!!' )
-
-		setTimeout (->
-			return  if timedout # timedout, do nothing
-			pdf.end()
-			return
-		), 2000 # adjust meee
-
-			# res.download '/dist/assets/pdf/generated.pdf'
-
-		# Finalize PDF file
 
 
 

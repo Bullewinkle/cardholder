@@ -267,9 +267,10 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 				onrendered: (canvas) ->
 					console.log 'region rendered', pdf, arguments
 					dataURL =  canvas.toDataURL()
-					pdf.addImage(dataURL, 'JPEG', 0,0 )
-					pdf.save('card-holder.pdf')
-			html2canvas $('#printable-region')[0], config,
+					$('body').prepend (canvas)
+					# pdf.addImage(dataURL, 'JPEG', 0,0 )
+					# pdf.save('card-holder.pdf')
+			html2canvas $('#printable-region')[0], config
 			# $('#printable-region').remove()
 			# pdf.fromHTML buffer[0], 15, 15, 200,200
 			# window.print()
