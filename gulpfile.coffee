@@ -40,8 +40,8 @@ CONFIG =
 	BROWSERIFY: false
 	ICONFONT: false
 	SVGSPRITE: false
-	PNGSPRITE: true
-	RETINASPRITE: true
+	PNGSPRITE: false
+	RETINASPRITE: false
 	PORT: argv.port or 8000
 
 CONFIG.JADE = 
@@ -143,6 +143,7 @@ paths =
 		dest: "#{DIST}/assets/data"
 		cwd: "#{SRC}/assets/data"
 		src: ["#{SRC}/assets/data/**/*"]
+
 
 
 
@@ -442,19 +443,18 @@ tasks =
 				# 'opera'
 				# 'safari'
 				# 'firefox'
-				# 'google chrome'
+				'google chrome'
 			]
 			ghostMode:
 				forms: true
 				clicks: true
 				scroll: true
 				location: true
-
-		server = require './server/server'
-
+		server = null
+		server = require('./server/server')
 		server.start argv,  ->
-
-			browsersync.init app, config, next
+			console.log 'server started!'
+			# browsersync.init app, config, next
 
 
 
@@ -491,11 +491,11 @@ g.task 'watch', ->
 	g.watch paths.data.src, ['data']
 
 	# Tools
-	g.watch ["#{SRC}/tools/iconfont/src/*.svg"], ['grunt-font']
-	g.watch ["#{SRC}/tools/svgsprite/src/*.svg"], ['grunt-svg']
-	g.watch ["#{SRC}/tools/pngsprite/src/*.png"], ['pngsprite']
-	g.watch ["#{SRC}/tools/retinasprite/src/x1/*.png"], ['retinasprite1']
-	g.watch ["#{SRC}/tools/retinasprite/src/x2/*.png"], ['retinasprite2']
+	# g.watch ["#{SRC}/tools/iconfont/src/*.svg"], ['grunt-font']
+	# g.watch ["#{SRC}/tools/svgsprite/src/*.svg"], ['grunt-svg']
+	# g.watch ["#{SRC}/tools/pngsprite/src/*.png"], ['pngsprite']
+	# g.watch ["#{SRC}/tools/retinasprite/src/x1/*.png"], ['retinasprite1']
+	# g.watch ["#{SRC}/tools/retinasprite/src/x2/*.png"], ['retinasprite2']
 
 	# Styles
 	g.watch paths.appStyles.src, ['styles']
@@ -526,7 +526,9 @@ g.task 'watch', ->
 
 
 	# Server
-	g.watch ["./server/server.coffee"], ['server']
+	g.watch ["./server/server.coffee"]
+		.on 'change', ->
+			tasks.server()
 
 
 
@@ -537,11 +539,11 @@ g.task 'default', ->
 	# Tasks
 	args = ['clean']
 
-	args.push 'pngsprite' if CONFIG.PNGSPRITE
-	args.push 'grunt-svg' if CONFIG.SVGSPRITE
-	args.push 'grunt-font' if CONFIG.ICONFONT
-	args.push 'retinasprite1' if CONFIG.RETINASPRITE
-	args.push 'retinasprite2' if CONFIG.RETINASPRITE
+	# args.push 'pngsprite' if CONFIG.PNGSPRITE
+	# args.push 'grunt-svg' if CONFIG.SVGSPRITE
+	# args.push 'grunt-font' if CONFIG.ICONFONT
+	# args.push 'retinasprite1' if CONFIG.RETINASPRITE
+	# args.push 'retinasprite2' if CONFIG.RETINASPRITE
 
 	args.push 'img'
 	args.push 'data'

@@ -152,7 +152,6 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 				@ui.stepForm.trigger 'submit'
 
 		select2ChoiseSelected: (e) => 
-			console.log @
 			switch @currentStep
 				when 1
 					console.log "step: 1",e.object.sex
@@ -193,73 +192,84 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 				@surnames = []
 
 		printSelectedCards: =>
-			card = @children.findByIndex(0).$el
-			if card.$el.hasClass 'fliped'
-				 dataImg = card.$el.find('.card-canvas.front')[0].toDataURL()
-			else
-				dataImg = card.$el.find('.card-canvas.back')[0].toDataURL()
-			console.log dataImg
-			$.post('/pdf-generator', data: dataImg)
+			$('body').find('#overlay').addClass('rendering-pdf')
 
-			# width = '291.17mm'
-			# height = '442.98mm'
+			# <----------------------------- RENDERING ON SERVERSIDE -------------------------------->
 
-			# pdf = new jsPDF('p','mm', [ 291.17, 442.98 ] )
+			# card = @children.findByIndex(0).$el
+			# if card.$el.hasClass 'fliped'
+			# 	 dataImg = card.$el.find('.card-canvas.front')[0].toDataURL()
+			# else
+			# 	dataImg = card.$el.find('.card-canvas.back')[0].toDataURL()
+			# console.log dataImg
+			# $.post('/pdf-generator', data: dataImg)
 
-			# @$el.find('#cardsGreed').addClass 'prepare-to-pdf'
-
-			# app.trigger 'resize'
+			# <----------------------------- END RENDERING ON SERVERSIDE ----------------------------->
 
 
 
-			# orientation
-			# One of "portrait" or "landscape" (or shortcuts "p" (Default), "l")
-			# unit
-			# Measurement unit to be used when coordinates are specified. One of "pt" (points), "mm" (Default), "cm", "in"
-			# format
-			# One of 'a3', 'a4' (Default),'a5' ,'letter' ,'legal'
+			# <----------------------------- END RENDERING ON CLIENTSIDE ----------------------------->
+
+			deffer = =>
+
+				pdf = new jsPDF('p','mm', [ 291.17, 442.98 ] )
+
+				@$el.find('#cardsGreed').addClass 'prepare-to-pdf'
+
+				app.trigger 'resize'
+
+				cardWidth = 94
+				cardHeight = 54
+				onLineCounter = 0
+				linesCounter = 0
+
+				selectedCards = @children.filter (view) ->
+					view.model.get('is-locked') is true
+
+				cardsCounter = selectedCards.length
 
 
+				imgDataArray = []
+				_.each selectedCards, (card, i) -> 
 
-			# pdf.fromHTML $('body')[0], 20,20,
-			# 	'width': 300
+					if not card.$el.hasClass 'fliped'
+						 cardCanvas = card.$el.find('.card-canvas.front')[0]
+					else
+						cardCanvas = card.$el.find('.card-canvas.back')[0]
 
-			# selectedCards = @children.filter (view) ->
-			# 	view.model.get('is-locked') is true
+					imgData = cardCanvas.toDataURL()
 
-			# cardWidth = @$el.find('.card-canvas').eq(0).width()
-			# cardHeight = @$el.find('.card-canvas').eq(0).height()
+					newLineCounter = Math.floor(i/3)
 
-			# oldY = 0
-			# onLineCounter = 0
-			# linesCounter = 0
+					if newLineCounter > linesCounter
+						linesCounter++
+						onLineCounter = 0
 
-			# printableCardsGreed = $('<div id="printable-region" class="template-1"></div>')
-			# _.each selectedCards, (card, i) -> 
-			# 	# card.$el.addClass 'printable-image'
+					x = (cardWidth*onLineCounter++)+6.5
+					y = (cardHeight*linesCounter)+3
 
-			# 	if not card.$el.hasClass 'fliped'
-			# 		 cardCanvas = card.$el.find('.card-canvas.front')[0]
-			# 	else
-			# 		cardCanvas = card.$el.find('.card-canvas.back')[0]
+					imgDataArray.push imgData
 
-			# 	imgData = cardCanvas.toDataURL()
-			# 	imgTeg =  $('<img class="printable-image" src="'+imgData+'"/>')
-			# 	printableCardsGreed.append(imgTeg)
-				# printableCardsGreed.append imgTeg
+					pdf.addImage(imgData, 'JPEG', x, y, cardWidth, cardHeight )
 
-				# newLineCounter = Math.floor(i/3)
+				for index in [cardsCounter...24]
+					newLineCounter = Math.floor(index/3)
+					if newLineCounter > linesCounter
+						linesCounter++
+						onLineCounter = 0
 
-				# if newLineCounter > linesCounter
-				# 	linesCounter++
-				# 	onLineCounter = 0
+					x = (cardWidth*onLineCounter++)+6.5
+					y = (cardHeight*linesCounter)+3
 
-				# x = (cardWidth*onLineCounter++)
-				# y = (cardHeight*linesCounter)
-				# width = cardWidth
-				# height = cardHeight
-				# pdf.addImage(imgData, 'JPEG', x, y)
+					index = index%imgDataArray.length
+					pdf.addImage(imgDataArray[ index ] , 'JPEG', x, y, cardWidth, cardHeight )
 
+				pdf.save 'card_holder.pdf'
+
+				@$el.find('#cardsGreed').removeClass 'prepare-to-pdf'
+				$('body').find('#overlay').removeClass('rendering-pdf')
+				# $('#overlay').remove()
+			setTimeout deffer, 300	
 				# debugObj = 
 				# 	x: x
 				# 	y: y
@@ -271,6 +281,8 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 				# console.log debugObj
 				# pdf.addHTML imgTeg, ->
 				# 	console.log 'html added'
+
+
 
 
 			# $('body').prepend printableCardsGreed
@@ -294,6 +306,7 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 			# w.print();
 			# w.close();
 
+			# <----------------------------- END RENDERING ON CLIENTSIDE ----------------------------->
 
 
 

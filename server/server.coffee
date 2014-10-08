@@ -96,25 +96,52 @@ app.use ( err, req, res, next) ->
 
 app.use '/', router
 
-start = ( envirement, callback ) -> 
-	# MongoClient
-	# MongoClient.connect CONFIG.db.mongo.url.dev , native_parser: true , ( err, db) =>
-	# 	if err then throw new Error err
-	# 	module.db = db
-	# 	console.log 'mongodb connected'
-	# 	date = new Date()
-	# 	date = date.toString()
-		
-	# 	db.collection('users').update {name: 'default user'}, {name: 'default user', lastLogin: date}, (args...) -> 
-	# 		true
-	# listeningPort = process.env.PORT or CONFIG.port or 9000
-	listeningPort = app.get('port')
-	http.createServer( app ).listen listeningPort, ->
-		console.log "Express server listening on port " + listeningPort	
+
+app.start = ( envirement, callback ) =>
+	unless app.serverIsListening
+		console.log 'server starting...'
+		app.serverIsListening = true
+		# MongoClient
+		# MongoClient.connect CONFIG.db.mongo.url.dev , native_parser: true , ( err, db) =>
+		# 	if err then throw new Error err
+		# 	module.db = db
+		# 	console.log 'mongodb connected'
+		# 	date = new Date()
+		# 	date = date.toString()
+
+
+		# 	db.collection('users').update {name: 'default user'}, {name: 'default user', lastLogin: date}, (args...) -> 
+		# 		true
+		# listeningPort = process.env.PORT or CONFIG.port or 9000
+		listeningPort = app.get('port')
+		app.server = app.listen listeningPort, ->
+			if callback then callback() else console.log "Express server listening on port " + listeningPort
+	else
+		app.stop ->
+			console.log 'Express server stopped'
+			app.start null, ->
+				console.log 'Express server restarted'
+
+
+
+
+
+app.stop = (callback) =>
+	console.log 'serever stoping...'
+	if app.serverIsListening
+		app.serverIsListening = false
+
+		app.server.close ->
+			if callback then callback() else console.log "Express server stop listening"
+
 
 if not module.parent
-	start()
-else module.exports.start = start
+	app.start()
+else module.exports =
+
+	start: app.start
+	stop: app.stop
+
 
 
 # app.configure "development", ->
