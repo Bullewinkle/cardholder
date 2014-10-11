@@ -192,7 +192,7 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 				@surnames = []
 
 		printSelectedCards: =>
-			$('body').find('#overlay').addClass('rendering-pdf')
+			$('body').find('#overlay').addClass 'rendering-pdf'
 
 			# <----------------------------- RENDERING ON SERVERSIDE -------------------------------->
 
@@ -204,6 +204,8 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 			# console.log dataImg
 			# $.post('/pdf-generator', data: dataImg)
 
+			#$('body').find('#overlay').removeClass 'rendering-pdf'
+
 			# <----------------------------- END RENDERING ON SERVERSIDE ----------------------------->
 
 
@@ -211,6 +213,9 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 			# <----------------------------- END RENDERING ON CLIENTSIDE ----------------------------->
 
 			deffer = =>
+
+				# TODO calculate proper mm with meazurement of DPI like this: 
+				# +( app.getUnits($('canvas')[0],'width').cm*10 ).toFixed()
 
 				pdf = new jsPDF('p','mm', [ 291.17, 442.98 ] )
 
@@ -228,19 +233,18 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 
 				cardsCounter = selectedCards.length
 
+				for i in [0...24]
 
-				imgDataArray = []
-				_.each selectedCards, (card, i) -> 
+					cardIndex = i%selectedCards.length
+					card = selectedCards[cardIndex]
 
 					if not card.$el.hasClass 'fliped'
 						 cardCanvas = card.$el.find('.card-canvas.front')[0]
 					else
 						cardCanvas = card.$el.find('.card-canvas.back')[0]
-
 					imgData = cardCanvas.toDataURL()
 
 					newLineCounter = Math.floor(i/3)
-
 					if newLineCounter > linesCounter
 						linesCounter++
 						onLineCounter = 0
@@ -248,63 +252,14 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 					x = (cardWidth*onLineCounter++)+6.5
 					y = (cardHeight*linesCounter)+3
 
-					imgDataArray.push imgData
-
-					pdf.addImage(imgData, 'JPEG', x, y, cardWidth, cardHeight )
-
-				for index in [cardsCounter...24]
-					newLineCounter = Math.floor(index/3)
-					if newLineCounter > linesCounter
-						linesCounter++
-						onLineCounter = 0
-
-					x = (cardWidth*onLineCounter++)+6.5
-					y = (cardHeight*linesCounter)+3
-
-					index = index%imgDataArray.length
-					pdf.addImage(imgDataArray[ index ] , 'JPEG', x, y, cardWidth, cardHeight )
+					pdf.addImage(imgData , 'JPEG', x, y, cardWidth, cardHeight )
 
 				pdf.save 'card_holder.pdf'
 
 				@$el.find('#cardsGreed').removeClass 'prepare-to-pdf'
-				$('body').find('#overlay').removeClass('rendering-pdf')
-				# $('#overlay').remove()
-			setTimeout deffer, 300	
-				# debugObj = 
-				# 	x: x
-				# 	y: y
-				# 	width: width
-				# 	height: height
-				# 	oldY: oldY
-				# 	onLineCounter: onLineCounter
-				# 	linesCounter: linesCounter
-				# console.log debugObj
-				# pdf.addHTML imgTeg, ->
-				# 	console.log 'html added'
-
-
-
-
-			# $('body').prepend printableCardsGreed
-			# config = 
-			# 	onrendered: (canvas) ->
-			# 		console.log 'region rendered', pdf, arguments
-			# 		dataURL =  canvas.toDataURL()
-			# 		$('body').prepend (canvas)
-			# 		# pdf.addImage(dataURL, 'JPEG', 0,0 )
-			# 		# pdf.save('card-holder.pdf')
-			# html2canvas $('#printable-region')[0], config
-			# $('#printable-region').remove()
-			# pdf.fromHTML buffer[0], 15, 15, 200,200
-			# window.print()
+				$('body').find('#overlay').removeClass 'rendering-pdf'
 			
-			# window.pdf = pdf
-
-			# buffer.remove()
-			# w = window.open()
-			# w.document.write( buffer.html() );
-			# w.print();
-			# w.close();
+			setTimeout deffer, 300
 
 			# <----------------------------- END RENDERING ON CLIENTSIDE ----------------------------->
 
