@@ -28,14 +28,17 @@
 				font = '"'+fontFamily+'"'
 			switch textAlign
 				when 'left'
-					x = 10
-					y = 20
+					x = 30
+					# y = 20
+					y = 80
 				when 'center' 
 					x = canvas.width/2
-					y = 20
+					# y = 20
+					y = 80
 				when 'right'
-					x = canvas.width-10
-					y = 20 
+					x = canvas.width-30
+					# y = 20 
+					y = 80 
 			paragrafHeight = 0
 			
 			wrapText = (context, text, x, y, maxWidth, lineHeight) ->
@@ -57,21 +60,27 @@
 					paragrafHeight = y
 					
 				context.fillText(line, x, y)
-			context.font = '1.5em ' + font
+			# context.font = '1.5em ' + font
+			context.font = '6em ' + font
 			context.textAlign = textAlign
 			context.fillStyle = '#000'
 			context.textBaseline = 'middle'
 			context.lineWidth = 1.5
 
-			wrapText context , @renderInitials(sex, name, surname), x, y, canvas.width-20, 28
+			# wrapText context , @renderInitials(sex, name, surname), x, y, canvas.width-20, 28
+			wrapText context , @renderInitials(sex, name, surname), x, y, canvas.width-20, 74
 
-			context.font = '0.8em ' + font
+			# context.font = '0.8em ' + font
+			context.font = '2.4em ' + font
 			# console.log 'card №' + model.get('id') + ' : ' + font.split('"').join('')
 			if textAlign is 'right' then x-=5
-			context.fillText 'тел.: ' + phone, x, 32 +paragrafHeight
-			context.fillText 'email: '+ eMail, x, 49 +paragrafHeight
+			# context.fillText 'тел.: ' + phone, x, 32 +paragrafHeight
+			# context.fillText 'email: '+ eMail, x, 49 +paragrafHeight			
+			context.fillText 'тел.: ' + phone, x, 80 +paragrafHeight
+			context.fillText 'email: '+ eMail, x, 120 +paragrafHeight
 			if textAlign is 'right' then x+=5
-			wrapText context , position, x, 66 + paragrafHeight, canvas.width-20, 18
+			# wrapText context , position, x, 66 + paragrafHeight, canvas.width-20, 18
+			wrapText context , position, x, 160 + paragrafHeight, canvas.width-20, 74
 
 			context.save()
 

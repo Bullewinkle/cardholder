@@ -217,7 +217,16 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 				# TODO calculate proper mm with meazurement of DPI like this: 
 				# +( app.getUnits($('canvas')[0],'width').cm*10 ).toFixed()
 
-				pdf = new jsPDF('p','mm', [ 291.17, 442.98 ] )
+				window.pixelRatio = 96
+				pdfWidth= 291.17
+				pdfHeight= 442.98
+				margin = 
+					top: 3
+					left: 6.5
+					bottom: 3.3
+					right: 4.7
+
+				pdf = new jsPDF('p','mm', [ pdfWidth, pdfHeight ] )
 
 				@$el.find('#cardsGreed').addClass 'prepare-to-pdf'
 
@@ -234,7 +243,6 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 				cardsCounter = selectedCards.length
 
 				for i in [0...24]
-
 					cardIndex = i%selectedCards.length
 					card = selectedCards[cardIndex]
 
@@ -253,6 +261,7 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 					y = (cardHeight*linesCounter)+3
 
 					pdf.addImage(imgData , 'JPEG', x, y, cardWidth, cardHeight )
+					# pdf.addImage(imgData , 'JPEG', x, y )
 
 				pdf.save 'card_holder.pdf'
 

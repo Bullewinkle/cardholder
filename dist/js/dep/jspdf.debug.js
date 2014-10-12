@@ -54,7 +54,10 @@
  * @name jsPDF
  */
 var jsPDF = (function(global) {
+
 	'use strict';
+	global.pixeRatio = 72
+
 	var pdfVersion = '1.3',
 		pageFormats = { // Size in pt of various paper formats
 			'a0'  : [2383.94, 3370.39], 'a1'  : [1683.78, 2383.94],
@@ -791,10 +794,10 @@ var jsPDF = (function(global) {
 
 		switch (unit) {
 			case 'pt':  k = 1;          break;
-			case 'mm':  k = 72 / 25.4;  break;
-			case 'cm':  k = 72 / 2.54;  break;
-			case 'in':  k = 72;         break;
-			case 'px':  k = 96 / 72;    break;
+			case 'mm':  k = pixeRatio / 25.4;  break;
+			case 'cm':  k = pixeRatio / 2.54;  break;
+			case 'in':  k = pixeRatio;         break;
+			case 'px':  k = 96 / pixeRatio;    break;
 			case 'pc':  k = 12;         break;
 			case 'em':  k = 12;         break;
 			case 'ex':  k = 6;          break;
@@ -2037,10 +2040,10 @@ var jsPDF = (function(global) {
 			h = -96;
 		}
 		if (w < 0) {
-			w = (-1) * info['w'] * 72 / w / this.internal.scaleFactor;
+			w = (-1) * info['w'] * pixeRatio / w / this.internal.scaleFactor;
 		}
 		if (h < 0) {
-			h = (-1) * info['h'] * 72 / h / this.internal.scaleFactor;
+			h = (-1) * info['h'] * pixeRatio / h / this.internal.scaleFactor;
 		}
 		if (w === 0) {
 			w = h * info['w'] / info['h'];
@@ -2557,8 +2560,8 @@ var jsPDF = (function(global) {
         fontName = this.internal.getFont().fontName;
         fontSize = this.table_font_size || this.internal.getFontSize();
         fontStyle = this.internal.getFont().fontStyle;
-        // 1 pixel = 0.264583 mm and 1 mm = 72/25.4 point
-        var px2pt = 0.264583 * 72 / 25.4,
+        // 1 pixel = 0.264583 mm and 1 mm = pixeRatio/25.4 point
+        var px2pt = 0.264583 * pixeRatio / 25.4,
             dimensions,
             text;
 
@@ -2746,7 +2749,7 @@ var jsPDF = (function(global) {
             headerNames = Object.keys(data[0]);
 
         } else if (headers[0] && (typeof headers[0] !== 'string')) {
-            var px2pt = 0.264583 * 72 / 25.4;
+            var px2pt = 0.264583 * pixeRatio / 25.4;
 
             // Split header configs into names and prompts
             for (i = 0, ln = headers.length; i < ln; i += 1) {
@@ -3216,7 +3219,7 @@ var jsPDF = (function(global) {
 			renderer.setBlockBoundary();
 			renderer.setBlockStyle(fragmentCSS);
 		}
-		px2pt = 0.264583 * 72 / 25.4;
+		px2pt = 0.264583 * pixeRatio / 25.4;
 		i = 0;
 		l = cns.length;
 		while (i < l) {
@@ -4716,7 +4719,7 @@ In other words, this is "proportional" value. For 1 unit of font size, the lengt
 of the string will be that much.
 
 Multiply by font size to get actual width in *points*
-Then divide by 72 to get inches or divide by (72/25.6) to get 'mm' etc.
+Then divide by pixeRatio to get inches or divide by (pixeRatio/25.6) to get 'mm' etc.
 
 @public
 @function

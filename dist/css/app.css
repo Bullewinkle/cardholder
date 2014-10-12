@@ -4734,8 +4734,8 @@ html[dir="rtl"] .select2-search-choice-close {
   height: 442.98mm;
 }
 #cardsGreed.prepare-to-pdf .card {
-  width: 94mm;
-  height: 54mm;
+  width: 188mm;
+  height: 108mm;
 }
 #printableCardsGreed {
   display: block !important;
@@ -4772,7 +4772,7 @@ html[dir="rtl"] .select2-search-choice-close {
   height: 12.5%;
 }
 #overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
