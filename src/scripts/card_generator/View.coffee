@@ -217,31 +217,36 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 				# TODO calculate proper mm with meazurement of DPI like this: 
 				# +( app.getUnits($('canvas')[0],'width').cm*10 ).toFixed()
 
-				window.pixelRatio = 96
-				pdfWidth= 291.17
-				pdfHeight= 442.98
-				margin = 
-					top: 3
-					left: 6.5
-					bottom: 3.3
-					right: 4.7
+				pdfOptions =
+					pdfWidth:  291.17
+					pdfHeight:  442.98
+					margin:
+						top: 3
+						left: 6.5
+						bottom: 3.3
+						right: 4.7
 
-				pdf = new jsPDF('p','mm', [ pdfWidth, pdfHeight ] )
+					cardPerLine: 3
+					cardWidth: 94
+					cardHeight: 54
+					linesCounter: 0
 
+
+
+				pdf = new jsPDF('p','mm', [ pdfOptions.pdfWidth, pdfOptions.pdfHeight ] )
+
+				window.renderingPDF = true
 				@$el.find('#cardsGreed').addClass 'prepare-to-pdf'
-
 				app.trigger 'resize'
 
-				cardWidth = 94
-				cardHeight = 54
-				onLineCounter = 0
-				linesCounter = 0
 
 				selectedCards = @children.filter (view) ->
 					view.model.get('is-locked') is true
 
 				cardsCounter = selectedCards.length
 
+
+				onLineCounter = 0
 				for i in [0...24]
 					cardIndex = i%selectedCards.length
 					card = selectedCards[cardIndex]
@@ -252,18 +257,18 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 						cardCanvas = card.$el.find('.card-canvas.back')[0]
 					imgData = cardCanvas.toDataURL()
 
-					newLineCounter = Math.floor(i/3)
-					if newLineCounter > linesCounter
-						linesCounter++
+					newLineCounter = Math.floor(i/pdfOptions.cardPerLine)
+					if newLineCounter > pdfOptions.linesCounter
+						pdfOptions.linesCounter++
 						onLineCounter = 0
 
-					x = (cardWidth*onLineCounter++)+6.5
-					y = (cardHeight*linesCounter)+3
+					x = (pdfOptions.cardWidth*onLineCounter++)+pdfOptions.margin.left
+					y = (pdfOptions.cardHeight*pdfOptions.linesCounter)+pdfOptions.margin.top
 
-					pdf.addImage(imgData , 'JPEG', x, y, cardWidth, cardHeight )
-					# pdf.addImage(imgData , 'JPEG', x, y )
+					pdf.addImage(imgData , 'JPEG', x, y, pdfOptions.cardWidth, pdfOptions.cardHeight )
 
 				pdf.save 'card_holder.pdf'
+				window.renderingPDF = false
 
 				@$el.find('#cardsGreed').removeClass 'prepare-to-pdf'
 				$('body').find('#overlay').removeClass 'rendering-pdf'

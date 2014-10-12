@@ -19,6 +19,50 @@
 		textAlign = textOptions.textAlign
 		fontFamily = textOptions.fontFamily
 
+		if window.renderingPDF
+			textBlockOptions = 
+				margin:
+					top: 80
+					left: 30
+					bottom: 0
+					right: 30
+
+				title:
+					fontSize: '6em'
+					color: '#000'
+					textBaseline: 'middle' 
+					lineWidth: 1.5
+					lineHeight: 74
+				
+				info:
+					fontSize: '2.4em'
+					color: '#000'
+					textBaseline: 'middle' 
+					lineWidth: 1.5
+					lineHeight: 36
+		else
+			textBlockOptions = 
+					margin:
+						top: 30
+						left: 20
+						bottom: 0
+						right: 20
+
+					title:
+						fontSize: '1.5em'
+						color: '#000'
+						textBaseline: 'middle' 
+						lineWidth: 1.5
+						lineHeight: 28
+					
+					info:
+						fontSize: '0.8em'
+						color: '#000'
+						textBaseline: 'middle' 
+						lineWidth: 1.5
+						lineHeight: 18
+
+
 		context = canvas.getContext('2d')
 
 		renderText = (fontFamily) =>
@@ -28,18 +72,15 @@
 				font = '"'+fontFamily+'"'
 			switch textAlign
 				when 'left'
-					x = 30
-					# y = 20
-					y = 80
+					x = textBlockOptions.margin.left
+					y = textBlockOptions.margin.top
 				when 'center' 
 					x = canvas.width/2
-					# y = 20
-					y = 80
+					y = textBlockOptions.margin.top
 				when 'right'
-					x = canvas.width-30
-					# y = 20 
-					y = 80 
-			paragrafHeight = 0
+					x = canvas.width-textBlockOptions.margin.right
+					y = textBlockOptions.margin.top
+			paragraphHeight = 0
 			
 			wrapText = (context, text, x, y, maxWidth, lineHeight) ->
 				words = text.split(' ')
@@ -57,30 +98,32 @@
 						y += lineHeight
 					else
 						line = testLine
-					paragrafHeight = y
-					
+					paragraphHeight = y
 				context.fillText(line, x, y)
-			# context.font = '1.5em ' + font
-			context.font = '6em ' + font
+
+			context.font = "#{ textBlockOptions.title.fontSize } #{ font }"
 			context.textAlign = textAlign
-			context.fillStyle = '#000'
-			context.textBaseline = 'middle'
-			context.lineWidth = 1.5
+			context.fillStyle = textBlockOptions.title.color
+			context.textBaseline = textBlockOptions.title.textBaseline
+			context.lineWidth = textBlockOptions.title.lineWidth
 
-			# wrapText context , @renderInitials(sex, name, surname), x, y, canvas.width-20, 28
-			wrapText context , @renderInitials(sex, name, surname), x, y, canvas.width-20, 74
+			wrapText context , @renderInitials(sex, name, surname), x, y, canvas.width-(textBlockOptions.margin.left+textBlockOptions.margin.right), textBlockOptions.title.lineHeight
 
-			# context.font = '0.8em ' + font
-			context.font = '2.4em ' + font
+			context.font = "#{ textBlockOptions.info.fontSize } #{ font }"
 			# console.log 'card №' + model.get('id') + ' : ' + font.split('"').join('')
-			if textAlign is 'right' then x-=5
-			# context.fillText 'тел.: ' + phone, x, 32 +paragrafHeight
-			# context.fillText 'email: '+ eMail, x, 49 +paragrafHeight			
-			context.fillText 'тел.: ' + phone, x, 80 +paragrafHeight
-			context.fillText 'email: '+ eMail, x, 120 +paragrafHeight
-			if textAlign is 'right' then x+=5
-			# wrapText context , position, x, 66 + paragrafHeight, canvas.width-20, 18
-			wrapText context , position, x, 160 + paragrafHeight, canvas.width-20, 74
+			if textAlign is 'right' then x-=textBlockOptions.margin.left
+			y+= paragraphHeight
+
+			# context.fillText "тел.: #{phone}", x, y
+			wrapText context, "тел.: #{phone}", x, y, canvas.width-(textBlockOptions.margin.left+textBlockOptions.margin.right), textBlockOptions.info.lineHeight
+			y+= textBlockOptions.info.lineHeight
+
+			# context.fillText "email: #{eMail}", x, y
+			wrapText context, "email: #{eMail}", x, y, canvas.width-(textBlockOptions.margin.left+textBlockOptions.margin.right), textBlockOptions.info.lineHeight
+			y+= textBlockOptions.info.lineHeight
+
+			if textAlign is 'right' then x+=textBlockOptions.margin.left
+			wrapText context , position, x, y, canvas.width-(textBlockOptions.margin.left+textBlockOptions.margin.right), textBlockOptions.info.lineHeight
 
 			context.save()
 
