@@ -4729,10 +4729,6 @@ html[dir="rtl"] .select2-search-choice-close {
   height: 100%;
   height: 0;
 }
-#cardsGreed.prepare-to-pdf {
-  width: 291.17mm;
-  height: 442.98mm;
-}
 #cardsGreed.prepare-to-pdf .card {
   width: 188mm;
   height: 108mm;

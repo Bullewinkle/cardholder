@@ -211,31 +211,28 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 
 
 			# <----------------------------- END RENDERING ON CLIENTSIDE ----------------------------->
-
 			deffer = =>
-
+				startTime = new Date()
 				# TODO calculate proper mm with meazurement of DPI like this: 
 				# +( app.getUnits($('canvas')[0],'width').cm*10 ).toFixed()
 
 				pdfOptions =
-					pdfWidth:  291.17
-					pdfHeight:  442.98
+					pdfWidth:  319.8940
+					pdfHeight:  450
 					margin:
-						top: 3
-						left: 6.5
-						bottom: 3.3
-						right: 4.7
-
-					cardPerLine: 3
+						top: 8.91891891891892
+						left: 18.66666656
+						bottom: 8.91891891891892
+						right: 18.66666656
 					cardWidth: 94
 					cardHeight: 54
+
+					cardPerLine: 3
 					linesCounter: 0
-
-
 
 				pdf = new jsPDF('p','mm', [ pdfOptions.pdfWidth, pdfOptions.pdfHeight ] )
 
-				window.renderingPDF = true
+				CardGenerator.renderingPDF = true
 				@$el.find('#cardsGreed').addClass 'prepare-to-pdf'
 				app.trigger 'resize'
 
@@ -245,7 +242,60 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 
 				cardsCounter = selectedCards.length
 
+				# ADD LINES
+				lines = 
+					VT:	# vertical - top
+						x0:21
+						y0:4.7
+						x1:21
+						y1:8.7
 
+					VB:	#vartical - bottom
+						x0:21
+						y0:441
+						x1:21
+						y1:445
+
+					HL:	#horizontal - left
+						x0:15 
+						y0:10.6
+						x1:19
+						y1:10.6
+					
+					HR: #horizontal - right
+						x0: 301.22733344
+						y0: 10.6
+						x1: 305.22733344
+						y1: 10.6
+
+				drawLines = (startLine, lineType, num, evenEncrement, oddEncrement) ->
+					for i in [0...num]
+						pdf.line startLine.x0, startLine.y0, startLine.x1, startLine.y1
+
+						switch lineType
+							when 'h' #horizontal
+								unless i%2 # even
+									startLine.y0+= evenEncrement
+									startLine.y1+= evenEncrement
+								else # odd
+									startLine.y0+= oddEncrement
+									startLine.y1+= oddEncrement
+
+							when 'v' #vertical			
+								unless i%2 # even
+									startLine.x0+= evenEncrement
+									startLine.x1+= evenEncrement
+								else # odd
+									startLine.x0+= oddEncrement
+									startLine.x1+= oddEncrement
+				
+				drawLines lines.VT, 'v', 6, 90, 4
+				drawLines lines.VB, 'v', 6, 90, 4
+				drawLines lines.HL, 'h', 16, 50, 4
+				drawLines lines.HR, 'h', 16, 50, 4
+
+
+				# ADD CARD IMAGES
 				onLineCounter = 0
 				for i in [0...24]
 					cardIndex = i%selectedCards.length
@@ -265,16 +315,19 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 					x = (pdfOptions.cardWidth*onLineCounter++)+pdfOptions.margin.left
 					y = (pdfOptions.cardHeight*pdfOptions.linesCounter)+pdfOptions.margin.top
 
-					pdf.addImage(imgData , 'JPEG', x, y, pdfOptions.cardWidth, pdfOptions.cardHeight )
+					pdf.addImage(imgData , 'JPEG', x, y, pdfOptions.cardWidth, pdfOptions.cardHeight, "card#{cardIndex}", "SLOW" )
 
 				pdf.save 'card_holder.pdf'
-				window.renderingPDF = false
+				CardGenerator.renderingPDF = false
+
+				endTime = new Date()
+				deltaTimeSeconds = (+endTime)-(+startTime)/1000
+				console.info "time spend #{ deltaTimeSeconds }"
 
 				@$el.find('#cardsGreed').removeClass 'prepare-to-pdf'
 				$('body').find('#overlay').removeClass 'rendering-pdf'
 			
 			setTimeout deffer, 300
-
 			# <----------------------------- END RENDERING ON CLIENTSIDE ----------------------------->
 
 

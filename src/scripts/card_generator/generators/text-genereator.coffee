@@ -19,7 +19,7 @@
 		textAlign = textOptions.textAlign
 		fontFamily = textOptions.fontFamily
 
-		if window.renderingPDF
+		if app.CardGenerator.renderingPDF
 			textBlockOptions = 
 				margin:
 					top: 80
