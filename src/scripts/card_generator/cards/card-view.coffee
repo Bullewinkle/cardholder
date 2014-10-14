@@ -80,7 +80,6 @@
 			# @trigger 'transitionend', e
 
 		renderOnFront: =>
-			console.log 
 			if not @$el.hasClass 'fliped'
 				 canvas = @$el.find('.card-canvas.front')[0]
 			else
@@ -101,7 +100,7 @@
 		renderCanvas: (canvas) =>
 			canvas.width = @$el.width()
 			canvas.height = @$el.height()
-			console.log @model.get 'generators.textGen.isDefault'			
+					
 			@renderLayer1(canvas)
 			@renderLayer2(canvas)
 			@renderLayer3(canvas)

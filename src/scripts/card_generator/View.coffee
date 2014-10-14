@@ -247,15 +247,15 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 				# ADD LINES
 				lines = 
 					VT:	# vertical - top
-						x0:20.7
+						x0:20.5
 						y0:4.7
-						x1:20.7
+						x1:20.5
 						y1:8.7
 
 					VB:	#vartical - bottom
-						x0:20.7
+						x0:20.5
 						y0:441
-						x1:20.7
+						x1:20.5
 						y1:445
 
 					HL:	#horizontal - left

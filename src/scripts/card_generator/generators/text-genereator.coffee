@@ -19,43 +19,69 @@
 		textAlign = textOptions.textAlign
 		fontFamily = textOptions.fontFamily
 
+
+		titleColor = "rgb(#{ app.getRandom(0, 120) },#{ app.getRandom(0, 120) },#{ app.getRandom(0, 120) })"
+		bodyColor = "rgb(#{ app.getRandom(0, 160) },#{ app.getRandom(0, 160) },#{ app.getRandom(0, 160) })"
+
+
 		textBlockOptions = unless app.CardGenerator.renderingPDF
-			margin:
-				top: 30
-				left: 20
+			padding:
+				top: app.getRandom(5, 40, 2)
+				left: app.getRandom(5, 50, 2)
 				bottom: 0
-				right: 20
+				right: app.getRandom(5, 50, 2)
 			title:
-				fontSize: '1.5em'
-				color: '#000'
+				fontSize: "#{app.getRandom(1, 2.5, 2)}em"
+				color: titleColor
 				textBaseline: 'middle' 
-				lineWidth: 1.5
-				lineHeight: 28
-			
+				# lineWidth: 1.5
+				# lineWidth: app.getRandom(1, 2, 2)
+				# lineHeight: 28
+				lineHeight: app.getRandom(18, 40 , 2)
 			body:
-				fontSize: '0.8em'
-				color: '#000'
+				# fontSize: '0.8em'
+				fontSize: "#{app.getRandom(0.5, 1.5, 2)}em"
+				color: bodyColor
 				textBaseline: 'middle' 
-				lineWidth: 1.5
-				lineHeight: 18
+				# lineWidth: 1.5
+				# lineWidth: app.getRandom(1, 2, 2)
+				# lineHeight: 18
+				lineHeight: app.getRandom(10, 30 , 2)
 		else
-			margin:
-				top: 80
-				left: 30
+			# padding:
+			# 	top: 80
+			# 	left: 30
+			# 	bottom: 0
+			# 	right: 30
+			# title:
+			# 	fontSize: '6em'
+			# 	color: '#000'
+			# 	textBaseline: 'middle' 
+			# 	lineWidth: 1.5
+			# 	lineHeight: 74
+			# body:
+			# 	fontSize: '2.4em'
+			# 	color: '#000'
+			# 	textBaseline: 'middle' 
+			# 	lineWidth: 1.5
+			# 	lineHeight: 36
+			padding:
+				top: app.getRandom(15, 80, 2)
+				left: app.getRandom(15, 70, 2)
 				bottom: 0
-				right: 30
+				right: app.getRandom(15, 70, 2)
 			title:
-				fontSize: '6em'
-				color: '#000'
+				fontSize: "#{app.getRandom(4, 8, 2)}em"
+				color: titleColor
 				textBaseline: 'middle' 
-				lineWidth: 1.5
-				lineHeight: 74
+				# lineWidth: 1.5
+				lineHeight: app.getRandom(54, 130 , 2)
 			body:
-				fontSize: '2.4em'
-				color: '#000'
+				fontSize: "#{app.getRandom(1.8, 4, 2)}em"
+				color: bodyColor
 				textBaseline: 'middle' 
-				lineWidth: 1.5
-				lineHeight: 36
+				# lineWidth: 1.5
+				lineHeight: app.getRandom(26, 80 , 2)
 
 
 		context = canvas.getContext('2d')
@@ -65,18 +91,18 @@
 				font = fontFamily
 			else 
 				font = '"'+fontFamily+'"'
+
 			switch textAlign
 				when 'left'
-					x = textBlockOptions.margin.left
-					y = textBlockOptions.margin.top
+					x = textBlockOptions.padding.left
+					y = textBlockOptions.padding.top
 				when 'center' 
 					x = canvas.width/2
-					y = textBlockOptions.margin.top
+					y = textBlockOptions.padding.top
 				when 'right'
-					x = canvas.width-textBlockOptions.margin.right
-					y = textBlockOptions.margin.top
+					x = canvas.width-textBlockOptions.padding.right
+					y = textBlockOptions.padding.top				
 			paragraphHeight = 0
-			
 			wrapText = (context, text, x, y, maxWidth, lineHeight) ->
 				words = text.split(' ')
 				line = ''
@@ -102,23 +128,21 @@
 			context.textBaseline = textBlockOptions.title.textBaseline
 			context.lineWidth = textBlockOptions.title.lineWidth
 
-			wrapText context , @renderInitials(sex, name, surname), x, y, canvas.width-(textBlockOptions.margin.left+textBlockOptions.margin.right), textBlockOptions.title.lineHeight
+			wrapText context , @renderInitials(sex, name, surname), x, y, canvas.width-(textBlockOptions.padding.left+textBlockOptions.padding.right), textBlockOptions.title.lineHeight
 
 			context.font = "#{ textBlockOptions.body.fontSize } #{ font }"
+			context.fillStyle = textBlockOptions.body.color
 			# console.log 'card №' + model.get('id') + ' : ' + font.split('"').join('')
-			if textAlign is 'right' then x-=textBlockOptions.margin.left
-			y+= paragraphHeight
-
-			# context.fillText "тел.: #{phone}", x, y
-			wrapText context, "тел.: #{phone}", x, y, canvas.width-(textBlockOptions.margin.left+textBlockOptions.margin.right), textBlockOptions.body.lineHeight
+			y+= paragraphHeight + (app.getRandom(0,30))
+			context.fillText "тел.: #{phone}", x, y
+			# wrapText context, "тел.: #{phone}", x, y, canvas.width-(textBlockOptions.padding.left+textBlockOptions.padding.right), textBlockOptions.body.lineHeight
+			
 			y+= textBlockOptions.body.lineHeight
-
-			# context.fillText "email: #{eMail}", x, y
-			wrapText context, "email: #{eMail}", x, y, canvas.width-(textBlockOptions.margin.left+textBlockOptions.margin.right), textBlockOptions.body.lineHeight
+			context.fillText "email: #{eMail}", x, y
+			# wrapText context, "email: #{eMail}", x, y, canvas.width-(textBlockOptions.padding.left+textBlockOptions.padding.right), textBlockOptions.body.lineHeight
+			
 			y+= textBlockOptions.body.lineHeight
-
-			if textAlign is 'right' then x+=textBlockOptions.margin.left
-			wrapText context , position, x, y, canvas.width-(textBlockOptions.margin.left+textBlockOptions.margin.right), textBlockOptions.body.lineHeight
+			wrapText context , position, x, y, canvas.width-(textBlockOptions.padding.left+textBlockOptions.padding.right), textBlockOptions.body.lineHeight
 
 			context.save()
 
