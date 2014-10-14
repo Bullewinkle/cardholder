@@ -32,7 +32,7 @@
 				lineWidth: 1.5
 				lineHeight: 28
 			
-			info:
+			body:
 				fontSize: '0.8em'
 				color: '#000'
 				textBaseline: 'middle' 
@@ -50,7 +50,7 @@
 				textBaseline: 'middle' 
 				lineWidth: 1.5
 				lineHeight: 74
-			info:
+			body:
 				fontSize: '2.4em'
 				color: '#000'
 				textBaseline: 'middle' 
@@ -104,25 +104,25 @@
 
 			wrapText context , @renderInitials(sex, name, surname), x, y, canvas.width-(textBlockOptions.margin.left+textBlockOptions.margin.right), textBlockOptions.title.lineHeight
 
-			context.font = "#{ textBlockOptions.info.fontSize } #{ font }"
+			context.font = "#{ textBlockOptions.body.fontSize } #{ font }"
 			# console.log 'card №' + model.get('id') + ' : ' + font.split('"').join('')
 			if textAlign is 'right' then x-=textBlockOptions.margin.left
 			y+= paragraphHeight
 
 			# context.fillText "тел.: #{phone}", x, y
-			wrapText context, "тел.: #{phone}", x, y, canvas.width-(textBlockOptions.margin.left+textBlockOptions.margin.right), textBlockOptions.info.lineHeight
-			y+= textBlockOptions.info.lineHeight
+			wrapText context, "тел.: #{phone}", x, y, canvas.width-(textBlockOptions.margin.left+textBlockOptions.margin.right), textBlockOptions.body.lineHeight
+			y+= textBlockOptions.body.lineHeight
 
 			# context.fillText "email: #{eMail}", x, y
-			wrapText context, "email: #{eMail}", x, y, canvas.width-(textBlockOptions.margin.left+textBlockOptions.margin.right), textBlockOptions.info.lineHeight
-			y+= textBlockOptions.info.lineHeight
+			wrapText context, "email: #{eMail}", x, y, canvas.width-(textBlockOptions.margin.left+textBlockOptions.margin.right), textBlockOptions.body.lineHeight
+			y+= textBlockOptions.body.lineHeight
 
 			if textAlign is 'right' then x+=textBlockOptions.margin.left
-			wrapText context , position, x, y, canvas.width-(textBlockOptions.margin.left+textBlockOptions.margin.right), textBlockOptions.info.lineHeight
+			wrapText context , position, x, y, canvas.width-(textBlockOptions.margin.left+textBlockOptions.margin.right), textBlockOptions.body.lineHeight
 
 			context.save()
 
-		# generateRandomCardInfo				
+		# generateRandomCardInfo			
 		# generateRandomCardInfo = (cardData) ->
 
 

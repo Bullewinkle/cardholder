@@ -77,7 +77,7 @@
 			# if e.target is @$el.find('.card-perspective-inner-wrapper')[0] and propertyName.search('transform') > -1
 			if propertyName.search('transform') > -1
 				@$el.removeClass 'is-fliping'
-			@trigger 'transitionend', e
+			# @trigger 'transitionend', e
 
 		renderOnFront: =>
 			console.log 
@@ -125,9 +125,9 @@
 			@trigger 'flip'
 			@$el.toggleClass 'fliped'
 			@$el.addClass 'is-fliping'
-			setTimeout =>
-				@$el.removeClass 'is-fliping'
-			,300		
+			# setTimeout =>
+			# 	@$el.removeClass 'is-fliping'
+			# ,300	
 
 		onLockButtonClicked: ->
 			if @model.get('is-locked') is true
