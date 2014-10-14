@@ -19,48 +19,43 @@
 		textAlign = textOptions.textAlign
 		fontFamily = textOptions.fontFamily
 
-		if app.CardGenerator.renderingPDF
-			textBlockOptions = 
-				margin:
-					top: 80
-					left: 30
-					bottom: 0
-					right: 30
-
-				title:
-					fontSize: '6em'
-					color: '#000'
-					textBaseline: 'middle' 
-					lineWidth: 1.5
-					lineHeight: 74
-				
-				info:
-					fontSize: '2.4em'
-					color: '#000'
-					textBaseline: 'middle' 
-					lineWidth: 1.5
-					lineHeight: 36
+		textBlockOptions = unless app.CardGenerator.renderingPDF
+			margin:
+				top: 30
+				left: 20
+				bottom: 0
+				right: 20
+			title:
+				fontSize: '1.5em'
+				color: '#000'
+				textBaseline: 'middle' 
+				lineWidth: 1.5
+				lineHeight: 28
+			
+			info:
+				fontSize: '0.8em'
+				color: '#000'
+				textBaseline: 'middle' 
+				lineWidth: 1.5
+				lineHeight: 18
 		else
-			textBlockOptions = 
-					margin:
-						top: 30
-						left: 20
-						bottom: 0
-						right: 20
-
-					title:
-						fontSize: '1.5em'
-						color: '#000'
-						textBaseline: 'middle' 
-						lineWidth: 1.5
-						lineHeight: 28
-					
-					info:
-						fontSize: '0.8em'
-						color: '#000'
-						textBaseline: 'middle' 
-						lineWidth: 1.5
-						lineHeight: 18
+			margin:
+				top: 80
+				left: 30
+				bottom: 0
+				right: 30
+			title:
+				fontSize: '6em'
+				color: '#000'
+				textBaseline: 'middle' 
+				lineWidth: 1.5
+				lineHeight: 74
+			info:
+				fontSize: '2.4em'
+				color: '#000'
+				textBaseline: 'middle' 
+				lineWidth: 1.5
+				lineHeight: 36
 
 
 		context = canvas.getContext('2d')

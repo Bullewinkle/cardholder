@@ -22,16 +22,25 @@
 			@bind 'all',  => 
 				console.log "CARD ITEM VIEW:\t \t \t", arguments if @logger is on
 			@model.view = @
-			@listenTo @model,'change', @renderOnBackWithAnimate
-			@listenTo app,'resize', @resize
+			@listenTo @model,'change', @drawCard
+			@listenTo app,'resize', @renderOnFront
 
 		onShow: =>
-			handleError = -> console.error 'error loading font'
-			fontsList = dataFromServer.appData.fontsList
-			fontFamily = ''+ fontsList[ app.getRandom(0, fontsList.length-1) ]
+			@drawCard()
 
+		drawCard: =>
+			if @model.get 'data.isDefault'
+				if @model.get 'generators.textGen.isDefault'
+					@loadFont @getRandomFont(), @renderOnBackWithAnimate
+				else
+					@renderOnBackWithAnimate()
+			else
+				@renderOnFront()
 
+		loadFont: (fontFamily, callback) =>
 			# Load fonts dinamicaly through google web loader
+			handleError = -> console.error 'error loading font'
+
 			WebFont.load
 				custom:
 					families: [fontFamily]
@@ -43,16 +52,22 @@
 					console.log 'fontactive', @model.get 'generators.textGen.fontFamily'
 					# console.info 'fontactive:\t \t', fontFamily, @
 					# wait fot common custom fonts
-					if document.fonts then document.fonts.load("10px cardholder-icons").then @renderOnBackWithAnimate, handleError
-					else $.get "/assets/font/cardholder-icons.woff?-a7jq52", => @renderOnBackWithAnimate()
+					callback()
+					# if document.fonts
+					# 	console.log 'loading font by document.fonts', arguments
+					# 	document.fonts.load("10px cardholder-icons")
+					# 	.then callback, handleError
+					# else
+					# 	console.log 'loading font by AJAX', arguments
+					# 	$.get "/assets/font/cardholder-icons.woff?-a7jq52"
+					# 	.then callback, handleError
 				fontinactive:  =>
-					@model.set 'generators.textGen.fontFamily', fontFamily, silent: true
 					console.log 'fontinactive', @model.get 'generators.textGen.fontFamily'
+					callback()
 					# console.warn 'fontinactive:\t \t', arguments
 					# wait fot common custom fonts
-					if document.fonts then document.fonts.load("10px cardholder-icons").then @renderOnBackWithAnimate, handleError
-					else $.get "/assets/font/cardholder-icons.woff?-a7jq52", => @renderOnBackWithAnimate()
-
+					# if document.fonts then document.fonts.load("10px cardholder-icons").then @renderOnBackWithAnimate, handleError
+					# else $.get "/assets/font/cardholder-icons.woff?-a7jq52", => @renderOnBackWithAnimate()f
 			# # wait fot common custom fonts
 			# if document.fonts then document.fonts.load("10px cardholder-icons").then @renderOnBackWithAnimate, handleError
 			# else $.get "/assets/font/cardholder-icons.woff?-a7jq52", => @renderOnBackWithAnimate()
@@ -81,34 +96,38 @@
 
 		renderOnBackWithAnimate: =>
 			@renderOnBack()
-			@flip()			
+			@flip()	
 
 		renderCanvas: (canvas) =>
 			canvas.width = @$el.width()
 			canvas.height = @$el.height()
-
+			console.log @model.get 'generators.textGen.isDefault'			
 			@renderLayer1(canvas)
 			@renderLayer2(canvas)
 			@renderLayer3(canvas)
-			
 			canvas
 
-		renderLayer1: (canvas) ->
+		renderLayer1: (canvas) =>
 			app.CardGenerator.generators.gradientGen.draw canvas, @model
 
-		renderLayer2: (canvas)->
+		renderLayer2: (canvas) =>
 			app.CardGenerator.generators.iconsGen.draw canvas, @model
 
-		renderLayer3: (canvas)->
+		renderLayer3: (canvas) =>
 			app.CardGenerator.generators.textGen.draw canvas, @model
 
-		resize:-> 
-			@renderOnFront()
+		getRandomFont: =>
+			fontsList = dataFromServer.appData.fontsList
+			fontFamily = ''+ fontsList[ app.getRandom(0, fontsList.length-1) ]
+			fontFamily
 
 		flip: =>
 			@trigger 'flip'
 			@$el.toggleClass 'fliped'
-			@$el.addClass 'is-fliping'			
+			@$el.addClass 'is-fliping'
+			setTimeout =>
+				@$el.removeClass 'is-fliping'
+			,300		
 
 		onLockButtonClicked: ->
 			if @model.get('is-locked') is true

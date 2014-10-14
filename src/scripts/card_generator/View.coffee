@@ -85,6 +85,7 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 
 						# wait fot common custom fonts
 			if document.fonts then document.fonts.load("10px cardholder-icons").then => 
+				console.info 'cardholder-icons loaded by document.fonts.load', arguments
 				@changeStep(1)
 	
 				# @randomRender()
@@ -93,6 +94,7 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 				, 1000
 
 			else $.get "/assets/font/cardholder-icons.woff?-a7jq52", => 
+				console.info 'cardholder-icons loaded by ajax', arguments
 				@changeStep(1)
 	
 				# @randomRender()
@@ -245,15 +247,15 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 				# ADD LINES
 				lines = 
 					VT:	# vertical - top
-						x0:21
+						x0:20.7
 						y0:4.7
-						x1:21
+						x1:20.7
 						y1:8.7
 
 					VB:	#vartical - bottom
-						x0:21
+						x0:20.7
 						y0:441
-						x1:21
+						x1:20.7
 						y1:445
 
 					HL:	#horizontal - left
