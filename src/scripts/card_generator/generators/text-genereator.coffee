@@ -11,21 +11,21 @@
 				textOptions.textBlockOptions
 			else
 				padding:
-					top: app.getRandom(30, 70, 2)
-					left: app.getRandom(15, 50, 2)
+					top: app.getRandom(60, 90, 2)
+					left: app.getRandom(60, 90, 2)
 					bottom: 0
-					right: app.getRandom(15, 50, 2)
+					right: app.getRandom(60, 90, 2)
 				title:
-					fontSize: "#{app.getRandom(4, 6.5, 2)}em"
+					fontSize: "#{app.getRandom(3, 5, 2)}em"
 					color: textOptions.textBlockOptions.title.color
 					textBaseline: 'middle' 
-					lineHeight: app.getRandom(50, 100 , 2)
+					lineHeight: app.getRandom(40, 60 , 2)
 					marginBottom: app.getRandom(5,40)
 				body:
-					fontSize: "#{app.getRandom(1.8, 4, 2)}em"
+					fontSize: "#{app.getRandom(1.2, 3, 2)}em"
 					color: textOptions.textBlockOptions.body.color
 					textBaseline: 'middle' 
-					lineHeight: app.getRandom(25, 60 , 2)
+					lineHeight: app.getRandom(15, 40 , 2)
 
 
 		# card info
