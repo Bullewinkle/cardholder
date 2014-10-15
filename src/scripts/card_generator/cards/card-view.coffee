@@ -102,7 +102,7 @@
 			canvas.height = @$el.height()
 					
 			@renderLayer1(canvas)
-			@renderLayer2(canvas)
+			# @renderLayer2(canvas)
 			@renderLayer3(canvas)
 			canvas
 
