@@ -7,6 +7,27 @@
 		textOptions = model.get 'generators.textGen'
 		cardData = model.get 'data'
 		
+		textBlockOptions =  unless app.CardGenerator.renderingPDF 
+				textOptions.textBlockOptions
+			else
+				padding:
+					top: app.getRandom(30, 70, 2)
+					left: app.getRandom(15, 50, 2)
+					bottom: 0
+					right: app.getRandom(15, 50, 2)
+				title:
+					fontSize: "#{app.getRandom(4, 6.5, 2)}em"
+					color: textOptions.textBlockOptions.title.color
+					textBaseline: 'middle' 
+					lineHeight: app.getRandom(50, 100 , 2)
+					marginBottom: app.getRandom(5,40)
+				body:
+					fontSize: "#{app.getRandom(1.8, 4, 2)}em"
+					color: textOptions.textBlockOptions.body.color
+					textBaseline: 'middle' 
+					lineHeight: app.getRandom(25, 60 , 2)
+
+
 		# card info
 		name = cardData.name
 		surname = cardData.surname
@@ -18,71 +39,6 @@
 		# text ptions
 		textAlign = textOptions.textAlign
 		fontFamily = textOptions.fontFamily
-
-
-		titleColor = "rgb(#{ app.getRandom(0, 120) },#{ app.getRandom(0, 120) },#{ app.getRandom(0, 120) })"
-		bodyColor = "rgb(#{ app.getRandom(0, 160) },#{ app.getRandom(0, 160) },#{ app.getRandom(0, 160) })"
-
-
-		textBlockOptions = unless app.CardGenerator.renderingPDF
-			padding:
-				top: app.getRandom(5, 40, 2)
-				left: app.getRandom(5, 50, 2)
-				bottom: 0
-				right: app.getRandom(5, 50, 2)
-			title:
-				fontSize: "#{app.getRandom(1, 2.5, 2)}em"
-				color: titleColor
-				textBaseline: 'middle' 
-				# lineWidth: 1.5
-				# lineWidth: app.getRandom(1, 2, 2)
-				# lineHeight: 28
-				lineHeight: app.getRandom(18, 40 , 2)
-			body:
-				# fontSize: '0.8em'
-				fontSize: "#{app.getRandom(0.5, 1.5, 2)}em"
-				color: bodyColor
-				textBaseline: 'middle' 
-				# lineWidth: 1.5
-				# lineWidth: app.getRandom(1, 2, 2)
-				# lineHeight: 18
-				lineHeight: app.getRandom(10, 30 , 2)
-		else
-			# padding:
-			# 	top: 80
-			# 	left: 30
-			# 	bottom: 0
-			# 	right: 30
-			# title:
-			# 	fontSize: '6em'
-			# 	color: '#000'
-			# 	textBaseline: 'middle' 
-			# 	lineWidth: 1.5
-			# 	lineHeight: 74
-			# body:
-			# 	fontSize: '2.4em'
-			# 	color: '#000'
-			# 	textBaseline: 'middle' 
-			# 	lineWidth: 1.5
-			# 	lineHeight: 36
-			padding:
-				top: app.getRandom(15, 80, 2)
-				left: app.getRandom(15, 70, 2)
-				bottom: 0
-				right: app.getRandom(15, 70, 2)
-			title:
-				fontSize: "#{app.getRandom(4, 8, 2)}em"
-				color: titleColor
-				textBaseline: 'middle' 
-				# lineWidth: 1.5
-				lineHeight: app.getRandom(54, 130 , 2)
-			body:
-				fontSize: "#{app.getRandom(1.8, 4, 2)}em"
-				color: bodyColor
-				textBaseline: 'middle' 
-				# lineWidth: 1.5
-				lineHeight: app.getRandom(26, 80 , 2)
-
 
 		context = canvas.getContext('2d')
 
@@ -133,7 +89,7 @@
 			context.font = "#{ textBlockOptions.body.fontSize } #{ font }"
 			context.fillStyle = textBlockOptions.body.color
 			# console.log 'card №' + model.get('id') + ' : ' + font.split('"').join('')
-			y+= paragraphHeight + (app.getRandom(0,30))
+			y+= paragraphHeight + textBlockOptions.title.marginBottom
 			context.fillText "тел.: #{phone}", x, y
 			# wrapText context, "тел.: #{phone}", x, y, canvas.width-(textBlockOptions.padding.left+textBlockOptions.padding.right), textBlockOptions.body.lineHeight
 			
@@ -146,9 +102,7 @@
 
 			context.save()
 
-		# generateRandomCardInfo			
-		# generateRandomCardInfo = (cardData) ->
-
+		# getCardInfo getTextOptions
 
 		if cardData.isDefault or textOptions.isDefault
 			#generate new random cardData
@@ -180,20 +134,23 @@
 			# randomTextOptions.fontFamily = ''+ fontsList[ app.getRandom(0, fontsList.length-1) ]
 			randomTextOptions.fontFamily = fontFamily
 
-
-			# # Load fonts dinamicaly through google web loader
-			# WebFont.load
-			# 	custom:
-			# 		families: [randomTextOptions.fontFamily]
-			# 		urls: ['/assets/font/card_fonts/' + randomTextOptions.fontFamily + '/' + randomTextOptions.fontFamily + '.css']
-			# 	fontloading:  =>
-			# 		# console.log 'fontloading:\t', arguments
-			# 	fontactive: (fontFamily, fontOptions)  =>
-			# 		# console.info 'fontactive:\t \t', fontFamily, @
-			# 		@draw(canvas, model)
-			# 	fontinactive:  =>
-			# 		# console.warn 'fontinactive:\t \t', arguments
-			# 		@draw(canvas, model)
+			randomTextOptions.textBlockOptions = 
+				padding:
+					top: app.getRandom(10, 50, 2)
+					left: app.getRandom(10, 50, 2)
+					bottom: 0
+					right: app.getRandom(10, 50, 2)
+				title:
+					fontSize: "#{app.getRandom(1, 2.5, 2)}em"
+					color: "rgb(#{ app.getRandom(0, 120) },#{ app.getRandom(0, 120) },#{ app.getRandom(0, 120) })"
+					textBaseline: 'middle' 
+					lineHeight: app.getRandom(18, 40 , 2)
+					marginBottom: 0
+				body:
+					fontSize: "#{app.getRandom(0.5, 1.5, 2)}em"
+					color: "rgb(#{ app.getRandom(0, 160) },#{ app.getRandom(0, 160) },#{ app.getRandom(0, 160) })"
+					textBaseline: 'middle' 
+					lineHeight: app.getRandom(10, 30 , 2)
 			
 			#set new random text options to model
 			model.set 'generators.textGen', randomTextOptions,
