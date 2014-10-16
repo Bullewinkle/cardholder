@@ -6,8 +6,8 @@
 		className: 'card'
 
 		ui:
-			canvasFront: '.card-canvas.back'
-			canvasBack: '.card-canvas.front'
+			svgFront: '.card-svg.back'
+			svgBack: '.card-svg.front'
 
 		template: =>
 			templatizer.cardGenerator.card @model
@@ -27,6 +27,8 @@
 
 		onShow: =>
 			@drawCard()
+			@ui.svgFront.attr 'id', "svg-#{@model.get 'id'}-front"
+			@ui.svgBack.attr 'id', "svg-#{@model.get 'id'}-back"
 
 		drawCard: =>
 			if @model.get 'data.isDefault'
@@ -37,9 +39,12 @@
 			else
 				@renderOnFront()
 
-		loadFont: (fontFamily, callback) =>
+		loadFont: (fontFamily, successCallback, errorCallback) =>
+			successCallback = successCallback or -> console.info 'font loading success'
+			errorCallback = errorCallback or -> console.error 'font loading fail'
+
 			# Load fonts dinamicaly through google web loader
-			handleError = -> console.error 'error loading font'
+			errorCallback = -> console.error 'error loading font'
 
 			WebFont.load
 				custom:
@@ -49,27 +54,27 @@
 					# console.log 'fontloading:\t', arguments
 				fontactive: (fontFamily, fontOptions)  =>
 					@model.set 'generators.textGen.fontFamily', fontFamily, silent: true
-					console.log 'fontactive', @model.get 'generators.textGen.fontFamily'
+					# console.log 'fontactive', @model.get 'generators.textGen.fontFamily'
 					# console.info 'fontactive:\t \t', fontFamily, @
 					# wait fot common custom fonts
-					callback()
+					successCallback.apply(@)
 					# if document.fonts
 					# 	console.log 'loading font by document.fonts', arguments
 					# 	document.fonts.load("10px cardholder-icons")
-					# 	.then callback, handleError
+					# 	.then successCallback, errorCallback
 					# else
 					# 	console.log 'loading font by AJAX', arguments
 					# 	$.get "/assets/font/cardholder-icons.woff?-a7jq52"
-					# 	.then callback, handleError
+					# 	.then successCallback, errorCallback
 				fontinactive:  =>
-					console.log 'fontinactive', @model.get 'generators.textGen.fontFamily'
-					callback()
+					console.warn 'fontinactive', @model.get 'generators.textGen.fontFamily'
+					errorCallback.apply(@)
 					# console.warn 'fontinactive:\t \t', arguments
 					# wait fot common custom fonts
-					# if document.fonts then document.fonts.load("10px cardholder-icons").then @renderOnBackWithAnimate, handleError
+					# if document.fonts then document.fonts.load("10px cardholder-icons").then @renderOnBackWithAnimate, errorCallback
 					# else $.get "/assets/font/cardholder-icons.woff?-a7jq52", => @renderOnBackWithAnimate()f
 			# # wait fot common custom fonts
-			# if document.fonts then document.fonts.load("10px cardholder-icons").then @renderOnBackWithAnimate, handleError
+			# if document.fonts then document.fonts.load("10px cardholder-icons").then @renderOnBackWithAnimate, errorCallback
 			# else $.get "/assets/font/cardholder-icons.woff?-a7jq52", => @renderOnBackWithAnimate()
 
 		transitionCallback : (e) =>
@@ -79,41 +84,41 @@
 				@$el.removeClass 'is-fliping'
 			# @trigger 'transitionend', e
 
-		renderOnFront: =>
-			if not @$el.hasClass 'fliped'
-				 canvas = @$el.find('.card-canvas.front')[0]
-			else
-				canvas = @$el.find('.card-canvas.back')[0]
-			@renderCanvas canvas
-
 		renderOnBack: =>
-			if @$el.hasClass 'fliped'
-				 canvas = @$el.find('.card-canvas.front')[0]
+			unless @$el.hasClass 'fliped'
+				 svg = @ui.svgFront
 			else
-				canvas = @$el.find('.card-canvas.back')[0]
-			@renderCanvas canvas
+				svg = @ui.svgBack
+			@renderCard svg		
+
+		renderOnFront: =>
+			if @$el.hasClass 'fliped'
+				 svg = @ui.svgFront
+			else
+				svg = @ui.svgBack
+			@renderCard svg
 
 		renderOnBackWithAnimate: =>
 			@renderOnBack()
 			@flip()	
 
-		renderCanvas: (canvas) =>
-			canvas.width = @$el.width()
-			canvas.height = @$el.height()
+		renderCard: (svg) =>
+			svg.width = @$el.width()
+			svg.height = @$el.height()
 					
-			@renderLayer1(canvas)
-			@renderLayer2(canvas)
-			@renderLayer3(canvas)
-			canvas
+			@renderLayer1(svg)
+			# @renderLayer2(svg)
+			# @renderLayer3(svg)
+			svg
 
-		renderLayer1: (canvas) =>
-			app.CardGenerator.generators.gradientGen.draw canvas, @model
+		renderLayer1: (svg) =>
+			app.CardGenerator.generators.gradientGen.draw svg, @model
 
-		renderLayer2: (canvas) =>
-			app.CardGenerator.generators.iconsGen.draw canvas, @model
+		renderLayer2: (svg) =>
+			app.CardGenerator.generators.iconsGen.draw svg, @model
 
-		renderLayer3: (canvas) =>
-			app.CardGenerator.generators.textGen.draw canvas, @model
+		renderLayer3: (svg) =>
+			app.CardGenerator.generators.textGen.draw svg, @model
 
 		getRandomFont: =>
 			fontsList = dataFromServer.appData.fontsList

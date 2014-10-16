@@ -11,6 +11,7 @@
 		"modernizr": "",
 		"jquery": "1",
 		"marionette": "",
+		"svg.js":"",
 		"jspdf": ""
 	}
 }

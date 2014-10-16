@@ -25,7 +25,7 @@
 					fontSize: "#{app.getRandom(1.8, 4, 2)}em"
 					color: textOptions.textBlockOptions.body.color
 					textBaseline: 'middle' 
-					lineHeight: app.getRandom(25, 60 , 2)
+					lineHeight: app.getRandom(25, 80 , 2)
 
 
 		# card info

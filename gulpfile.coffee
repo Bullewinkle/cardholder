@@ -75,11 +75,12 @@ paths =
 			'bower_components/underscore/underscore.js'
 			'bower_components/backbone/backbone.js'
 			'bower_components/marionette/lib/backbone.marionette.js'
+			'bower_components/svg.js/dist/svg.js'
+
 			'other_components/deep-model.js'
 			'other_components/backbone.epoxy.min.js'
 			'other_components/jspdf.js'
 			'other_components/html2canvas.js'
-
 			# 'other_components/modernizr/modernizr.js'
 			# 'other_components/foundation/js/foundation.js'
 			'other_components/deep-model.js'

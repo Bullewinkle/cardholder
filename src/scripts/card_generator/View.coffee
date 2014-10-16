@@ -113,6 +113,7 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 					randomView.model.clear({silent: true}).set(randomView.model.defaults)
 				else
 					if randomView.cid isnt @previousViewCid
+						defaults = randomView.model.defaults
 						@previousViewCid = randomView.cid
 						randomView.model.clear({silent: true}).set(randomView.model.defaults)
 					else

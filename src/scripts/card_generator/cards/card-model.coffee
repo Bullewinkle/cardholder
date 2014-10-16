@@ -23,23 +23,20 @@
 					textAlign: 'auto'
 					fontFamily: 'sans-serif'
 
-					# textBlockOptions:
-					# 	padding:
-					# 		top: 0 
-					# 		left: 0 
-					# 		bottom: 0
-					# 		right: 0 
-					# 	title:
-					# 		fontSize: "1.8em"
-					# 		color: "#000"
-					# 		textBaseline: 'middle' 
-					# 		lineHeight: "1em"
-					# 		marginBottom: 10
-					# 	body:
-					# 		fontSize: "0.8em"
-					# 		color: "#000"
-					# 		textBaseline: 'middle' 
-					# 		lineHeight: "0.8em"				
-
-				starsGen:
-					isDefault: true
+					textBlockOptions:
+						padding:
+							top: 0 
+							left: 0 
+							bottom: 0
+							right: 0 
+						title:
+							fontSize: "1.8em"
+							color: "#000"
+							textBaseline: 'middle' 
+							lineHeight: "1em"
+							marginBottom: 10
+						body:
+							fontSize: "0.8em"
+							color: "#000"
+							textBaseline: 'middle' 
+							lineHeight: "0.8em"
