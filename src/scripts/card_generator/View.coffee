@@ -21,7 +21,7 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 			'select2-removed @ui.mainInput'   : 'select2choiseRemoved'
 			'click @ui.controlNext'           : 'stepNext'
 			'click @ui.controlPrev'           : 'stepPrev'
-			'click @ui.printButton'           : 'printSelectedCards'
+			# 'click @ui.printButton'           : 'printSelectedCards'
 
 		template: (model) ->
 			templatizer.cardGenerator.cardsGreed @model
@@ -88,20 +88,25 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 				console.info 'cardholder-icons loaded by document.fonts.load', arguments
 				@changeStep(1)
 	
-				# @randomRender()
-				setTimeout =>
-					setInterval @randomRender, 2000
-				, 1000
+				@startIntervalRenderer() unless @intervalRendererIsStarted
 
 			else $.get "/assets/font/cardholder-icons.woff?-a7jq52", => 
 				console.info 'cardholder-icons loaded by ajax', arguments
 				@changeStep(1)
 	
-				# @randomRender()
-				setTimeout =>
-					setInterval @randomRender, 2000
-				, 1000
+				@startIntervalRenderer() unless @intervalRendererIsStarted
 
+
+		startIntervalRenderer: =>
+			@intervalRendererIsStarted = true
+			console.log 'startIntervalRenderer'
+			intervalRender = =>
+				@randomRender()
+				setTimeout intervalRender, 4000
+
+			setTimeout =>
+				intervalRender()
+			, 5000			
 
 		randomRender: =>
 			notLockedViews = @children.filter (view) ->
@@ -115,7 +120,7 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 					if randomView.cid isnt @previousViewCid
 						defaults = randomView.model.defaults
 						@previousViewCid = randomView.cid
-						randomView.model.clear({silent: true}).set(randomView.model.defaults)
+						randomView.model.set 'generators', randomView.model.defaults.generators
 					else
 						@randomRender()
 

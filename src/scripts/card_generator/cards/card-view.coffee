@@ -6,16 +6,16 @@
 		className: 'card'
 
 		ui:
-			svgFront: '.card-svg.back'
-			svgBack: '.card-svg.front'
+			cardFront: '.card-svg.back'
+			cardBack: '.card-svg.front'
 
-		template: =>
-			templatizer.cardGenerator.card @model
 		events:
 			'mouseenter':  'onMouseEnter'
 			'mouseleave':  'onMouseLeave'
 			'click .js-lock-config-button': 'onLockButtonClicked'
 			'transitionend': 'transitionCallback'
+
+		template: => templatizer.cardGenerator.card @model
 
 		# modelEvents: {}
 		initialize: ->
@@ -23,12 +23,33 @@
 				console.log "CARD ITEM VIEW:\t \t \t", arguments if @logger is on
 			@model.view = @
 			@listenTo @model,'change', @drawCard
-			@listenTo app,'resize', @renderOnFront
+
+			# @listenTo app,'resize', =>
+			# 	@svgFront.viewbox 0, 0, @ui.cardFront.width() ,@ui.cardFront.height()
+			# 	@svgBack.viewbox 0, 0, @ui.cardBack.width() ,@ui.cardBack.height()
+			# 	@renderOnFront
+
+			cardFront: '.card-svg.back'
+			cardBack: '.card-svg.front'
+
 
 		onShow: =>
 			@drawCard()
-			@ui.svgFront.attr 'id', "svg-#{@model.get 'id'}-front"
-			@ui.svgBack.attr 'id', "svg-#{@model.get 'id'}-back"
+			@ui.cardFront.attr 'id', "svg-#{@model.get 'id'}-front"
+			@ui.cardBack.attr 'id', "svg-#{@model.get 'id'}-back"
+
+			@svgFront = SVG(@ui.cardFront[0]).fixSubPixelOffset()
+			@svgFront.width '101%'
+			@svgFront.height '101%'
+			# @svgFront.viewbox 0, 0, @ui.cardFront.width() ,@ui.cardFront.height()
+			@svgFront.viewbox 0, 0, 96.6*4,54*4
+
+			@svgBack = SVG(@ui.cardBack[0]).fixSubPixelOffset()
+			@svgBack.width '101%'
+			@svgBack.height '101%'
+			# @svgBack.viewbox 0, 0, @ui.cardBack.width() ,@ui.cardBack.height()
+			@svgBack.viewbox 0, 0, 96.6*4,54*4
+
 
 		drawCard: =>
 			if @model.get 'data.isDefault'
@@ -37,7 +58,10 @@
 				else
 					@renderOnBackWithAnimate()
 			else
-				@renderOnFront()
+				if @model.get('generators.textGen.isDefault') or @model.get('generators.gradientGen.isDefault')
+					@renderOnBackWithAnimate()
+				else	
+					@renderOnFront()
 
 		loadFont: (fontFamily, successCallback, errorCallback) =>
 			successCallback = successCallback or -> console.info 'font loading success'
@@ -86,16 +110,16 @@
 
 		renderOnBack: =>
 			unless @$el.hasClass 'fliped'
-				 svg = @ui.svgFront
+				 svg = @svgFront
 			else
-				svg = @ui.svgBack
+				svg = @svgBack
 			@renderCard svg		
 
 		renderOnFront: =>
 			if @$el.hasClass 'fliped'
-				 svg = @ui.svgFront
+				 svg = @svgFront
 			else
-				svg = @ui.svgBack
+				svg = @svgBack
 			@renderCard svg
 
 		renderOnBackWithAnimate: =>
@@ -103,12 +127,12 @@
 			@flip()	
 
 		renderCard: (svg) =>
-			svg.width = @$el.width()
-			svg.height = @$el.height()
-					
+			# svg.width = @$el.width()
+			# svg.height = @$el.height()
+			svg.clear()
 			@renderLayer1(svg)
 			# @renderLayer2(svg)
-			# @renderLayer3(svg)
+			@renderLayer3(svg)
 			svg
 
 		renderLayer1: (svg) =>

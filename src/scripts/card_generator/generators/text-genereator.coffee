@@ -1,140 +1,46 @@
-@app.module 'CardGenerator.generators.textGen', (TextGen, app, Backbone, Marionette, $, _) ->
-	@draw = (canvas,model,args...) ->
-		# get current text ptions and card info from model
-		srcData = dataFromServer.appData
-		srcData.textAligns = ['left','center','right']
-		fontsList = srcData.fontsList
-		textOptions = model.get 'generators.textGen'
-		cardData = model.get 'data'
-		
-		textBlockOptions =  unless app.CardGenerator.renderingPDF 
-				textOptions.textBlockOptions
-			else
-				padding:
-					top: app.getRandom(30, 70, 2)
-					left: app.getRandom(15, 50, 2)
-					bottom: 0
-					right: app.getRandom(15, 50, 2)
-				title:
-					fontSize: "#{app.getRandom(4, 6.5, 2)}em"
-					color: textOptions.textBlockOptions.title.color
-					textBaseline: 'middle' 
-					lineHeight: app.getRandom(50, 100 , 2)
-					marginBottom: app.getRandom(5,40)
-				body:
-					fontSize: "#{app.getRandom(1.8, 4, 2)}em"
-					color: textOptions.textBlockOptions.body.color
-					textBaseline: 'middle' 
-					lineHeight: app.getRandom(25, 80 , 2)
+@app.module 'CardGenerator.generators.textGen', (TextGen, app, Backbone, Marionette, $, _) ->	
+	
+	# Privat properties
+	srcData = dataFromServer.appData
+	srcData.textAligns = ['left','center','right']
+	fontsList = srcData.fontsList
+
+	# Public properties
+	# empty
+
+	# Privat methods
+	generateRandomData = ->	
+		#local variables
+		randomNameNum = app.getRandom(0, srcData.names.length-1 )
+		randomPhoneEnd = app.getRandom(0, srcData.names.length-1 )
+		randomPhoneEnd = '0' + randomPhoneEnd if (''+ randomPhoneEnd).length < 2 
+		#end local variables
+
+		#generate new random cardData
+		randomCardData =
+			isDefault: false
+			sex: srcData.names[ randomNameNum ].sex
+			name:  srcData.names[ randomNameNum ].text
+			surname:  srcData.surnames[ app.getRandom(0, srcData.surnames.length-1 ) ]
+			eMail:  srcData.emails[ app.getRandom(0, srcData.emails.length-1 ) ]
+			position:  srcData.positions[ app.getRandom(0, srcData.positions.length-1 ) ]
+			phone: '+7-' + srcData.phones + randomPhoneEnd
+
+		randomCardData
+
+	generateRandomTextOptions = ->
+		#local variables
+		#end local variables
 
 
-		# card info
-		name = cardData.name
-		surname = cardData.surname
-		sex = cardData.sex
-		phone = cardData.phone
-		eMail = cardData.eMail
-		position = cardData.position
-		
-		# text ptions
-		textAlign = textOptions.textAlign
-		fontFamily = textOptions.fontFamily
+		#generate new random text options
+		randomTextOptions =
+			isDefault: false
+			textAlign: srcData.textAligns[app.getRandom(0,srcData.textAligns.length-1)]
+			fontFamily: 'sans-serif'
+			# fontFamily: ''+ fontsList[ app.getRandom(0, fontsList.length-1) ]
 
-		context = canvas.getContext('2d')
-
-		renderText = (fontFamily) =>
-			if fontFamily is 'sans-serif'
-				font = fontFamily
-			else 
-				font = '"'+fontFamily+'"'
-
-			switch textAlign
-				when 'left'
-					x = textBlockOptions.padding.left
-					y = textBlockOptions.padding.top
-				when 'center' 
-					x = canvas.width/2
-					y = textBlockOptions.padding.top
-				when 'right'
-					x = canvas.width-textBlockOptions.padding.right
-					y = textBlockOptions.padding.top				
-			paragraphHeight = 0
-			wrapText = (context, text, x, y, maxWidth, lineHeight) ->
-				words = text.split(' ')
-				line = ''
-				linesCounter = 0
-				for word in words
-					# console.log word,_i
-					linesCounter = _i+1
-					testLine = line + word + ' '
-					metrics = context.measureText(testLine)
-					testWidth = metrics.width
-					if  testWidth > maxWidth and _i > 0
-						context.fillText(line, x, y)
-						line = word + ' '
-						y += lineHeight
-					else
-						line = testLine
-					paragraphHeight = y
-				context.fillText(line, x, y)
-
-			context.font = "#{ textBlockOptions.title.fontSize } #{ font }"
-			context.textAlign = textAlign
-			context.fillStyle = textBlockOptions.title.color
-			context.textBaseline = textBlockOptions.title.textBaseline
-			context.lineWidth = textBlockOptions.title.lineWidth
-
-			wrapText context , @renderInitials(sex, name, surname), x, y, canvas.width-(textBlockOptions.padding.left+textBlockOptions.padding.right), textBlockOptions.title.lineHeight
-
-			context.font = "#{ textBlockOptions.body.fontSize } #{ font }"
-			context.fillStyle = textBlockOptions.body.color
-			# console.log 'card №' + model.get('id') + ' : ' + font.split('"').join('')
-			y+= paragraphHeight + textBlockOptions.title.marginBottom
-			context.fillText "тел.: #{phone}", x, y
-			# wrapText context, "тел.: #{phone}", x, y, canvas.width-(textBlockOptions.padding.left+textBlockOptions.padding.right), textBlockOptions.body.lineHeight
-			
-			y+= textBlockOptions.body.lineHeight
-			context.fillText "email: #{eMail}", x, y
-			# wrapText context, "email: #{eMail}", x, y, canvas.width-(textBlockOptions.padding.left+textBlockOptions.padding.right), textBlockOptions.body.lineHeight
-			
-			y+= textBlockOptions.body.lineHeight
-			wrapText context , position, x, y, canvas.width-(textBlockOptions.padding.left+textBlockOptions.padding.right), textBlockOptions.body.lineHeight
-
-			context.save()
-
-		# getCardInfo getTextOptions
-
-		if cardData.isDefault or textOptions.isDefault
-			#generate new random cardData
-			randomCardData =
-				isDefault: false
-
-			#local variables
-			randomNameNum = app.getRandom(0, srcData.names.length-1 )
-			randomPhoneEnd = app.getRandom(0, srcData.names.length-1 )
-			randomPhoneEnd = '0' + randomPhoneEnd if (''+ randomPhoneEnd).length < 2 
-			#end local variables
-
-			randomCardData.sex = srcData.names[ randomNameNum ].sex
-			randomCardData.name =  srcData.names[ randomNameNum ].text
-			randomCardData.surname =  srcData.surnames[ app.getRandom(0, srcData.surnames.length-1 ) ]
-			randomCardData.eMail =  srcData.emails[ app.getRandom(0, srcData.emails.length-1 ) ]
-			randomCardData.position =  srcData.positions[ app.getRandom(0, srcData.positions.length-1 ) ]
-			randomCardData.phone = '+7-' + srcData.phones + randomPhoneEnd
-
-			#set new random cardData to model
-			model.set 'data', randomCardData,
-				silent: true
-
-			#generate new random text options
-			randomTextOptions =
-				isDefault: false
-
-			randomTextOptions.textAlign = srcData.textAligns[app.getRandom(0,srcData.textAligns.length-1)]
-			# randomTextOptions.fontFamily = ''+ fontsList[ app.getRandom(0, fontsList.length-1) ]
-			randomTextOptions.fontFamily = fontFamily
-
-			randomTextOptions.textBlockOptions = 
+			textBlockOptions:
 				padding:
 					top: app.getRandom(10, 50, 2)
 					left: app.getRandom(10, 50, 2)
@@ -151,19 +57,10 @@
 					color: "rgb(#{ app.getRandom(0, 160) },#{ app.getRandom(0, 160) },#{ app.getRandom(0, 160) })"
 					textBaseline: 'middle' 
 					lineHeight: app.getRandom(10, 30 , 2)
-			
-			#set new random text options to model
-			model.set 'generators.textGen', randomTextOptions,
-				silent: true
 
-			@draw(canvas, model)
+		randomTextOptions	
 
-		else 
-			renderText(fontFamily)
-
-
-	@renderInitials = (sex, name, surname) ->
-
+	prepareInitials = (sex, name, surname) ->
 		if sex is 'male'
 			surname = surname
 
@@ -172,5 +69,63 @@
 				surname = surname.slice(0,surname.length-2)
 				surname = surname+'ая'
 			else
-				surname = surname+'a' 
-		name + ' ' + surname			
+				surname = surname+'a'
+
+		name + ' ' + surname
+		
+	prepareData = (model) ->
+		if model.get('data').isDefault
+			#set new random card data to model
+			randomData = generateRandomData()
+			model.set 'data', randomData,
+				silent: true				
+
+		if model.get('generators.textGen').isDefault
+			#set new random text options to model
+			randomTextOptions = generateRandomTextOptions()
+			model.set 'generators.textGen', randomTextOptions,
+				silent: true			
+
+		model.attributes
+
+	renderText = (svg, model) ->
+		# if fontFamily is 'sans-serif'
+		# 	font = fontFamily
+		# else 
+		# 	font = '"'+fontFamily+'"'
+
+		# switch textAlign
+		# 	when 'left'
+		# 		x = textBlockOptions.padding.left
+		# 		y = textBlockOptions.padding.top
+		# 	when 'center' 
+		# 		x = canvas.width/2
+		# 		y = textBlockOptions.padding.top
+		# 	when 'right'
+		# 		x = canvas.width-textBlockOptions.padding.right
+		# 		y = textBlockOptions.padding.top
+		data = model.get 'data'
+
+		heading = svg.text ->
+			@tspan( prepareInitials data.sex, data.name, data.surname )
+			.fill('#232')
+			.newLine().dx 20
+			@font
+				size: 30
+
+		body = svg.text ->
+			@tspan("E-mail: #{ data.eMail }").newLine().dx 20
+			@tspan("Телефон: #{ data.phone }").newLine().dx 20
+			@tspan("Должность: #{ data.position }").newLine().dx 20
+			@font
+				size: 20
+
+		.move 0, 60	
+
+	# Public methods
+	@draw = (svg,model,args...) ->
+
+		prepareData.call @, model
+
+		renderText.call @, svg, model, args	
+
