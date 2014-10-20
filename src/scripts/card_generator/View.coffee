@@ -97,32 +97,38 @@ window.app.module 'CardGenerator', (CardGenerator) ->
 				@startIntervalRenderer() unless @intervalRendererIsStarted
 
 
-		startIntervalRenderer: =>
+		startIntervalRenderer: ( startThrough=4000, interval=4000 ) =>
 			@intervalRendererIsStarted = true
-			console.log 'startIntervalRenderer'
+
 			intervalRender = =>
 				@randomRender()
-				setTimeout intervalRender, 4000
+				@timer = setTimeout intervalRender, interval
 
-			setTimeout =>
+			@timer =  setTimeout =>
 				intervalRender()
-			, 5000			
+			, startThrough
+			@
+
+		stopIntervalRenderer: =>
+			@intervalRendererIsStarted = false
+			if @timer
+				clearTimeout @timer
+				@timer = null
+				delete @timer
+			@
 
 		randomRender: =>
-			notLockedViews = @children.filter (view) ->
-				return view.model.get('is-locked') isnt true
-			randomView = notLockedViews[ app.getRandom(0, notLockedViews.length-1) ]
-			if notLockedViews.length > 0 and randomView and not ( randomView.model.get('is-hovered') or randomView.model.get('is-locked') )
-				if notLockedViews.length < 3
-					@previousViewCid = randomView.cid
-					randomView.model.clear({silent: true}).set(randomView.model.defaults)
-				else
-					if randomView.cid isnt @previousViewCid
-						defaults = randomView.model.defaults
-						@previousViewCid = randomView.cid
-						randomView.model.set 'generators', randomView.model.defaults.generators
-					else
-						@randomRender()
+			availableViews = @children.filter (view) ->
+				return not view.state.get('is-locked') and not view.state.get('is-flipping') and not view.state.get('is-hovered')
+
+			if availableViews.length > 0
+
+				randomView = availableViews[ app.getRandom(0, availableViews.length-1) ]
+
+				@previousViewCid = randomView.cid
+				defaults = randomView.model.defaults
+
+				randomView.model.set 'generators', randomView.model.defaults.generators
 
 		changeStep : (step) =>
 			@currentStep = step

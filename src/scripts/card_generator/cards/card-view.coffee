@@ -22,6 +22,7 @@
 			@bind 'all',  => 
 				console.log "CARD ITEM VIEW:\t \t \t", arguments if @logger is on
 			@model.view = @
+			@state = new Backbone.Model()
 			@listenTo @model,'change', @drawCard
 
 			# @listenTo app,'resize', =>
@@ -105,6 +106,7 @@
 			propertyName = e.originalEvent.propertyName
 			# if e.target is @$el.find('.card-perspective-inner-wrapper')[0] and propertyName.search('transform') > -1
 			if propertyName.search('transform') > -1
+				@state.set 'is-flipping', false, silent: true
 				@$el.removeClass 'is-fliping'
 			# @trigger 'transitionend', e
 
@@ -153,19 +155,20 @@
 			@trigger 'flip'
 			@$el.toggleClass 'fliped'
 			@$el.addClass 'is-fliping'
+			@state.set 'is-flipping', true, silent: true
 			# setTimeout =>
 			# 	@$el.removeClass 'is-fliping'
 			# ,300	
 
 		onLockButtonClicked: ->
-			if @model.get('is-locked') is true
-				@model.set 'is-locked', false,
+			if @state.get('is-locked') is true
+				@state.set 'is-locked', false,
 					silent: true
 				@$el.removeClass('is-locked')
 				.find '.js-lock-config-button'
 				.text 'Закрепить' 
 			else
-				@model.set 'is-locked', true,
+				@state.set 'is-locked', true,
 					silent: true
 				@$el.addClass('is-locked')
 				.find '.js-lock-config-button'
@@ -173,14 +176,14 @@
 
 		onMouseEnter: ->
 			@$el.addClass 'is-hovered'
-			@model.set 'is-hovered', true, silent: true
-			if not (@model.has('is-locked') or @model.get('is-locked') )
+			@state.set 'is-hovered', true, silent: true
+			if not (@state.has('is-locked') or @state.get('is-locked') )
 				if @$el.hasClass('is-fliping')
 					@$el.toggleClass 'fliped'
 				@$el.prepend '<div class="js-lock-config-button-wrapper"><button class="js-lock-config-button">Закрепить</button></div>'
 		onMouseLeave: ->
 			@$el.removeClass 'is-hovered'
-			@model.set 'is-hovered', false, silent: true
-			if @model.get('is-locked') isnt true
+			@state.set 'is-hovered', false, silent: true
+			if @state.get('is-locked') isnt true
 				@$el.find('.js-lock-config-button-wrapper').remove()
 
