@@ -1,13 +1,13 @@
-app.module 'CardEditorLayout', (CardEditorLayout) ->
+app.module 'CardEditor', (CardEditor) ->
 	@addInitializer ->
 		# @views = {}
-		@controller =  new CardEditorLayout.Controller()
-		@router = new CardEditorLayout.Router controller: @controller
-		@cardEditorLayout = new CardEditorLayout.CardEditorLayoutLayout()
+		@controller =  new CardEditor.Controller()
+		@router = new CardEditor.Router controller: @controller
+		@cardEditorLayout = new CardEditor.CardEditorLayout()
 
 
 # common card view models
-app.module 'CardEditorLayout.models', (models, app) ->
+app.module 'CardEditor.models', (models, app) ->
 	console.log ('1 common card view models')
 
 	class models.PanelViewState extends Backbone.Model
@@ -21,7 +21,7 @@ app.module 'CardEditorLayout.models', (models, app) ->
 			removeButtonText: 'Какая-то кнопка'		
 
 # common card view classes
-app.module 'CardEditorLayout.views', (views, app) ->
+app.module 'CardEditor.views', (views, app) ->
 	console.log ('2 common card view classes')
 
 	class PanelViewState extends Backbone.Model
@@ -56,7 +56,7 @@ app.module 'CardEditorLayout.views', (views, app) ->
 		childViewContainer: '.items-container'
 
 		panelViewState: new PanelViewState()
-		# panelViewState: new app.CardEditorLayout.models.PanelViewState
+		# panelViewState: new app.CardEditor.models.PanelViewState
 
 		initialize: (options) ->
 			# set params to the view

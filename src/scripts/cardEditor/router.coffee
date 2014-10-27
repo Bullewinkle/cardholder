@@ -1,10 +1,10 @@
-@app.module 'CardEditorLayout', (CardEditorLayout) ->
-	class CardEditorLayout.Router extends Marionette.AppRouter
+@app.module 'CardEditor', (CardEditor) ->
+	class CardEditor.Router extends Marionette.AppRouter
 
 		logger: off
 
 		initialize: ->
 			@bind 'all', ->
-				console.info 'CardEditorLayout Router:', arguments if @logger is on
+				console.info 'CardEditor Router:', arguments if @logger is on
 
 		# appRoutes:

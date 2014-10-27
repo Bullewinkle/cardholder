@@ -1,4 +1,4 @@
-# app.module 'CardEditorLayout.views', (views, app) ->
+# app.module 'CardEditor.views', (views, app) ->
 # 	console.log ('1')
 
 # 	class PanelViewState extends Backbone.Model

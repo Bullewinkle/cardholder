@@ -14,13 +14,13 @@ window.app.module 'Common', (Common) ->
 			app.mainRegion.show new app.Cards.CardsView()
 
 		showCardEditorLayout: ->
-			app.mainRegion.show new app.CardEditorLayout.CardEditorLayoutLayout()
+			app.mainRegion.show new app.CardEditor.CardEditorLayout()
 
 		showPage: ->
-			html = templatizer.page()
+			html = templatizer.pages.page()
 			app.mainRegion.$el.html html
 			
 		showNotFound: ->
-			html = templatizer['404']()
+			html = templatizer.pages['404']()
 			app.mainRegion.$el.html html
 

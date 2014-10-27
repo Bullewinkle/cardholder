@@ -1,4 +1,4 @@
-app.module 'CardEditorLayout.views', (views) ->
+app.module 'CardEditor.views', (views) ->
 
 	class LayerState extends Backbone.Model
 		defaults:

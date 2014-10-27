@@ -1,4 +1,4 @@
-app.module 'CardEditorLayout.views', (views, app) ->
+app.module 'CardEditor.views', (views, app) ->
 
 	class views.BackgroundsPanel extends views._BaseToolbarPanelView
 		logging: off
@@ -17,7 +17,7 @@ app.module 'CardEditorLayout.views', (views, app) ->
 
 		initialize: ->
 			super
-			console.log app.module 'CardEditorLayout.models'
+			console.log app.module 'CardEditor.models'
 			@panelViewState.set
 				title: 'Фон'
 				gotBody: false
