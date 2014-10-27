@@ -7,7 +7,7 @@ fs = require 'fs'
 # ====================================================================
 g = require 'gulp'
 $ = require('gulp-load-plugins')(lazy: false, camelize: true)
-$.grunt g
+# $.grunt g
 
 # Dependencies
 # ====================================================================
@@ -75,15 +75,14 @@ paths =
 			'bower_components/underscore/underscore.js'
 			'bower_components/backbone/backbone.js'
 			'bower_components/marionette/lib/backbone.marionette.js'
-			'bower_components/svg.js/dist/svg.js'
-
 			'other_components/deep-model.js'
-			'other_components/backbone.epoxy.min.js'
+
+			'bower_components/svg.js/dist/svg.js'
 			'other_components/jspdf.js'
-			'other_components/html2canvas.js'
+			# 'other_components/html2canvas.js'
+			# 'other_components/backbone.epoxy.min.js'
 			# 'other_components/modernizr/modernizr.js'
 			# 'other_components/foundation/js/foundation.js'
-			'other_components/deep-model.js'
 			'other_components/*.js'
 		]
 
@@ -247,7 +246,8 @@ tasks =
 	appTemplates: ->
 		fs.exists "#{DIST}/js/templates/", (exists) ->
 			if not exists then fs.mkdirSync "#{DIST}/js/templates"
-			templatizer "#{SRC}/jade/views",  "#{DIST}/js/templates/templates.js"
+			templatizer "#{SRC}/jade/templates",  "#{DIST}/js/templates/templates.js", 
+				namespace: 'app'
 
 	appStyles: ->
 

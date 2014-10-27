@@ -11,14 +11,11 @@
 
     var templatizer = {};
     templatizer["cardEditor"] = {};
-    templatizer["cardGenerator"] = {};
+    templatizer["cards"] = {};
+    templatizer["pages"] = {};
+    templatizer["shared"] = {};
     templatizer["welcome"] = {};
     templatizer["cardEditor"]["toolbar"] = {};
-
-    // 404.jade compiled template
-    templatizer["404"] = function tmpl_404() {
-        return '<h1 class="text-center">Page not found!<h2 class="text-center">404</h2></h1>';
-    };
 
     // cardEditor/editor.jade compiled template
     templatizer["cardEditor"]["editor"] = function tmpl_cardEditor_editor() {
@@ -120,38 +117,28 @@
         return buf.join("");
     };
 
-    // cardGenerator/card.jade compiled template
-    templatizer["cardGenerator"]["card"] = function tmpl_cardGenerator_card() {
+    // cards/card.jade compiled template
+    templatizer["cards"]["card"] = function tmpl_cards_card() {
         return '<div class="card-perspective"><div class="card-perspective-inner-wrapper"><div class="card-svg front"></div><div class="card-svg back"></div></div></div>';
     };
 
-    // cardGenerator/cardsGreed.jade compiled template
-    templatizer["cardGenerator"]["cardsGreed"] = function tmpl_cardGenerator_cardsGreed() {
+    // cards/cardsGreed.jade compiled template
+    templatizer["cards"]["cardsGreed"] = function tmpl_cards_cardsGreed() {
         return '<h1 class="text-center">Выберайте визитки!</h1><div class="text-center"><button type="button" class="print-selected-cards add-child btn btn-success">СОХРАНИТЬ В PDF!</button></div><br/><div id="cardsGreed"><ul class="cards"><li class="step-form-controller-wrapper"><div class="step-form-controller"><form action="/" class="step-form-controller-form q1"><div class="step-form-controller-form-label">Текст вопроса</div><div class="step-form-controller-form-input"></div><button type="submit" value="" class="step-form-controller-form-submit chi-arrow-right2"></button></form><div class="step-form-controller-form-statusbar"><div class="step-form-controller-form-statusbar-value"></div></div><div class="step-form-controller-form-statusbar-step"><span class="step-form-controller-form-statusbar-current"> </span>/  <span class="step-form-controller-form-statusbar-quantity"></span></div><div class="step-form-controller-form-controls"><div class="step-form-controller-form-control prev"><a class="chi-arrow-left"></a></div><div class="step-form-controller-form-control next"><a class="chi-arrow-right"></a></div></div></div></li></ul></div>';
     };
 
-    // cardGenerator/stepForm.jade compiled template
-    templatizer["cardGenerator"]["stepForm"] = function tmpl_cardGenerator_stepForm() {
+    // cards/stepForm.jade compiled template
+    templatizer["cards"]["stepForm"] = function tmpl_cards_stepForm() {
         return '<div class="step-form-controller"><form action="/" class="step-form-controller-form q1"><div class="step-form-controller-form-label">Текст вопроса</div><div class="step-form-controller-form-input"></div><button type="submit" value="" class="step-form-controller-form-submit chi-arrow-right2"></button></form><div class="step-form-controller-form-statusbar"><div class="step-form-controller-form-statusbar-value"></div></div><div class="step-form-controller-form-statusbar-step"><span class="step-form-controller-form-statusbar-current"> </span>/  <span class="step-form-controller-form-statusbar-quantity"></span></div><div class="step-form-controller-form-controls"><div class="step-form-controller-form-control prev"><a class="chi-arrow-left"></a></div><div class="step-form-controller-form-control next"><a class="chi-arrow-right"></a></div></div></div>';
     };
 
-    // modal1.jade compiled template
-    templatizer["modal1"] = function tmpl_modal1() {
-        return '<div class="modal"></div>';
+    // pages/404.jade compiled template
+    templatizer["pages"]["404"] = function tmpl_pages_404() {
+        return '<h1 class="text-center">Page not found!<h2 class="text-center">404</h2></h1>';
     };
 
-    // modal2.jade compiled template
-    templatizer["modal2"] = function tmpl_modal2() {
-        return '<div class="modal"></div>';
-    };
-
-    // modal3.jade compiled template
-    templatizer["modal3"] = function tmpl_modal3() {
-        return '<div class="modal"></div>';
-    };
-
-    // page.jade compiled template
-    templatizer["page"] = function tmpl_page() {
+    // pages/page.jade compiled template
+    templatizer["pages"]["page"] = function tmpl_pages_page() {
         return '<div class="page"> <h1 class="text-center">Read about!</h1><p>Любя, съешь щипцы, — вздохнёт мэр, — кайф жгуч. Шеф взъярён тчк щипцы с эхом гудбай Жюль. Эй, жлоб! Где туз? Прячь юных съёмщиц в шкаф. Экс-граф? Плюш изъят. Бьём чуждый цен хвощ! Эх, чужак! Общий съём цен шляп (юфть) — вдрызг! Любя, съешь щипцы, — вздохнёт мэр, — кайф жгуч. Шеф взъярён тчк щипцы с эхом гудбай Жюль. Эй, жлоб! Где туз? Прячь юных съёмщиц в шкаф. Экс-граф? Плюш изъят. Бьём чуждый цен хвощ! Эх, чужак! Общий съём цен шляп (юфть) — вдрызг! Любя, съешь щипцы, — вздохнёт мэр, — кайф жгуч. Шеф взъярён тчк щипцы с эхом гудбай Жюль. Эй, жлоб! Где туз? Прячь юных съёмщиц в шкаф. Экс-граф? Плюш изъят. Бьём чуждый цен хвощ! Эх, чужак! Общий съём цен шляп (юфть) — вдрызг! Любя, съешь щипцы, — вздохнёт мэр, — кайф жгуч. Шеф взъярён тчк щипцы с эхом гудбай Жюль. Эй, жлоб! Где туз? Прячь юных съёмщиц в шкаф. Экс-граф? Плюш изъят. Бьём чуждый цен хвощ! Эх, чужак! Общий съём цен шляп (юфть) — вдрызг!Любя, съешь щипцы, — вздохнёт мэр, — кайф жгуч. Шеф взъярён тчк щипцы с эхом гудбай Жюль. Эй, жлоб! Где туз? Прячь юных съёмщиц в шкаф. Экс-граф? Плюш изъят. Любя, съешь щипцы, — вздохнёт мэр, — кайф жгуч. Шеф взъярён тчк щипцы с эхом гудбай Жюль. Эй, жлоб! Где туз? Прячь юных съёмщиц в шкаф. Экс-граф? Плюш изъят. Бьём чуждый цен хвощ! Эх, чужак! Общий съём цен шляп (юфть) — вдрызг! Любя, съешь щипцы, — вздохнёт мэр, — кайф жгуч. Шеф взъярён тчк щипцы с эхом гудбай Жюль. Эй, жлоб! Где туз? Прячь юных съёмщиц в шкаф. Экс-граф? Плюш изъят. Бьём чуждый цен хвощ! Эх, чужак! Общий съём цен шляп (юфть) — вдрызг! Любя, съешь щипцы, — вздохнёт мэр, — кайф жгуч. Шеф взъярён тчк щипцы с эхом гудбай Жюль. Эй, жлоб! Где туз? Прячь юных съёмщиц в шкаф. Экс-граф? Плюш изъят. Бьём чуждый цен хвощ! Эх, чужак! Общий съём цен шляп (юфть) — вдрызг! Любя, съешь щипцы, — вздохнёт мэр, — кайф жгуч. Шеф взъярён тчк щипцы с эхом гудбай Жюль. Эй, жлоб! Где туз? Прячь юных съёмщиц в шкаф. Экс-граф? Плюш изъят. Бьём чуждый цен хвощ! Эх, чужак! Общий съём цен шляп (юфть) — вдрызг!Любя, съешь щипцы, — вздохнёт мэр, — кайф жгуч. Шеф взъярён тчк щипцы с эхом гудбай Жюль. Эй, жлоб! Где туз? Прячь юных съёмщиц в шкаф. Экс-граф? Плюш изъят.</p></div>';
     };
 

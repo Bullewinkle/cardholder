@@ -4,14 +4,14 @@ window.app.module 'Common', (Common) ->
 
 		appRoutes: 
 			'(/)': 'showHome'
-			'card-generator(/)': 'showCardGenerator'
-			'card-editor(/)': 'showCardEditor'
+			'card-generator(/)': 'showCards'
+			'card-editor(/)': 'showCardEditorLayout'
 			'page(/)': 'showPage'
 			'*other': 'showNotFound'
 
 		initialize: ->
 			@bind 'all', ->
-				console.info 'CardGenerator Router:', arguments if @logger is on
+				console.info 'Cards Router:', arguments if @logger is on
 
 		onRoute: (trigger, route, params) ->
 			# add new current link class 'active'

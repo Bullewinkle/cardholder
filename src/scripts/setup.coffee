@@ -11,6 +11,8 @@ app.module 'setup', (Setup) ->
 			app.router.navigate href,
 				trigger: true
 
+	
 	# WINDOW RESIZE
+
 	onResize = _.debounce => app.trigger 'resize', 250
 	$(window).on resize: onResize	

@@ -10,11 +10,11 @@ window.app.module 'Common', (Common) ->
 			html = templatizer.welcome.welcomePage()
 			app.mainRegion.$el.html html
 		
-		showCardGenerator: ->
-			app.mainRegion.show new app.CardGenerator.CardsView()
+		showCards: ->
+			app.mainRegion.show new app.Cards.CardsView()
 
-		showCardEditor: ->
-			app.mainRegion.show new app.CardEditor.CardEditorLayout()
+		showCardEditorLayout: ->
+			app.mainRegion.show new app.CardEditorLayout.CardEditorLayoutLayout()
 
 		showPage: ->
 			html = templatizer.page()

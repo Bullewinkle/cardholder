@@ -1,0 +1,10 @@
+app.module 'CardEditorLayout.views', (views) ->
+	class views.LayerChild extends Marionette.ItemView
+		tagName: 'li'
+		className: 'list-group-item ui-state-default ui-sortable-handle'
+
+		template: =>
+			templatizer.cardEditor.toolbar.layerChild @model.attributes
+
+		initialize: ->
+			console.log 'layerChild init'
