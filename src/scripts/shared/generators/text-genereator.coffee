@@ -114,7 +114,7 @@
 				size: 30
 
 		body = svg.text("E-mail: #{ data.eMail } \nТелефон: #{ data.phone } \nДолжность: #{ data.position }")
-		.leading(0.5)
+		.leading(1.3)
 		.attr
 			width: 10
 		.move 20, 60	
