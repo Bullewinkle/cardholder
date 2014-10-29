@@ -452,7 +452,7 @@ tasks =
 				scroll: true
 				location: true
 		server = null
-		server = require('./server/server')
+		server = require('./server/server-dev')
 		server.start argv,  ->
 			console.log 'server started!'
 			# browsersync.init app, config, next

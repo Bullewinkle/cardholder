@@ -113,14 +113,15 @@
 			@font
 				size: 30
 
-		body = svg.text ->
-			@tspan("E-mail: #{ data.eMail }").newLine().dx 20
-			@tspan("Телефон: #{ data.phone }").newLine().dx 20
-			@tspan("Должность: #{ data.position }").newLine().dx 20
-			@font
-				size: 20
-
-		.move 0, 60	
+		body = svg.text("E-mail: #{ data.eMail } \nТелефон: #{ data.phone } \nДолжность: #{ data.position }")
+		.leading(0.5)
+		.attr
+			width: 10
+		.move 20, 60	
+		.font
+			size: 20
+		
+		window.svgBody = body unless window.svgBody
 
 	# Public methods
 	@draw = (svg,model,args...) ->

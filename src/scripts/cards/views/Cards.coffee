@@ -96,7 +96,6 @@ window.app.module 'Cards', (Cards) ->
 	
 				@startIntervalRenderer() unless @intervalRendererIsStarted
 
-
 		startIntervalRenderer: ( startThrough=4000, interval=4000 ) =>
 			@intervalRendererIsStarted = true
 

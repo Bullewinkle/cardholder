@@ -22,7 +22,7 @@ module.exports =
 
 	getIndex: (req, res) =>
 		console.log  'index'
-		res.sendFile "#{CONFIG.dist}/index.html"
+		res.sendfile "#{CONFIG.dist}/index.html"
 
 	# /api/cards-generator
 	getCards: (req, res) =>
@@ -82,7 +82,7 @@ module.exports =
 		console.log 'getFontByName'
 		font = './src/assets/font/card_fonts/' + req.params.font + '/' + req.params.font + '.css'
 		# res.send './src/assets/font/card_fonts/' + font + '/' + font + '.css'
-		res.sendFile font
+		res.sendfile font
 
 	# /pdf-generator
 	getPdf: (req, res) =>
@@ -115,7 +115,7 @@ module.exports =
 		pdf.end()
 
 
-		# res.sendFile '/dist/assets/pdf/generated.pdf'
+		# res.sendfile '/dist/assets/pdf/generated.pdf'
 
 
 
