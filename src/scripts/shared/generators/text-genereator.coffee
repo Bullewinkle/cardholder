@@ -106,22 +106,110 @@
 		# 		y = textBlockOptions.padding.top
 		data = model.get 'data'
 
-		heading = svg.text ->
-			@tspan( prepareInitials data.sex, data.name, data.surname )
-			.fill('#232')
-			.newLine().dx 20
-			@font
+		String.prototype.insert = (index, string) ->
+			if (index > 0)
+				return @substring(0, index) + string + @substring(index, @length);
+			else
+				return string + @		
+
+
+		flowText = (string, maxWidth, font) ->
+			paragraphBuffer = ''
+			stringBuffer = ''
+			words = string.split ' '
+
+
+			# TODO Clear stringbuffer after enter
+	
+			measureText = (string) ->
+				testText = svg.text(string).font font
+				width = testText.bbox().width
+				testText.remove()
+				width
+
+			for word in words
+				testString = if paragraphBuffer.length < 1 then "#{word}" else "#{paragraphBuffer} #{word}"
+				testWidth = measureText testString
+				# console.log width, maxWidth
+
+				if testWidth > maxWidth
+					console.log 'enter apended', word
+					console.log testWidth, maxWidth
+					paragraphBuffer = "#{paragraphBuffer}\n#{word}"
+				else
+					paragraphBuffer = testString
+
+			# console.log paragraphBuffer
+			paragraphBuffer		
+
+		maxWidth = $(svg.node).width()+100
+
+
+		headingProperties = 
+			paddingTop: 20
+			paddingBottom: 0
+			paddingLeft: 0
+			paddingRight: 0
+			marginTop: 0
+			lineHeight: 1
+			font:
 				size: 30
 
-		body = svg.text("E-mail: #{ data.eMail } \nТелефон: #{ data.phone } \nДолжность: #{ data.position }")
-		.leading(1.3)
-		.attr
-			width: 10
-		.move 20, 60	
-		.font
-			size: 20
+		infoProperties = 
+			paddingTop: 0
+			paddingBottom: 0
+			paddingLeft: 0
+			paddingRight: 0
+			marginTop: 0
+			lineHeight: 1
+			font:
+				size: 20		
 		
-		window.svgBody = body unless window.svgBody
+		buildHeadingText = ->
+			data.sex = data.sex
+			data.name = data.name
+			data.surname = data.surname
+
+			template = prepareInitials data.sex, data.name, data.surname
+
+			text = flowText template, maxWidth, headingProperties.font
+			text
+
+		buildInfoText = ->
+
+			data.eMail = data.eMail
+			data.phone = data.phone
+			data.position = data.position
+
+			template = "E-mail: #{ data.eMail } \nТелефон: #{ data.phone } \nДолжность: #{ data.position }"
+
+			paragraphs = template.split '\n'
+
+			textBlockBuffer = []
+			for paragraph in paragraphs
+				paragraph = paragraph.trim()
+				paragraph = flowText paragraph, maxWidth, infoProperties.font
+				textBlockBuffer.push paragraph
+
+			paragraphs = textBlockBuffer.join('\n') 
+			paragraphs
+
+
+		heading = svg.text( buildHeadingText() )
+		.leading( headingProperties.lineHeight )
+		.fill('#232')
+		.move headingProperties.paddingRight, headingProperties.paddingTop
+		.font headingProperties.font
+
+		top = $(heading.node).height()
+
+		info = svg.text( buildInfoText() )
+		.leading( infoProperties.lineHeight )
+		.fill('#232')
+		.move infoProperties.paddingRight, infoProperties.paddingTop+headingProperties.paddingTop+top+infoProperties.marginTop
+		.font infoProperties.font
+
+		
 
 	# Public methods
 	@draw = (svg,model,args...) ->
