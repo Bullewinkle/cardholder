@@ -33,7 +33,6 @@
 			cardFront: '.card-svg.back'
 			cardBack: '.card-svg.front'
 
-
 		onShow: =>
 			@drawCard()
 			@ui.cardFront.attr 'id', "svg-#{@model.get 'id'}-front"
@@ -50,7 +49,6 @@
 			@svgBack.height '101%'
 			# @svgBack.viewbox 0, 0, @ui.cardBack.width() ,@ui.cardBack.height()
 			@svgBack.viewbox 0, 0, 96.6*4,54*4
-
 
 		drawCard: =>
 			if @model.get 'data.isDefault'
@@ -138,13 +136,14 @@
 			svg
 
 		renderLayer1: (svg) =>
+			console.log svg
 			app.shared.generators.gradientGen.draw svg, @model
 
 		renderLayer2: (svg) =>
 			app.shared.generators.iconsGen.draw svg, @model
 
 		renderLayer3: (svg) =>
-			app.shared.generators.textGen.draw svg, @model
+			# (new app.shared.generators.TextGen(svg, @model)).draw()
 
 		getRandomFont: =>
 			fontsList = dataFromServer.appData.fontsList
