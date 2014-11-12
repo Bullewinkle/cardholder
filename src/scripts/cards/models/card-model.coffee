@@ -11,7 +11,7 @@
 				position: 'Default'
 
 			generators:
-				gradientGenerator: 
+				gradientGen: 
 					isDefault: true
 					gradientVariantNum: 0
 					gradientType: 'linear'
@@ -20,47 +20,28 @@
 					variantConfig:
 						isDefault: true
 
-				textGenerator:
+				textGen:
 					isDefault: true
-					heading:
-						color: "#000"
-						padding:
-							top: 20 
-							left: 0 
-							bottom: 0
-							right: 0 
-						margin:
-							top: 0
-							left: 0 
-							bottom: 0
-							right: 0 
-						textAlign: 'auto'
-						maxWidth: '100%'
-						font: 
-							family: 'sans-serif'
-							size: 30
-							anchor: 'middle'
-							leading: 1
+					textAlign: 'auto'
+					fontFamily: 'sans-serif'
 
-					info:
-						color: "#000"
+					textBlockOptions:
 						padding:
-							top: 20 
+							top: 0 
 							left: 0 
 							bottom: 0
 							right: 0 
-						margin:
-							top: 0
-							left: 0 
-							bottom: 0
-							right: 0 
-						textAlign: 'auto'
-						maxWidth: '100%'
-						font: 
-							family: 'sans-serif'
-							size: 20
-							anchor: 'middle'
-							leading: 1
+						title:
+							fontSize: "1.8em"
+							color: "#000"
+							textBaseline: 'middle' 
+							lineHeight: "1em"
+							marginBottom: 10
+						body:
+							fontSize: "0.8em"
+							color: "#000"
+							textBaseline: 'middle' 
+							lineHeight: "0.8em"
 
 	class Cards.CardsCollection extends Backbone.Collection		
 		logging: off

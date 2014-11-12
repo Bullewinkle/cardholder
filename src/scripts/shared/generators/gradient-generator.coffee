@@ -102,7 +102,7 @@
 
 		prepareData.call @, model
 
-		_.extend options, model.get('generators.gradientGenerator')
+		_.extend options, model.get('generators.gradientGen')
 
 		# variantNum = model.get 'generators.gradientGen.gradientVariantNum'
 		variantNum = app.getRandom 0, 2
