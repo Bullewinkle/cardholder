@@ -3908,6 +3908,7 @@ i {
   width: 100%;
   height: 100%;
   -webkit-perspective: 680px;
+  -o-perspective: 680px;
   perspective: 680px;
 }
 .card-perspective-inner-wrapper {

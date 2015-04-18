@@ -2,13 +2,13 @@ delay = (ms, fn) -> setTimeout ms, fn
 
 class window.App extends Marionette.Application
 	logger: off
-	
+
 	view: new Backbone.View
 		el: $('#app')
 
 	regions:
 		mainRegion: '#app'
-		
+
 	getRandom: (min = 0,max = 100,decimal = 0) ->
 		+(Math.random() * (max - min) + min).toFixed(decimal)
 
@@ -20,7 +20,7 @@ class window.App extends Marionette.Application
 		generatorsCounter = 0
 		if generatorsList.length >0
 			for i in [0...generatorsList.length]
-				$.get generatorsList[i],(res) -> 
+				$.get generatorsList[i],(res) ->
 					generatorsCounter++
 					if generatorsCounter is generatorsList.length
 						readyTime = Date.now()
@@ -34,7 +34,7 @@ class window.App extends Marionette.Application
 window.app = new App
 window.app.module 'Common'
 window.app.addInitializer ->
-	@bind 'all', (trigger, args) => 
+	@bind 'all', (trigger, args) =>
 		if @logger is on
 			date = new Date()
 			console.info("App says : #{ trigger } at #{date.getHours()}:#{date.getMinutes()}:#{date.getSeconds()}.#{date.getMilliseconds()}" ,args)
@@ -56,7 +56,7 @@ jQuery =>
 	    var hyphenate = function(a, b, c){
 	        return b + "-" + c.toLowerCase();
 	    }
-	 
+
 	    // get computed style property
 	    var getStyle = function(target, prop){
 	        if(window.getComputedStyle){ // gecko and webkit
@@ -68,13 +68,13 @@ jQuery =>
 	        }
 	        return target.style[prop];
 	    }
-	 
+
 	    // get object with units
 	    app.getUnits = function(target, prop){
-	 
-	        var baseline = 100;  // any number serves 
+
+	        var baseline = 100;  // any number serves
 	        var item;  // generic iterator
-	 
+
 	        var map = {  // list of all units and their identifying string
 	            pixel : "px",
 	            percent : "%",
@@ -86,21 +86,21 @@ jQuery =>
 	            em : "em",
 	            ex : "ex"
 	        };
-	 
+
 	        var factors = {};  // holds ratios
 	        var units = {};  // holds calculated values
-	 
+
 	        var value = getStyle(target, prop);  // get the computed style value
-	 
+
 	        var numeric = value.match(/\d+/);  // get the numeric component
 	        if(numeric === null) {  // if match returns null, throw error...  use === so 0 values are accepted
 	            throw "Invalid property value returned";
 	        }
 	        numeric = numeric[0];  // get the string
-	 
+
 	        var unit = value.match(/\D+$/);  // get the existing unit
 	        unit = (unit == null) ? map.pixel : unit[0]; // if its not set, assume px - otherwise grab string
-	 
+
 	        var activeMap;  // a reference to the map key for the existing unit
 	        for(item in map){
 	            if(map[item] == unit){
@@ -111,30 +111,30 @@ jQuery =>
 	        if(!activeMap) { // if existing unit isn't in the map, throw an error
 	            throw "Unit not found in map";
 	        }
-	 
+
 	        var temp = document.createElement("div");  // create temporary element
 	        temp.style.overflow = "hidden";  // in case baseline is set too low
 	        temp.style.visibility = "hidden";  // no need to show it
-	 
-	        target.parentElement.appendChild(temp); // insert it into the parent for em and ex  
-	 
+
+	        target.parentElement.appendChild(temp); // insert it into the parent for em and ex
+
 	        for(item in map){  // set the style for each unit, then calculate it's relative value against the baseline
 	            temp.style.width = baseline + map[item];
 	            factors[item] = baseline / temp.offsetWidth;
 	        }
-	 
+
 	        for(item in map){  // use the ratios figured in the above loop to determine converted values
 	            units[item] = numeric * (factors[item] * factors[activeMap]);
 	        }
-	 
+
 	        target.parentElement.removeChild(temp);  // clean up
-	 
+
 	        return units;  // returns the object with converted unit values...
-	 
+
 	    }
-	 
-	    // expose           
+
+	    // expose
 	    // app.getUnits = this.getUnits = getUnits;
-	 
+
 	})();`
 

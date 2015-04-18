@@ -1,6 +1,6 @@
 argv = require('optimist').argv
-templatizer = require 'templatizer' 
-fs = require 'fs' 
+templatizer = require 'templatizer'
+fs = require 'fs'
 
 
 # Gulp / Grunt
@@ -44,7 +44,7 @@ CONFIG =
 	RETINASPRITE: false
 	PORT: argv.port or 8000
 
-CONFIG.JADE = 
+CONFIG.JADE =
 	pretty: true
 	data:
 		fromServer: clientsData
@@ -101,9 +101,9 @@ paths =
 			"#{SRC}/scripts/**/*.coffee"
 		]
 
-	appTemplates: 
+	appTemplates:
 		dest: "#{DIST}/js/templates/templates.js"
-		src: "#{SRC}/jade/views"		
+		src: "#{SRC}/jade/views"
 
 	appStyles:
 		dest: "#{DIST}/css"
@@ -246,9 +246,7 @@ tasks =
 	appTemplates: ->
 		fs.exists "#{DIST}/js/templates/", (exists) ->
 			if not exists then fs.mkdirSync "#{DIST}/js/templates"
-			templatizer "#{SRC}/jade/templates",  "#{DIST}/js/templates/templates.js", 
-				namespace: 'app'
-
+			templatizer "#{SRC}/jade/templates",  "#{DIST}/js/templates/templates.js"
 	appStyles: ->
 
 		stream = g.src paths.appStyles.main
@@ -508,7 +506,7 @@ g.task 'watch', ->
 
 		if e.type is 'changed'
 			tasks.appScripts(true)
-	
+
 
 	# Jade
 	g.watch paths.views.src
